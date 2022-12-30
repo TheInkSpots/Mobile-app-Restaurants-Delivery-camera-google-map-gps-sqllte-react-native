@@ -32,13 +32,14 @@ export default function LoginScreen({ navigation }) {
               console.log(' resultSet.rows.length number:' + resultSet.rows.length);
               if (resultSet.rows.length==1) {
                   console.log('login ok');
-                  let name = resultSet.rows[0].username;
-                  let uuid = resultSet.rows[0].userUUID;
-                  //navigation.navigate('Dashboard', { email , name})
-                  navigation.reset({
-                    index: 0,
-                    routes: [{ name: 'Dashboard', params: {email,name,uuid} }],
-                  })
+                  let row = resultSet.rows.item(0);
+                  let name = row.username;
+                  let uuid = row.userUUID;
+                  navigation.navigate('Dashboard', {email: email,name : name, uuid : uuid})
+                  // navigation.reset({
+                  //   index: 0,
+                  //   routes: [{ name: 'Dashboard', params: {email,name,uuid} }],
+                  // })
               } else {
                   console.log('login failed');
                   Alert.alert('Ooops', 'Invalid username or password');

@@ -10,5 +10,27 @@ npm-debug.*
 *.orig.*
 web-build/
 
+.env
+.env.development
+.env.product
+
+bin
+screenshots
+ios/ipa
+android/fastlane/client_id.json
+android/apk
+report.xml
+
+google-services.json
+google-services.development.json
+google-services.product.json
+
+config/development.json
+config/product.json
+coverage
+
+src/lib/system/firebase/index.ts
+./App.tsx
+web-build
 # macOS
 .DS_Store

@@ -4,10 +4,15 @@ import { useEffect } from 'react';
 import * as SQLite from 'expo-sqlite';
 import { NavigationContainer } from '@react-navigation/native';
 import LoginRealStack from './routes/loginRealStack';
-
+import {TEST_API_KEY} from '@env';
 
 export default function App() {
+  //require('dotenv').config();
+  console.log('1 google-api-key: ' + process.env.GOOGLE_API_KEY +' , \ntest key : '+ TEST_API_KEY);
+
   const db = SQLite.openDatabase('db.visitRecord');
+
+
 
   const createTable = () => {
     db.transaction(tx => {

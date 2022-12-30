@@ -17,8 +17,8 @@ import { Marker } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import EditJob from './editJob';
+//import GOOGLE_API_KEY from '@env'
 
-const GOOGLE_API_KEY = 'AIzaSyB_1NMErXzS1QnlgDeFKOZnOZXStSMvZQA'
 
 // expo install react-native-dropdown-picker
 // expo install @react-native-community/datetimepicker

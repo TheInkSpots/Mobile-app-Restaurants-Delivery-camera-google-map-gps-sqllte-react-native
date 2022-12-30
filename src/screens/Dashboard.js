@@ -5,16 +5,22 @@ import Header from '../components/Header'
 import Paragraph from '../components/Paragraph'
 import Button from '../components/Button'
 
-export default function Dashboard({ navigation,routes }) {
+export default function Dashboard({ navigation,route }) {
   console.log('dashbord is good)');
-  // let {params} = routes.params;
-  // let name = params.name;
-  // let uuid = params.uuid;
-  let email = stats.params.email;
+  const {name, uuid, email} = route.params;
+
+  const name1= route.params.name; 
+  const uuid1 = route.params.uuid;
+  const email1 = route.params.email;
+
+  console.log('dashbord data  is good --> ', name, uuid, email);
   return (
     <Background>
       <Logo />
-      <Header>Congrauation! {routes.params.name}, you are registered. \n Your email is {routes.params.email}</Header>
+      <Header>Congrauation!</Header>
+      <Paragraph>You are registered.</Paragraph>
+      <Paragraph>{JSON.stringify(name1.value)}</Paragraph>
+      <Paragraph> Your email is {JSON.stringify(email.value)}</Paragraph>
       <Paragraph>
         Let's get started!
       </Paragraph>
