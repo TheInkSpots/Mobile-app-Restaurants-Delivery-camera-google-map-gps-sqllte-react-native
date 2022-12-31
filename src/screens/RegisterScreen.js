@@ -36,11 +36,11 @@ export default function RegisterScreen({ navigation }) {
     db.transaction(tx => {
       tx.executeSql(
         'INSERT INTO user (userUUID, username, email, password) VALUES (?, ?, ?, ?)', 
-        [uuid, name, email, password], 
+        [uuid, name.value, email.value, password.value], 
         (txObj, resultSet) => {
              console.log('record inserted:', resultSet.insertId);
-              console.log('record data is : ', uuid, ' ', email, ' ', password, ' ', name);
-              navigation.navigate('Dashboard',{email: email,name : name, uuid : uuid});
+              console.log('record data is : ', uuid, ' ', email.value, ' ', password.value, ' ', name.value);
+              navigation.navigate('Dashboard',{email: email.value, name : name.value, uuid : uuid});
               // navigation.reset({
               //   index: 0,
                 

@@ -6,9 +6,22 @@ import Header from '../components/Header'
 import TextInput from '../components/TextInput'
 import Button from '../components/Button'
 import { emailValidator } from '../helpers/emailValidator'
+import { CommonActions } from '@react-navigation/native';
 
 export default function ResetPasswordScreen({ navigation }) {
   const [email, setEmail] = useState({ value: '', error: '' })
+
+  //   // Remove  all route from the stack after login to home page
+  // navigation.dispatch(state => {
+
+  //   const routes = state.routes.filter(r => r.name !== 'LoginScreen' && r.name != 'StartScreen'&& r.name != 'RegisterScreen'&& r.name != 'Dashboard');
+
+  //   return CommonActions.reset({
+  //     ...state,
+  //     routes,
+  //     index: routes.length - 1,
+  //   });
+  // });
 
   const sendResetPasswordEmail = () => {
     const emailError = emailValidator(email.value)
@@ -38,7 +51,7 @@ export default function ResetPasswordScreen({ navigation }) {
         description="You will receive email with password reset link."
       />
       <Button
-        mode="contained"
+        mode="outlined"
         onPress={sendResetPasswordEmail}
         style={{ marginTop: 16 }}
       >

@@ -5,6 +5,7 @@ import * as SQLite from 'expo-sqlite';
 import { NavigationContainer } from '@react-navigation/native';
 import LoginRealStack from './routes/loginRealStack';
 import {TEST_API_KEY} from '@env';
+import { RootSiblingParent } from 'react-native-root-siblings';
 
 export default function App() {
   //require('dotenv').config();
@@ -12,12 +13,29 @@ export default function App() {
 
   const db = SQLite.openDatabase('db.visitRecord');
 
+  // const loadFont = async () => {
+  //   try {
+  //     await Font.loadAsync(
+  //        {
+  //         'Roboto-Bold': require('./src/assets/fonts/Roboto-Bold.ttf'),
+  //         'Roboto-Black': require('./src/assets/fonts/Roboto-Black.ttf'),
+  //         'Roboto-Regular': require('./src/assets/fonts/Roboto-Regular.ttf'),
+  //       }
+  //     )
+  //   }
+  //   catch (e) {
+  //     console.warn(e);
+  //   }
+  //   finally {
+  //   setFontIsLoaded (true);
+  //   }
+  // };
 
 
   const createTable = () => {
     db.transaction(tx => {
       tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS visit_record (id INTEGER PRIMARY KEY AUTOINCREMENT, userID TEXT ,cat TEXT, visitdate TEXT, visitStarttime TEXT, visitEndtime TEXT, title TEXT, remark TEXT, dishJSON TEXT, longitude NUMERIC, latitude NUMERIC, amount NUMERIC)',
+        'CREATE TABLE IF NOT EXISTS visit_record (id INTEGER PRIMARY KEY AUTOINCREMENT, userID TEXT ,cat TEXT, visitdate TEXT, visitStarttime TEXT, visitEndtime TEXT, title TEXT, restName TEXT, remark TEXT, dishJSON TEXT, RestPhoto TEXT, longitude NUMERIC, latitude NUMERIC, amount NUMERIC)',
         [],
         (txObj, resultSet) => {
           console.log('record table created successfully')
@@ -42,15 +60,17 @@ export default function App() {
   }
 
   useEffect(() => {
-    createTable()
+    createTable();
+    // loadFont();
   }, [])
 
   return (
-
+    <RootSiblingParent> 
     <NavigationContainer>
 
       <LoginRealStack></LoginRealStack>
     </NavigationContainer>
+    </RootSiblingParent> 
 
   );
 }

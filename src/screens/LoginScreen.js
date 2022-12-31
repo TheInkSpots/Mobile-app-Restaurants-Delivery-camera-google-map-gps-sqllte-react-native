@@ -11,6 +11,7 @@ import { theme } from '../core/theme'
 import { emailValidator } from '../helpers/emailValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
 import * as SQLite from 'expo-sqlite';
+import Toast from 'react-native-root-toast';
 
 
 export default function LoginScreen({ navigation }) {
@@ -20,6 +21,7 @@ export default function LoginScreen({ navigation }) {
   const onLoginPressed = () => {
     const emailError = emailValidator(email.value)
     const passwordError = passwordValidator(password.value)
+
     if (emailError || passwordError) {
       setEmail({ ...email, error: emailError })
       setPassword({ ...password, error: passwordError })
@@ -27,22 +29,28 @@ export default function LoginScreen({ navigation }) {
     }
     db.transaction(tx => {
       tx.executeSql('SELECT * FROM user WHERE email=? and password=?',
-          [email, password],
+          [email.value, password.value],
           (txObj, resultSet) => { 
               console.log(' resultSet.rows.length number:' + resultSet.rows.length);
-              if (resultSet.rows.length==1) {
+              if (resultSet.rows.length>=1) {
                   console.log('login ok');
                   let row = resultSet.rows.item(0);
                   let name = row.username;
                   let uuid = row.userUUID;
-                  navigation.navigate('Dashboard', {email: email,name : name, uuid : uuid})
+                  console.log('name:' + name, ' email: ' + email.value, ' uid: ' + uuid);
+                  console.log('go Home from here - LoginScreen.');
+                  navigation.navigate('Home', {email: email.value ,name : name, uuid : uuid})
                   // navigation.reset({
                   //   index: 0,
                   //   routes: [{ name: 'Dashboard', params: {email,name,uuid} }],
                   // })
               } else {
                   console.log('login failed');
-                  Alert.alert('Ooops', 'Invalid username or password');
+                  //Alert.alert('Ooops', 'Invalid username or password');
+                  Toast.show('Invalid username or password.', {
+                    duration: Toast.durations.LONG,
+                  });
+                  
               }                },
           (txObj, error) => { 
               console.log('Error:', error);

@@ -19,18 +19,15 @@ export default function Dashboard({ navigation,route }) {
       <Logo />
       <Header>Congrauation!</Header>
       <Paragraph>You are registered.</Paragraph>
-      <Paragraph>{JSON.stringify(name1.value)}</Paragraph>
-      <Paragraph> Your email is {JSON.stringify(email.value)}</Paragraph>
+      <Paragraph>{JSON.stringify(name)}</Paragraph>
+      <Paragraph> Your email is {JSON.stringify(email)}</Paragraph>
       <Paragraph>
         Let's get started!
       </Paragraph>
       <Button
         mode="outlined"
         onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: 'StartScreen' }],
-          })
+          navigation.navigate('Home', {email: email,name : name, uuid : uuid})
         }
       >
         Start using
