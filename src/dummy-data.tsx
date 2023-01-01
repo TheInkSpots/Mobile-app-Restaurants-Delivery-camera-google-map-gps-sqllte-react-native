@@ -62,6 +62,11 @@ export const categoryData: CategoryData[] = [
     name: 'Drinks',
     icon: icons.drink,
   },
+  {
+    id: 11,
+    name: 'test',
+    icon: icons.drink,
+  },
 ];
 
 // price rating

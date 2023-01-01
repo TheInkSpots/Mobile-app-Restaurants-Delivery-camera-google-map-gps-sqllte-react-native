@@ -12,3 +12,4 @@ export function testDouble(str) {
 
     return 'testDouble() is called '+ str;
 }
+

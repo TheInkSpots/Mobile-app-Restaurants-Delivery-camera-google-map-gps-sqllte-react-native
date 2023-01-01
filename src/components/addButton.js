@@ -3,7 +3,7 @@ import { Text, View, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/AntDesign'
 
 
-const AddButton = ({ onPress, title, style }) => {
+export    default function AddButton  ({ onPress, title, style })  {
    return (
       <TouchableOpacity onPress={onPress} activeOpacity={0.6} style={style}>
          <Icon
@@ -12,6 +12,3 @@ const AddButton = ({ onPress, title, style }) => {
       </TouchableOpacity>
    )
 }
-
-
-export default AddButton

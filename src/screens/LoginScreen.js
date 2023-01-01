@@ -51,7 +51,8 @@ export default function LoginScreen({ navigation }) {
                     duration: Toast.durations.LONG,
                   });
                   
-              }                },
+              }                
+            },
           (txObj, error) => { 
               console.log('Error:', error);
               setLoginOk(false);

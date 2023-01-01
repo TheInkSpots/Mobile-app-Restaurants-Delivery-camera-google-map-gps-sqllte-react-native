@@ -17,9 +17,11 @@ import {
     Home,
     StateScreen,
     RestaurantScreen,
-    OrderDeliveryScreen
-  } from '../src/screens'
+    OrderDeliveryScreen,
+    // CreateRecScreen,
 
+  } from '../src/screens'
+  import CreateRecScreen from '../src/screens/CreateRecScreen';
 const Stack = createStackNavigator()
 
 const screenOptions = {
@@ -55,10 +57,11 @@ export default function App() {
           }}
         >
 
-<Stack.Screen name="RestaurantScreen" component={RestaurantScreen} />
-<Stack.Screen name="Home" component={Home} />
-<Stack.Screen name="StateScreen" component={StateScreen} />
-<Stack.Screen name="OrderDeliveryScreen" component={OrderDeliveryScreen} />
+        <Stack.Screen name="CreateRecScreen" component={CreateRecScreen} />
+          <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} />
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="StateScreen" component={StateScreen} />
+          <Stack.Screen name="OrderDeliveryScreen" component={OrderDeliveryScreen} />
 
           <Stack.Screen name="StartScreen" component={StartScreen} />
           <Stack.Screen name="LoginScreen" component={LoginScreen} />

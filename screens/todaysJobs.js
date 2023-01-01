@@ -90,46 +90,46 @@ export default function TodaysJobs() {
         longitudeDelta: LONGITUDE_DELTA,
     })
 
-    const getLocationPermission = async () => {
-        console.log('getLocationPermission');
-        let { status } = await Location.requestForegroundPermissionsAsync();
-        if (status === 'granted') {
-            console.log('Location permissions granted');
-            setHasLocationPermission(true);
-            // getLocation();
-            console.log('attempt to get location')
-            const location = await Location.getCurrentPositionAsync({});
-            console.log(location);
-            setPosition({
-                latitude: location.coords.latitude,
-                longitude: location.coords.longitude,
-                latitudeDelta: LATITUDE_DELTA,
-                longitudeDelta: LONGITUDE_DELTA,
-            })
+    // const getLocationPermission = async () => {
+    //     console.log('getLocationPermission');
+    //     let { status } = await Location.requestForegroundPermissionsAsync();
+    //     if (status === 'granted') {
+    //         console.log('Location permissions granted');
+    //         setHasLocationPermission(true);
+    //         // getLocation();
+    //         console.log('attempt to get location')
+    //         const location = await Location.getCurrentPositionAsync({});
+    //         console.log(location);
+    //         setPosition({
+    //             latitude: location.coords.latitude,
+    //             longitude: location.coords.longitude,
+    //             latitudeDelta: LATITUDE_DELTA,
+    //             longitudeDelta: LONGITUDE_DELTA,
+    //         })
 
-        } else {
-            console.log('location permissions not granted');
-            setHasLocationPermission(false);
-        }
-    }
+    //     } else {
+    //         console.log('location permissions not granted');
+    //         setHasLocationPermission(false);
+    //     }
+    // }
 
-    const getLocation = async () => {
-        const location = await Location.getCurrentPositionAsync({});
-        console.log(location);
-        setPosition({
-            latitude: location.coords.latitude,
-            longitude: location.coords.longitude,
-            latitudeDelta: LATITUDE_DELTA,
-            longitudeDelta: LONGITUDE_DELTA,
-        })
-    }
+    // const getLocation = async () => {
+    //     const location = await Location.getCurrentPositionAsync({});
+    //     console.log(location);
+    //     setPosition({
+    //         latitude: location.coords.latitude,
+    //         longitude: location.coords.longitude,
+    //         latitudeDelta: LATITUDE_DELTA,
+    //         longitudeDelta: LONGITUDE_DELTA,
+    //     })
+    // }
 
-    const getCameraPermission = async () => {
-        console.log('getCameraPermission');
-        MediaLibrary.requestPermissionsAsync();
-        const cameraStatus = await Camera.requestCameraPermissionsAsync();
-        setHasCameraPermission(cameraStatus.status === 'granted')
-    }
+    // const getCameraPermission = async () => {
+    //     console.log('getCameraPermission');
+    //     MediaLibrary.requestPermissionsAsync();
+    //     const cameraStatus = await Camera.requestCameraPermissionsAsync();
+    //     setHasCameraPermission(cameraStatus.status === 'granted')
+    // }
 
     const retrieveJobTypes = () => {
         console.log('retrieveJobTypes() called');
@@ -570,114 +570,3 @@ export default function TodaysJobs() {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    container: {
-        padding: 24
-    },
-    inputArea: {
-        flexDirection: 'column',
-        marginTop: 5,
-        marginLeft: 5,
-        marginRight: 5,
-        marginBottom: 5,
-        padding: 10,
-        backgroundColor: 'pink',
-        textAlign: 'center',
-        alignItems: 'flex-start',
-    },
-    job: {
-        flex: 1,
-        flexDirection: 'column',
-        padding: 5,
-        marginTop: 5,
-        marginLeft: 5,
-        marginRight: 5,
-        marginBottom: 5,
-        backgroundColor: 'yellow',
-        textAlign: 'center',
-        alignItems: 'center',
-    },
-    jobRow: {
-        flex: 1,
-        flexDirection: 'row',
-        padding: 5,
-        backgroundColor: 'yellow',
-        textAlign: 'center',
-        alignItems: 'flex-start',
-    },
-    textInput: {
-        borderWidth: 1,
-        borderColor: '#fff',
-        marginTop: 2,
-        marginLeft: 2,
-        marginRight: 2,
-        marginBottom: 2,
-        padding: 5,
-        fontSize: 18,
-        borderRadius: 6,
-    },
-    textOutput: {
-        borderWidth: 1,
-        borderColor: '#ddd',
-        marginLeft: 2,
-        marginRight: 2,
-        padding: 3,
-        borderRadius: 3,
-        textAlign: 'center',
-    },
-    dateTime: {
-        marginTop: 5,
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        justifyContent: 'center',
-    },
-    textBox: {
-        borderWidth: 1,
-        borderColor: '#eee',
-        padding: 5,
-        fontSize: 14,
-        borderRadius: 6,
-        height: 35,
-        marginRight: 10,
-        marginLeft: 2,
-    },
-    camera: {
-        flex: 1,
-        borderRadius: 20,
-    },
-    modalContent: {
-        flex: 1
-    },
-    modalToggle: {
-        marginBottom: 10,
-        borderWidth: 1,
-        borderColor: '#f2f2f2',
-        padding: 10,
-        borderRadius: 10,
-        alignSelf: 'center'
-    },
-    map: {
-        width: Dimensions.get('window').width,
-        height: Dimensions.get('window').height,
-    },
-    searchContainer: {
-        flexDirection: 'row',
-        position: 'absolute',
-        width: '100%',
-        backgroundColor: 'white',
-        shadowColor: 'black',
-        shadowOffset: { width: 2, height: 2 },
-        shadowOpacity: 0.5,
-        shadowRadius: 4,
-        elevation: 4,
-        padding: 8,
-        borderRadius: 8,
-    },
-    miniImage: {
-        width: 50,
-        height: 50,
-    }
-
-})
-
