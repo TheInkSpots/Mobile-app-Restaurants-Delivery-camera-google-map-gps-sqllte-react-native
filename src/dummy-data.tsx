@@ -2,6 +2,27 @@
 
 import { icons, images } from "./constants";
 import { CategoryData, CurrentLocation, Restaurant } from "./types";
+import { useState, useEffect, useRef } from 'react';
+import * as Location from 'expo-location';
+
+
+
+export const realCurrentLocation : CurrentLocation = {
+  streetName: 'Your Locatoin',
+  gps: {
+    latitude: 22.313226, //22.313226,114.165535
+    longitude: 114.165535,
+  },
+}
+
+export const testCurrentLocation : CurrentLocation = {
+  streetName: 'Mon kwok',
+  gps: {
+    latitude: 22.313226, //22.313226,114.165535
+    longitude: 114.165535,
+  },
+}
+
 
 export const initialCurrentLocation: CurrentLocation = {
   streetName: 'Kuching',
@@ -77,15 +98,15 @@ export const expensive = 3;
 export const restaurantData: Restaurant[] = [
   {
     id: 1,
-    name: 'Burger',
+    name: 'Hongkong Jorden Burger',
     rating: 4.8,
     categories: [5, 7],
     priceRating: affordable,
     photo: images.burger_restaurant_1,
     duration: '30 - 45 min',
     location: {
-      latitude: 1.5347282806345879,
-      longitude: 110.35632207358996,
+      latitude: 22.3069785, //22.3069785,114.1621922 
+      longitude: 114.1621922,
     },
     courier: {
       avatar: images.avatar_1,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect} from 'react'
 import {
   FlatList, StyleSheet, View, TouchableOpacity, Modal
 } from 'react-native';
@@ -10,7 +10,7 @@ import Header from '../components/Header'
 import TextInput from '../components/TextInput'
 import Button from '../components/Button'
 import Icon from 'react-native-vector-icons/AntDesign'
-import { testStr, testInt } from '../helpers/HelperGlobal'
+
 import { CommonActions } from '@react-navigation/native';
 
 import { COLORS, SIZES, icons } from '../constants';
@@ -22,36 +22,25 @@ import {
   categoryData,
   initialCurrentLocation,
   restaurantsWithCategories,
+  testCurrentLocation
 } from '../dummy-data';
 import { TopBar } from '../components/TopBar';
 import { AddButton } from '../components/AddButton';
 import CreateRecModal from '../components/CreateRecModal';
-
-
+import { getGPSPermission } from '../helpers/grantGPSPermission'
+import * as Location from 'expo-location';
 export default function Home({ navigation , route}) {
     console.log('Home record is good');
     const {name, uuid, email} = route.params;
     console.log('Home data : ', name, email, uuid);
-    console.log('test helper : ', testStr(name));
-    console.log('test helper : ', testInt(3));
 
-    // Remove  all route from the stack after login to home page
-    // navigation.dispatch(state => {
-    //     const routes = state.routes.filter(
-    //         r => r.name !== 'LoginScreen' && r.name != 'StartScreen'&& r.name != 'RegisterScreen'&& r.name != 'Dashboard'
-    //     );
-    //     return CommonActions.reset({
-    //     ...state,
-    //     routes,
-    //     index: routes.length - 1,
-    //     });
-    //  });
+    
 
     const [categories, setCategories] = useState(categoryData);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [restaurants, setRestaurants] = useState(restaurantsWithCategories);
-    const [currentLocation, setCurrentLocation] = useState(initialCurrentLocation);
-
+    const [currentLocation, setCurrentLocation] = useState(testCurrentLocation);
+    const [realCurrentLocation, setRealCurrentLocation] = useState(testCurrentLocation);
 
     const [editModalOpen, setEditModalOpen] = useState(false);
 
@@ -62,9 +51,41 @@ export default function Home({ navigation , route}) {
         setRestaurants(restaurantList);
         setSelectedCategory(category);
     }
-    function testBtn() {
-        console.log('home bun tester')
+    function testBtn (){
+      console.log('test');
     }
+    async function getGPSPermission () {
+      console.log('getLocationPermission');
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status === 'granted') {
+          console.log('Location permissions granted');
+          //setHasLocationPermission(true);
+          console.log('attempt to get location')
+          const location = await Location.getCurrentPositionAsync({});
+          //console.log(location);
+          setCurrentLocation({
+              streetName: 'Your Locatoin',
+               gps: {
+                  latitude: location.coords.latitude,
+                  longitude: location.coords.longitude,
+               }
+          })
+  
+      } else {
+          console.log('location permissions not granted');
+          //setHasLocationPermission(false);
+      }
+  }
+    useEffect(() => {
+      (async () => {
+         // getCameraPermission();
+         getGPSPermission();
+         //setCurrentLocation(gpsObj);
+          
+          //retrieveJobs();
+      })();
+  }, []);
+  console.log('gps is : ', currentLocation);
   return (
     <Wall>
       {/*<BackButton goBack={navigation.goBack} />*/}

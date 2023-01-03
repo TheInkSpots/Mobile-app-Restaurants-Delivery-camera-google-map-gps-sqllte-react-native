@@ -43,20 +43,45 @@ export default function App() {
         (txObj, error) => {
           console.log('Error:', error)
         }
-      )
-    }), 
-    db.transaction(tx => {
+      );
       tx.executeSql(
         'CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT, userUUID TEXT,  email TEXT,  username TEXT, password TEXT)',
         [],
         (txObj, resultSet) => {
-          console.log('table usr created successfully')
+          console.log('table usr created successfully');
         },
         (txObj, error) => {
           console.log('Error:', error)
         }
-      )
+      );
+      tx.executeSql(
+        `SELECT * FROM user where userUUID = 'LocalUserUUID'`,
+        [],
+        (txObj, resultSet) => {
+         if (resultSet.rows.length == 0) {
+          tx.executeSql(
+            'INSERT INTO user (userUUID, username, email, password) VALUES (?, ?, ?, ?)', 
+            ['LocalUserUUID', 'LocalUserName', 'LocalUser@local.com', 'LocalUserPw'], 
+            (txObj, resultSet) => {
+                 console.log('local user record inserted:', resultSet.insertId);
+            },
+            (txObj, error) => {
+                 console.log('Error:', error)
+            }
+          );
+         }
+        },
+        (txObj, error) => {
+          console.log('Error:', error)
+        }
+      );   
+
+      
+
     })
+    
+      
+  
   }
 
   useEffect(() => {

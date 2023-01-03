@@ -58,9 +58,15 @@ export default function StartScreen({ navigation }) {
       </Button>
       <Button
         mode="outlined"
+        onPress={() => navigation.navigate('Home',{ uuid : 'LocalUserUUID'})}
+      >
+        Local Use
+      </Button>
+      <Button
+        mode="outlined"
         onPress={dropTable}
       >
-        Drop Table
+        Dev: DropTable
       </Button>
     </Background>
   )

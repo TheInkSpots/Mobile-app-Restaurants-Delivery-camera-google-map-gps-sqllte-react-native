@@ -81,7 +81,7 @@ export const OrderDeliveryScreen = ({route, navigation}) => {
 
       <OrderDeliveryInfo
         restaurant={restaurant}
-        onCall={() => navigation.navigate('Home')}
+        onCall={() => navigation.goBack()}
         onMessage={() => navigation.navigate('Home')}
       />
 

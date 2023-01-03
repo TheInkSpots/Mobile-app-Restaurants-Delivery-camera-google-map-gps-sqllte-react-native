@@ -2,9 +2,10 @@ import React, { RefObject, useEffect, useRef, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import MapViewDirections from 'react-native-maps-directions';
 import MapView, { PROVIDER_GOOGLE, Region, LatLng } from 'react-native-maps';
-import { COLORS, GOOGLE_API_KEY, SIZES } from '../../constants';
+import { COLORS, SIZES } from '../../constants';
 import { DestinationMarker } from './DestinationMarker';
 import { OriginMarker } from './OriginMarker';
+import {GOOGLE_API_KEY} from '@env';
 
 type OrderDeliveryMapProps = {
   mapRegion: Region | undefined;
@@ -21,6 +22,9 @@ export const OrderDeliveryMap = ({
   updateOrigin,
   updateDuration,
 }: OrderDeliveryMapProps) => {
+
+console.log(`OrderDeliveryMapapi key is :`, GOOGLE_API_KEY);
+
   const mapView = useRef<MapView>(null);
 
   const [isReady, setIsReady] = useState<boolean>(false);

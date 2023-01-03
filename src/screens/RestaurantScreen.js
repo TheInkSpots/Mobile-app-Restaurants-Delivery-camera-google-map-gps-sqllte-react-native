@@ -37,7 +37,7 @@ export const RestaurantScreen = ({ route, navigation }) => {
         restaurant={restaurant}
         orderItems={orderItems}
         setOrderItems={(items) => setOrderItems(items)}
-        placeOrder={() => navigation.navigate('OrderDelivery', { restaurant, currentLocation })}
+        placeOrder={() => navigation.navigate('OrderDeliveryScreen', { restaurant, currentLocation })}
       />
     </Wall>
   );

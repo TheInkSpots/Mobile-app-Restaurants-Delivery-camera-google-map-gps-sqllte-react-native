@@ -8,7 +8,7 @@ import { styles } from "./createRecScreen/styles";
 import ImagePickerComp from "../core/utilities/ImagePicker";
 import { useForm } from "../core/utilities/customHooks/useForm";
 import DropDownPicker from 'react-native-dropdown-picker';
-
+import * as ImagePicker from 'react-native-image-picker';
 
 import {
   fuelData,
@@ -28,6 +28,12 @@ import {
   ScrollView
 } from "react-native";
 
+
+import { Camera, CameraType } from 'expo-camera';
+import * as MediaLibrary from 'expo-media-library';
+
+
+
 export default function CreateRecScreen({ navigation , route}) {
   const [values, handleChange] = useForm({
     name: "",
@@ -38,14 +44,70 @@ export default function CreateRecScreen({ navigation , route}) {
     address: "",
     transmission: ""
   });
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState(null); //{key: "", url:""}
   const [rate, setRate] = useState(25);
   const [Loading, isLoading] = useState(false);
   const [dropDownOpen, setDropDownOpen] = useState(false);
-  
-  useEffect(() => {
 
-    checkImageStatus();
+
+
+  const [dishImage, setDischImage] = useState([{key: 1, url:""}]); 
+  const [dishcnt, setDishcnt] = useState(1);
+
+  const [dishesList, setDishesList] = useState([{key: dishcnt, menuId: dishcnt, name:'', description:'',calories:0, price:0}]);
+
+  
+  useEffect(()=>{
+    setDishcnt(dishcnt+1);
+	}, [])
+  
+  const appendDishes = () => {
+
+    setDishcnt(dishcnt+1);
+
+    const newDishesList = [...dishesList];
+    newDishesList.push({key: dishcnt, menuId: dishcnt, name:'', photo:'', description:'',calories:0, price:0});
+    setDishesList(newDishesList);
+  }
+
+
+
+
+
+
+
+  const [cameraPermission, setHasCameraPermission] = useState(false);
+
+  const getCameraPermission = async () => {
+      console.log('getCameraPermission');
+      MediaLibrary.requestPermissionsAsync();
+      const cameraStatus = await Camera.requestCameraPermissionsAsync();
+      setHasCameraPermission(cameraStatus.status === 'granted')
+      console.log('camera permission is : ',cameraStatus.status);
+  }
+  const [response, setresponse] = useState(null);
+  const includeExtra = true;
+
+  
+  // const takePicture =  () => {
+  //     console.log("Picking images...  ");
+  //        ImagePicker.launchCamera({
+  //         saveToPhotos: true,
+  //         mediaType: 'photo',
+  //         includeBase64: false,
+  //         includeExtra,
+  //       },setresponse);
+
+  //       console.log("Picked images...  ", response);
+  // }
+
+  const test = () => {
+  console.log(image);
+}
+
+  useEffect(() => {
+    getCameraPermission();
+    //checkImageStatus();
   }, []);
 
   const handleSubmit = e => {
@@ -62,13 +124,16 @@ export default function CreateRecScreen({ navigation , route}) {
     }
   };
 
+
+  
+
   return (
     <View style={globalStyles.container}>
       <Text>test</Text>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.container}>
            <Text>test2</Text>
-           <Text style={globalStyles.heading}>Car Information</Text>
+           <Text style={globalStyles.heading}>Visitation</Text>
             <TextInput
               placeholder="Restaurant name"
               style={globalStyles.input}
@@ -76,7 +141,7 @@ export default function CreateRecScreen({ navigation , route}) {
               value={values.name}
             />
             <TextInput
-              placeholder="Car color"
+              placeholder=""
               style={globalStyles.input}
               onChangeText={txt => handleChange("color", txt)}
               value={values.color}
@@ -91,6 +156,19 @@ export default function CreateRecScreen({ navigation , route}) {
                         value={3}
                         onValueChange={(value) => { handleChange(values.transmission) }}
                     />
+            <Text>{values.rate}</Text>
+            <Text style={globalStyles.heading}>Address line</Text>
+            <TextInput
+              placeholder="Address"
+              style={globalStyles.input}
+              onChangeText={txt => handleChange("address", txt)}
+              value={values.address}
+            />
+              <ImagePickerComp
+              image={image}
+              pickImage={pickImages}
+              setImage={setImage}
+            />  
             <View style={styles.container1}>
               <View style={styles.inputs} useNativeDriver={true}>
                       {/* <DropDownPicker
@@ -108,20 +186,53 @@ export default function CreateRecScreen({ navigation , route}) {
                                 /> */}
                 </View>
             </View>
-            <Text>{values.rate}</Text>
-            <Text style={globalStyles.heading}>Address line</Text>
-            <TextInput
-              placeholder="Address"
-              style={globalStyles.input}
-              onChangeText={txt => handleChange("address", txt)}
-              value={values.address}
-            />
-              <ImagePickerComp
-              image={image}
-              pickImage={async () => setImage(await pickImages())}
-            />  
+            
+
+      
+            {dishesList.map((dish, key )=>(
+
+                 <View key={dish.menuId} style={styles.container1}>
+                    <View style={styles.inputs} useNativeDriver={true}>
+                          <Text>{values.rate}</Text>
+                          <Text style={globalStyles.heading}>Dish {dish.menuId}</Text>
+                          <TextInput
+                            placeholder="Dish name"
+                            style={globalStyles.input}
+                            onChangeText={txt => handleChange("address", txt)}
+                            value={values.address}
+                          />
+                          <TextInput
+                            placeholder="Dish comment"
+                            style={globalStyles.input}
+                            onChangeText={txt => handleChange("address", txt)}
+                            value={values.address}
+                          />
+                          <TextInput
+                            placeholder="Price"
+                            style={globalStyles.input}
+                            onChangeText={txt => handleChange("address", txt)}
+                            value={values.address}
+                          />
+                            <ImagePickerComp
+                            image={image}
+                            pickImage={pickImages}
+                            setImage={setImage}
+                          />  
+                    </View>
+               </View>
+               
+
+
+            ))}
+
             <TouchableOpacity
-              onPress={handleSubmit}
+              onPress={appendDishes}
+              style={globalStyles.appButtonContainer}
+            >
+              <Text style={globalStyles.appButtonText}>Add Dish</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={test}
               style={globalStyles.appButtonContainer}
             >
               <Text style={globalStyles.appButtonText}>Submit</Text>

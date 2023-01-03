@@ -3,6 +3,7 @@ import { Image, StyleSheet, View, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { COLORS, FONTS, icons, SIZES } from '../../constants';
 import { Restaurant } from '../../types';
+import { CommonActions } from '@react-navigation/native';
 
 type OrderDeliveryInfoProps = {
   restaurant: Restaurant | null;
@@ -10,17 +11,20 @@ type OrderDeliveryInfoProps = {
   onMessage: () => void;
 };
 
+const goBack =  () => {
+  CommonActions.goBack();
+};
+
 export const OrderDeliveryInfo = ({ restaurant, onCall, onMessage }: OrderDeliveryInfoProps) => (
   <View style={styles.container}>
     <View style={styles.infoContainer}>
       <View style={styles.topInfoWrapper}>
         <View style={styles.imageContainer}>
-          <Image source={restaurant?.courier.avatar} style={styles.image} />
         </View>
         <View style={styles.textContainer}>
           <View style={styles.nameContainer}>
-            <Text style={{...FONTS.h4}}>{restaurant?.courier.name}</Text>
-            <Text style={styles.restaurantName}>{restaurant?.name}</Text>
+            <Text style={{...FONTS.h4}}>{restaurant?.name}</Text>
+ 
           </View>
           <View style={styles.courierRatingContainer}>
             <Image source={icons.star} style={styles.ratingImage} />
@@ -31,14 +35,8 @@ export const OrderDeliveryInfo = ({ restaurant, onCall, onMessage }: OrderDelive
       <View style={styles.buttonContainer}>
         <TouchableOpacity 
           style={styles.button}
-          onPress={() => onCall()}>
-          <Text style={styles.buttonText}>Call</Text>
-        </TouchableOpacity>
-        <TouchableOpacity 
-          style={{...styles.button, ...styles.messageButton}}
-          onPress={() => onMessage()} 
-        >
-          <Text style={styles.buttonText}>Message</Text>
+          onPress={onCall}>
+          <Text style={styles.buttonText}>Go Back</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -110,7 +108,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: SIZES.width * 0.5 - SIZES.padding * 4,
     marginRight: 10,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.foodpanda,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 10,

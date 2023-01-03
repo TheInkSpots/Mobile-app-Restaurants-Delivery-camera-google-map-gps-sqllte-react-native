@@ -1,3 +1,6 @@
+import { Camera, CameraType } from 'expo-camera';
+import * as MediaLibrary from 'expo-media-library';
+
 const getCameraPermission = async () => {
     console.log('getCameraPermission');
     MediaLibrary.requestPermissionsAsync();

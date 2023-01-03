@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -6,15 +7,15 @@ export const styles = StyleSheet.create({
   },
   container1: {
     flex: 1,
-    justifyContent: "space-between",
-    flexDirection: "row"
+    //justifyContent: "space-between",
+    //flexDirection: "row"
   },
   containerSub: {
     flexDirection: "row",
     alignItems: "baseline"
   },
   input: {
-    width: "50%",
+    width: "90%",
     borderWidth: 1,
     borderColor: "#ddd",
     padding: 10,

@@ -1,20 +1,82 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,useRef } from "react";
+import { Camera, CameraType } from 'expo-camera';
+import * as MediaLibrary from 'expo-media-library';
+import { MaterialIcons } from '@expo/vector-icons';
 import {
   Button,
   Image,
   View,
   TouchableOpacity,
   Platform,
-  Text
+  Text,
+  Modal,
+  StyleSheet
 } from "react-native";
 
 import { globalStyles } from "../../../styles/globalStyles";
 import Constants from "expo-constants";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
+
+
+
+
 const ImagePickerComp = props => {
+  //const [hasCameraPermission, setHasCameraPermission] = useState(null);
+  //const [image, setImage] = useState(null);
+  const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
+  const [flashMode, setFlashMode] = useState(Camera.Constants.FlashMode.off)
+  const cameraRef = useRef(null);
+  const [cameraModalOpen, setCameraModalOpen] = useState(false);
+
+  const takePicture = async () => {
+    console.log('take picture');
+    if (cameraRef) {
+        try {
+            const data = await cameraRef.current.takePictureAsync();
+            console.log(data);
+            props.setImage(data.uri);
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+
+}
+
+const saveImage = async () => {
+    if (props.image) {
+        try {
+            await MediaLibrary.createAssetAsync(props.image);
+            alert('Picture saved');
+            setCameraModalOpen(false);
+        }
+        catch (e) {
+            console.log(e);
+        }
+    }
+}
+
+const moveTo = async (newPosition) => {
+  const camera = await positionMapRef.current.getCamera()
+  if (camera) {
+      console.log('new position', newPosition)
+      camera.center = newPosition;
+      positionMapRef.current.animateCamera(camera, { duration: 1000 })
+      setPosition({
+          latitude: newPosition.latitude,
+          longitude: newPosition.longitude,
+          latitudeDelta: LATITUDE_DELTA,
+          longitudeDelta: LONGITUDE_DELTA,
+      })
+  }
+}
+
+
   return (
-    <TouchableOpacity onPress={props.pickImage}>
+    <View style={globalStyles.pickerContainer}>
+    {/* <TouchableOpacity onPress={props.pickImage}> */}
+    <TouchableOpacity onPress={() => setCameraModalOpen(true)}>
       {!props.image ? (
         <View style={globalStyles.upload}>
           <Text>Uploadm images</Text>
@@ -24,6 +86,72 @@ const ImagePickerComp = props => {
         <Image style={globalStyles.imageUpload} source={{ uri: props.image }} />
       )}
     </TouchableOpacity>
-  );
-};
-export default ImagePickerComp;
+
+    <Modal visible={cameraModalOpen} animationType='slide'>
+                <View style={styles.modalContent}>
+                    <MaterialIcons
+                        name='close'
+                        size={24}
+                        style={styles.modalToggle}
+                        onPress={() => setCameraModalOpen(false)}
+                    />
+                    {
+                        !props.image ?
+                            <Camera
+                                ref={cameraRef}
+                                style={styles.camera}
+                                type={cameraType}
+                                flashMode={flashMode}
+                            />
+                            :
+                            <Image source={{ uri: props.image }} style={styles.camera} />
+                    }
+                    {
+                        props.image
+                            ?
+                            <View style={styles.button}>
+                                <Button title='Re-take' onPress={() => setImage(null)} />
+                                <Button title='Save' onPress={saveImage} />
+                            </View>
+                            :
+                            <View style={styles.button}>
+                            <Button  title='Take Picture' onPress={takePicture} />
+                            </View>
+                    }
+                </View>
+            </Modal>
+    </View>
+
+
+
+  )
+}
+export default ImagePickerComp
+
+
+const styles = StyleSheet.create({
+  container: {
+      padding: 24
+  },
+  camera: {
+      flex: 1,
+      borderRadius: 20,
+  },
+  modalContent: {
+      flex: 1
+  },
+  modalToggle: {
+      marginBottom: 10,
+      borderWidth: 1,
+      borderColor: '#f2f2f2',
+      padding: 10,
+      borderRadius: 10,
+      alignSelf: 'center'
+  },
+  button:{
+    marginBottom: 10,
+    backgroundColor: '#f2f2f2',
+  
+  }
+
+})

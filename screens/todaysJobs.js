@@ -10,6 +10,9 @@ import { globalStyles } from '../styles/globalStyles';
 import RNDateTimePicker from '@react-native-community/datetimepicker';
 import { useFocusEffect } from '@react-navigation/native';
 import Slider from '@react-native-community/slider';
+
+
+
 import { Camera, CameraType } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
@@ -43,12 +46,15 @@ export default function TodaysJobs() {
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [targetJob, setTargetJob] = useState(null);
 
+
     const [hasCameraPermission, setHasCameraPermission] = useState(null);
     const [image, setImage] = useState(null);
     const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
     const [flashMode, setFlashMode] = useState(Camera.Constants.FlashMode.off)
     const cameraRef = useRef(null);
     const [cameraModalOpen, setCameraModalOpen] = useState(false);
+
+
     const [showPictureModalOpen, setShowPictureModalOpen] = useState(false);
 
     const [hasLocationPermission, setHasLocationPermission] = useState(false);
@@ -90,46 +96,46 @@ export default function TodaysJobs() {
         longitudeDelta: LONGITUDE_DELTA,
     })
 
-    // const getLocationPermission = async () => {
-    //     console.log('getLocationPermission');
-    //     let { status } = await Location.requestForegroundPermissionsAsync();
-    //     if (status === 'granted') {
-    //         console.log('Location permissions granted');
-    //         setHasLocationPermission(true);
-    //         // getLocation();
-    //         console.log('attempt to get location')
-    //         const location = await Location.getCurrentPositionAsync({});
-    //         console.log(location);
-    //         setPosition({
-    //             latitude: location.coords.latitude,
-    //             longitude: location.coords.longitude,
-    //             latitudeDelta: LATITUDE_DELTA,
-    //             longitudeDelta: LONGITUDE_DELTA,
-    //         })
+    const getLocationPermission = async () => {
+        console.log('getLocationPermission');
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status === 'granted') {
+            console.log('Location permissions granted');
+            setHasLocationPermission(true);
+            // getLocation();
+            console.log('attempt to get location')
+            const location = await Location.getCurrentPositionAsync({});
+            console.log(location);
+            setPosition({
+                latitude: location.coords.latitude,
+                longitude: location.coords.longitude,
+                latitudeDelta: LATITUDE_DELTA,
+                longitudeDelta: LONGITUDE_DELTA,
+            })
 
-    //     } else {
-    //         console.log('location permissions not granted');
-    //         setHasLocationPermission(false);
-    //     }
-    // }
+        } else {
+            console.log('location permissions not granted');
+            setHasLocationPermission(false);
+        }
+    }
 
-    // const getLocation = async () => {
-    //     const location = await Location.getCurrentPositionAsync({});
-    //     console.log(location);
-    //     setPosition({
-    //         latitude: location.coords.latitude,
-    //         longitude: location.coords.longitude,
-    //         latitudeDelta: LATITUDE_DELTA,
-    //         longitudeDelta: LONGITUDE_DELTA,
-    //     })
-    // }
+    const getLocation = async () => {
+        const location = await Location.getCurrentPositionAsync({});
+        console.log(location);
+        setPosition({
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
+        })
+    }
 
-    // const getCameraPermission = async () => {
-    //     console.log('getCameraPermission');
-    //     MediaLibrary.requestPermissionsAsync();
-    //     const cameraStatus = await Camera.requestCameraPermissionsAsync();
-    //     setHasCameraPermission(cameraStatus.status === 'granted')
-    // }
+    const getCameraPermission = async () => {
+        console.log('getCameraPermission');
+        MediaLibrary.requestPermissionsAsync();
+        const cameraStatus = await Camera.requestCameraPermissionsAsync();
+        setHasCameraPermission(cameraStatus.status === 'granted')
+    }
 
     const retrieveJobTypes = () => {
         console.log('retrieveJobTypes() called');
