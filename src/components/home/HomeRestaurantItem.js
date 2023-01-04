@@ -17,7 +17,7 @@ export const HomeRestaurantItem = ({ item, onPress }) => {
     <TouchableOpacity style={styles.container} onPress={() => onPress(item)}>
       <View style={styles.itemWrapper}>
         <Image
-          source={item.photo}
+          source={{uri:item.photo}}
           resizeMode="cover"
           style={styles.itemImage}
         />
@@ -31,7 +31,8 @@ export const HomeRestaurantItem = ({ item, onPress }) => {
       {/* Restaurant rating */}
       <View style={styles.itemRatingContainer}>
         {/* Rating */}
-        <Image source={icons.star} style={styles.itemRatingImage} />
+        {/* <Image source={icons.star} style={styles.itemRatingImage} /> */}
+        <Image source={icons.star} style={styles.itemRatingImage} /> 
         <Text style={styles.itemRatingText}>{item.rating}</Text>
         {/* Restaurant categories */}
         <View style={styles.itemCategoriesContainer}>

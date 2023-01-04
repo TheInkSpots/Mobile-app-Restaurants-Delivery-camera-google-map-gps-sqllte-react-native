@@ -32,7 +32,7 @@ export const TopBar = ({ leftIcon, rightIcon, headerText, leftPress,rightPress }
         onPress={() => !!leftPress && rightPress()}
       >
         <Image
-          source={leftIcon}
+          source={rightIcon}
           resizeMode="contain"
           style={styles.headerImage}
         />

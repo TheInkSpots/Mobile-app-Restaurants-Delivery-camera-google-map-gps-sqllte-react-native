@@ -8,14 +8,16 @@ type RestaurantOrderSectionProps = {
   basketCount: number;
   total: number;
   placeOrder: () => void;
-  restaurant:{}
+  restaurant:{};
+  sum:number
 };
 
 export const RestaurantOrderSection = ({
   basketCount,
   total,
   placeOrder,
-  restaurant
+  restaurant,
+  sum
 }: RestaurantOrderSectionProps) => {
   // let totalAmount = 0;
 
@@ -27,7 +29,7 @@ export const RestaurantOrderSection = ({
     <View style={styles.container}>
       <View style={styles.amountDetailsContainer}>
         <Text style={{...FONTS.h3}}> Total Price</Text>
-        <Text style={{...FONTS.h3}}>${total.toFixed(2)}</Text>
+        <Text style={{...FONTS.h3}}>${sum.toFixed(2)}</Text>
       </View>
       <View style={styles.cardDetailsContainer}>
         <View style={{flexDirection: 'row'}}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, View, Text, Animated } from 'react-native';
+import { Image, StyleSheet, View, Text, Animated,Button } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { isIphoneX } from 'react-native-iphone-x-helper';
 import { AppStyles } from '../../AppStyles';
@@ -55,6 +55,14 @@ export const RestaurantFoodInfo = ({
     orderItems.reduce((a, b) => a + (b.qty || 0), 0);
 
   const getTotal = () => orderItems.reduce((a, b) => a + (b.total || 0), 0);
+  let sumAmount = 0;
+
+  // const sum = () => {restaurant.menu.forEach((item) =>{
+  //   sumAmount += Number(item.price);
+  //   });
+  // console.log('sum is: ',sumAmount);
+  // }
+  // sum();
 
   return (
     <>
@@ -73,7 +81,7 @@ export const RestaurantFoodInfo = ({
             <View style={styles.menuContainer}>
               {/* Food image */}
               <Image
-                source={item.photo}
+                source={{uri:item.photo}}
                 resizeMode="cover"
                 style={styles.menuImage}
               />
@@ -89,7 +97,7 @@ export const RestaurantFoodInfo = ({
               {/* Name and Description */}
               <View style={styles.descriptionContainer}>
                 <Text style={styles.descriptionText}>
-                  {item.name} - ${item.price.toFixed(2)}
+                  {item.name} - ${item.price}
                 </Text>
                 <Text style={{...FONTS.body3, textAlign: 'center'}}>
                   {item.description}
@@ -100,7 +108,7 @@ export const RestaurantFoodInfo = ({
               <View style={styles.caloriesContainer}>
                 <Image source={icons.fire} style={styles.caloriesImage} />
                 <Text style={styles.caloriesText}>
-                  {item.calories.toFixed(2)} cal
+                  {item.calories} 
                 </Text>
               </View>
             </ScrollView>
@@ -145,9 +153,11 @@ export const RestaurantFoodInfo = ({
         <RestaurantOrderSection
           basketCount={getBasketItemCount()}
           total={getTotal()}
+          sum={sumAmount}
           placeOrder={() => placeOrder()}
           restaurant={restaurant}
         />
+        {/* <Button onPress={sum} title='sdf'></Button> */}
         {isIphoneX() && <View style={styles.fillEmptySpace}></View>}
       </View>
     </>

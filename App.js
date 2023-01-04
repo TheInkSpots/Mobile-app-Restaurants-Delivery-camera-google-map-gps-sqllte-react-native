@@ -59,16 +59,16 @@ export default function App() {
         [],
         (txObj, resultSet) => {
          if (resultSet.rows.length == 0) {
-          tx.executeSql(
-            'INSERT INTO user (userUUID, username, email, password) VALUES (?, ?, ?, ?)', 
-            ['LocalUserUUID', 'LocalUserName', 'LocalUser@local.com', 'LocalUserPw'], 
-            (txObj, resultSet) => {
-                 console.log('local user record inserted:', resultSet.insertId);
-            },
-            (txObj, error) => {
-                 console.log('Error:', error)
-            }
-          );
+            tx.executeSql(
+        'INSERT INTO user (userUUID, username, email, password) VALUES (?, ?, ?, ?)', 
+        ['LocalUserUUID', 'LocalUserName', 'LocalUser@local.com', 'LocalUserPw'], 
+        (txObj, resultSet) => {
+             console.log('local user record inserted:', resultSet.insertId);
+        },
+        (txObj, error) => {
+             console.log('Error:', error)
+        }
+      );
          }
         },
         (txObj, error) => {

@@ -8,30 +8,50 @@ import { RestaurantFoodInfo } from '../components/restaurant/RestaurantFoodInfo'
 import { COLORS, icons } from '../constants';
 import { CurrentLocation, OrderItem, Restaurant, RootTabParamList } from '../types';
 import Wall from '../components/Wall';
-
+import * as SQLite from 'expo-sqlite';
 
 export const RestaurantScreen = ({ route, navigation }) => {
   const [restaurant, setRestaurant] = useState(null);
   const [currentLocation, setCurrentLocation] = useState(null);
   const [orderItems, setOrderItems] = useState([]);
+  const db = SQLite.openDatabase('db.visitRecord');
+
+  const deleteData = (id) => {
+    console.log(`deleteData(${id}) called`);
+   
+   
+    db.transaction(tx => {
+        tx.executeSql('DELETE FROM visit_record where id = ?',
+            [id],
+            (txObj, resultSet) => {
+              console.log('DELETE is good: ', id, 'is done');
+                //setTrigger(!trigger);
+                navigation.goBack();
+            },
+            (txObj, error) => {
+                console.log('Error:', error);
+            }
+        )
+    });
+}
 
   useEffect(() => {
     
     const { item, currentLocation } = route.params;
     setRestaurant(item);
     setCurrentLocation(currentLocation);
-    console.log(' setRestaurant items: ', item);
-    console.log('currentLocation: ', currentLocation);
+    console.log('12312313 setRestaurant items: ', item);
+    console.log('123123123 currentLocation: ', currentLocation);
   });
 
   return (
     <Wall style={styles.container}>
       <TopBar
         leftIcon={icons.back}
-        rightIcon={icons.list}
+        rightIcon={icons.basket}
         headerText={restaurant?.name}
         leftPress={() => navigation.goBack()}
-        rightPress={() => {}}
+        rightPress={() => deleteData(restaurant.id)}
       />
       <RestaurantFoodInfo
         restaurant={restaurant}

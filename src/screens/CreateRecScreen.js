@@ -49,6 +49,7 @@ import{COLORS, FONTS, SIZES, icons, images} from '../constants';
 
 const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0
 export default function CreateRecScreen({ navigation , route}) {
+  const db = SQLite.openDatabase('db.visitRecord');
   const {currentLocation, uuid} = route.params;
   console.log('create rec data : ', currentLocation.gps, uuid);
   const date = new Date();
@@ -59,7 +60,7 @@ export default function CreateRecScreen({ navigation , route}) {
   
   // This arrangement can be altered based on how we want the date's format to appear.
   let currentDate = `${day}/${month}/${year}`;
-  var time = date.getHours() + ":" + date.getMinutes();
+  let time = date.getHours() + ":" + date.getMinutes();
 
   const [values, handleChange] = useForm({
     
@@ -78,6 +79,7 @@ export default function CreateRecScreen({ navigation , route}) {
   const [goods, setGoods] = useForm({});
   const [image, setImageOut] = useState({'restImage':null}); //{key: "", url:""}
   const [trigger, setTrigger] = useState(false);
+  const [fackcat, setfackcat] = useState('');
 
   const [dishcnt, setDishcnt] = useState(1);
   const [dishesList, setDishesList] = useState([{key: dishcnt, menuId: dishcnt, name:'', description:'',calories:0, price:0}]);
@@ -95,7 +97,7 @@ export default function CreateRecScreen({ navigation , route}) {
   const appendDishes = () => {
     setDishcnt(dishcnt+1);
     const newDishesList = [...dishesList];
-    newDishesList.push({key: dishcnt, menuId: dishcnt, name:'', photo:'', description:'',calories:0, price:0});
+    newDishesList.push({key: dishcnt, menuId: dishcnt, name:'', photo:'', description:'',calories:0, price:0 });
     setDishesList(newDishesList);
   }
 
@@ -120,7 +122,7 @@ export default function CreateRecScreen({ navigation , route}) {
 
   const getGoodsList = (list, key) => {
      if (list[key+""] !== undefined) {
-       return goods[key+""];
+       return list[key+""];
      }else
       return null;
   }
@@ -163,9 +165,29 @@ export default function CreateRecScreen({ navigation , route}) {
     // categories= values.categories;
     //  courier= values.courier;
     // location = values.location;
+    let newDishesList2 = [];
 
-     console.log('saving :' , JSON.stringify(values));
-    const object = {
+    for (const [key, value] of Object.entries(dishName)) {
+      newDishesList2.push({
+        menuId: key,
+       name: dishName[key], 
+       photo:image[key], 
+       description:dishdescription[key],
+       calories:dishcalories[key], 
+       price:dishprice[key] });
+    }
+    
+
+    //  console.log('saving 111111 :' , JSON.stringify((newDishesList2)));
+    //  console.log('saving :' , JSON.stringify((dishName)));
+    //  console.log('saving :' , JSON.stringify((dishdescription)));
+    //  console.log('saving :' , JSON.stringify((image)));
+    //  console.log('saving :' , JSON.stringify((dishprice)));
+    //  console.log('saving :' , JSON.stringify((dishcalories)));
+
+
+     let menu =newDishesList2;
+    const row = {
       ...values,
       rate,
       photo,
@@ -174,6 +196,7 @@ export default function CreateRecScreen({ navigation , route}) {
       courier,
       location,
       menu
+ 
 
     };
     //if (isEmpty(object)) {
@@ -183,8 +206,37 @@ export default function CreateRecScreen({ navigation , route}) {
       //props.createCarList(object, props);
       //console.log(object);
     //}
-    console.log(object);
+    insertRecord(row);
+    navigation.goBack();
   };
+
+  const insertRecord = (row) => {
+    db.transaction(tx => {
+            tx.executeSql(
+        'INSERT INTO visit_record (id, userID, cat, visitdate, visitStarttime, visitEndtime, restName, dishJSON, RestPhoto,longitude, latitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+        [null, 
+        uuid, 
+        JSON.stringify(row.categories),
+        values.duration, 
+        time,
+        null,
+        row.name,
+        JSON.stringify(row.menu),
+        row.photo,
+        row.location.latitude,
+        row.location.longitude,
+        
+          ], 
+        (txObj, resultSet) => {
+             console.log('local visit_record record inserted:', resultSet.insertId);
+        },
+        (txObj, error) => {
+             console.log('Error:', error)
+        }
+      ); 
+    })
+  }
+
 
   const [toggleCheckBox, setToggleCheckBox] = useState(false)
   
@@ -213,7 +265,12 @@ export default function CreateRecScreen({ navigation , route}) {
               onChangeText={txt => handleChange("name", txt)}
               value={values.name}
             />
-            
+            <TextInput
+              label="Categeries"
+              //style={globalStyles.input}
+              onChangeText={e => {setfackcat(e)}}
+              value={fackcat}
+            />
             <Text>{'Rate: ' +rate}</Text>
             <Slider
                 style={{ width: 200, height: 40 }}

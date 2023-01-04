@@ -11,7 +11,7 @@ import TextInput from '../components/TextInput'
 import Button from '../components/Button'
 import Icon from 'react-native-vector-icons/AntDesign'
 
-import { CommonActions } from '@react-navigation/native';
+import { CommonActions,useFocusEffect } from '@react-navigation/native';
 
 import { COLORS, SIZES, icons } from '../constants';
 import { HomeMainCategories } from '../components/home/HomeMainCategories';
@@ -21,7 +21,7 @@ import { CategoryData, RootTabParamList } from '../types';
 import {
   categoryData,
   initialCurrentLocation,
-  restaurantsWithCategories,
+  //restaurantsWithCategories,
   testCurrentLocation
 } from '../dummy-data';
 import { TopBar } from '../components/TopBar';
@@ -29,13 +29,74 @@ import { AddButton } from '../components/AddButton';
 import CreateRecModal from '../components/CreateRecModal';
 import { getGPSPermission } from '../helpers/grantGPSPermission'
 import * as Location from 'expo-location';
+import * as SQLite from 'expo-sqlite';
 export default function Home({ navigation , route}) {
     console.log('Home record is good');
     const {name, uuid, email} = route.params;
     console.log('Home data : ', name, email, uuid);
 
-    
+    const db = SQLite.openDatabase('db.visitRecord');
+    //const [data, setData] = useState([]);
+    const [restaurantData, setData] = useState([]);
+    const retrieveData = () => {
+      console.log('retrieveData() called');
+      let data = [];
+      setData([]);
+      db.transaction(tx => {
+          tx.executeSql('SELECT * FROM visit_record where userID = ?',
+              [uuid],
+              (txObj, resultSet) => {
+                  for (let i = resultSet.rows.length - 1; i >= 0; i--) {
+                      let row = resultSet.rows.item(i);
+                      //console.log('data got: ', row.userID, row.cat, row.visitdate, row.visitStarttime, row.visitEndtime, row.restName, row.dishJSON, row.RestPhoto, row.longitude, row.latitude);
+                      // setJobs((currentJobs) => {
+                      //     return [row, ...currentJobs]
+                      // })
+                      // setTotalAmount((amount) => {
+                      //     return amount+row.amount;
+                      // })
+                      let lon = row.latitude;// mean to do
+                    let lat = row.longitude
+                    let arr = JSON.parse(row.dishJSON)
+                    data.push({id: row.id,
+                         name: row.restName, 
+                         rating:4.8,
+                          categories: JSON.parse(row.cat),
+                          priceRating:1, 
+                          photo:row.RestPhoto,
+                           location:{latitude:lat,longitude:lon } , 
+                           courier:{avatar: 12, name: 'Amy'},
+                           menu:arr,
+                           duration: row.visitdate
+                    });
+                  }
+                  setData(data)
+                //  console.log('\nall real data ----> ',data);
+                  //setTrigger(!trigger);
+              },
+              (txObj, error) => {
+                  console.log('Error:', error);
+              }
+          )
+      });
+  }
 
+   const categoriesMap = categoryData.reduce(
+    (categoryMap, category) =>
+      (categoryMap = {
+        ...categoryMap,
+        [category.id]: category.name,
+      }),
+    {},
+  );
+  
+   const restaurantsWithCategories = restaurantData.map((restaurant) => ({
+    ...restaurant,
+    categoryNames: restaurant.categories.map(
+      (category) => categoriesMap[category],
+    ),
+  }));
+  const [trigger, setTrigger] = useState(false);
     const [categories, setCategories] = useState(categoryData);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [restaurants, setRestaurants] = useState(restaurantsWithCategories);
@@ -82,16 +143,23 @@ export default function Home({ navigation , route}) {
          getGPSPermission();
          //setCurrentLocation(gpsObj);
           
-          //retrieveJobs();
+          retrieveData();
       })();
   }, []);
+
+  useFocusEffect(
+        React.useCallback(() => {
+          retrieveData();
+          setTrigger(!trigger);
+        }, [])
+    )
   console.log('gps is : ', currentLocation);
   return (
     <Wall>
       {/*<BackButton goBack={navigation.goBack} />*/}
       <TopBar
-        leftIcon={icons.nearby}
-        rightIcon={icons.basket}
+        leftIcon={icons.list}
+        rightIcon={icons.search}
         headerText={currentLocation.streetName}
         leftPress={testBtn}
         rightPress={testBtn}
