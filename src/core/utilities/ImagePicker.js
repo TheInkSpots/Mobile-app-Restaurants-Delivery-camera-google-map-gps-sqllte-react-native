@@ -21,7 +21,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 
 
-const ImagePickerComp = props => {
+const ImagePickerComp = ({id, image, setImage,setTrigger,trigger}) => {
   //const [hasCameraPermission, setHasCameraPermission] = useState(null);
   //const [image, setImage] = useState(null);
   const [cameraType, setCameraType] = useState(Camera.Constants.Type.back);
@@ -35,7 +35,11 @@ const ImagePickerComp = props => {
         try {
             const data = await cameraRef.current.takePictureAsync();
             console.log(data);
-            props.setImage(data.uri);
+            console.log('test : ',id);
+            setImage(id, data.uri);
+            setTrigger(!trigger);
+            setCameraModalOpen(false);
+
         }
         catch (e) {
             console.log(e);
@@ -45,9 +49,9 @@ const ImagePickerComp = props => {
 }
 
 const saveImage = async () => {
-    if (props.image) {
+    if (image) {
         try {
-            await MediaLibrary.createAssetAsync(props.image);
+            await MediaLibrary.createAssetAsync(image);
             alert('Picture saved');
             setCameraModalOpen(false);
         }
@@ -75,15 +79,15 @@ const moveTo = async (newPosition) => {
 
   return (
     <View style={globalStyles.pickerContainer}>
-    {/* <TouchableOpacity onPress={props.pickImage}> */}
+    {/* <TouchableOpacity onPress={pickImage}> */}
     <TouchableOpacity onPress={() => setCameraModalOpen(true)}>
-      {!props.image ? (
+      {!image ? (
         <View style={globalStyles.upload}>
           <Text>Uploadm images</Text>
           <MaterialCommunityIcons name="upload" size={24} color="#0BB5FF" />
         </View>
       ) : (
-        <Image style={globalStyles.imageUpload} source={{ uri: props.image }} />
+        <Image style={globalStyles.imageUpload} source={{ uri: image }} />
       )}
     </TouchableOpacity>
 
@@ -96,7 +100,7 @@ const moveTo = async (newPosition) => {
                         onPress={() => setCameraModalOpen(false)}
                     />
                     {
-                        !props.image ?
+                        !image ?
                             <Camera
                                 ref={cameraRef}
                                 style={styles.camera}
@@ -104,10 +108,10 @@ const moveTo = async (newPosition) => {
                                 flashMode={flashMode}
                             />
                             :
-                            <Image source={{ uri: props.image }} style={styles.camera} />
+                            <Image source={{ uri: image }} style={styles.camera} />
                     }
                     {
-                        props.image
+                        image
                             ?
                             <View style={styles.button}>
                                 <Button title='Re-take' onPress={() => setImage(null)} />

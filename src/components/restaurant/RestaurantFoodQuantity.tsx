@@ -13,7 +13,7 @@ type RestaurantOrderProps = {
 export const RestaurantFoodQuantity = ({ onEdit, quantity }: RestaurantOrderProps) => {
   return (
     <View style={styles.quantityContainer}>
-      <TouchableOpacity
+      {/*<TouchableOpacity
         style={styles.quantityButton}
         onPress={() => onEdit('-')}
       >
@@ -30,7 +30,7 @@ export const RestaurantFoodQuantity = ({ onEdit, quantity }: RestaurantOrderProp
         onPress={() => onEdit('+')}
       >
         <Text style={{...FONTS.body1}}>+</Text>
-      </TouchableOpacity>
+      </TouchableOpacity>*/}
     </View>
   );
 };

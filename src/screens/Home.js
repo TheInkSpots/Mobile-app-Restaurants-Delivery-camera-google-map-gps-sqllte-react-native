@@ -114,8 +114,10 @@ export default function Home({ navigation , route}) {
       />
       <TouchableOpacity onPress={()=>{
                                     // setEditModalOpen(true);
-                                    navigation.navigate('CreateRecScreen');
-                                    }} activeOpacity={0.6} style={{ position: 'absolute', bottom: 15, right: 15, zIndex: 1 }}>
+                                    navigation.navigate('CreateRecScreen',{currentLocation,uuid});
+            }} 
+            activeOpacity={0.6} 
+            style={{ position: 'absolute', bottom: 15, right: 15, zIndex: 1 }}>
          <Icon
             name="pluscircle" size={52} color= {COLORS.foodpanda}
          />

@@ -3,7 +3,8 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "flex-start"
+    justifyContent: "flex-start",
+    padding:20
   },
   container1: {
     flex: 1,
@@ -37,5 +38,23 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center"
+  },
+  checkboxContainer: {
+    flexDirection: "row",
+    marginBottom: 20,
+  },
+  checkbox: {
+    alignSelf: "center",
+  },
+  label: {
+    margin: 8,
+  },
+  bar:{
+    addingTop: 15, 
+    margin:0,
+    padding: 100,
+  
   }
+
+  
 });

@@ -2,22 +2,31 @@ import React from 'react';
 import { StyleSheet, View, Text, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { COLORS, FONTS, icons, SIZES } from '../../constants';
+import { Item } from 'react-native-paper/lib/typescript/components/Drawer/Drawer';
 
 type RestaurantOrderSectionProps = {
   basketCount: number;
   total: number;
   placeOrder: () => void;
+  restaurant:{}
 };
 
 export const RestaurantOrderSection = ({
   basketCount,
   total,
   placeOrder,
+  restaurant
 }: RestaurantOrderSectionProps) => {
-  return total > 0 ? (
+  // let totalAmount = 0;
+
+  // restaurant.menu.forEach(element => totalAmount += element.price);
+
+
+
+  return total == 0 ? (
     <View style={styles.container}>
       <View style={styles.amountDetailsContainer}>
-        <Text style={{...FONTS.h3}}>{basketCount} items in cart</Text>
+        <Text style={{...FONTS.h3}}> Total Price</Text>
         <Text style={{...FONTS.h3}}>${total.toFixed(2)}</Text>
       </View>
       <View style={styles.cardDetailsContainer}>
@@ -26,12 +35,8 @@ export const RestaurantOrderSection = ({
           <Text style={styles.text}>Location</Text>
         </View>
         <View style={{flexDirection: 'row'}}>
-          <Image
-            source={icons.master_card}
-            resizeMode="contain"
-            style={styles.image}
-          />
-          <Text style={styles.text}>8888</Text>
+         
+          {/* <Text style={styles.text}>{restaurant.location.latitude}, {restaurant.location.longitude}</Text> */}
         </View>
       </View>
 
@@ -40,11 +45,11 @@ export const RestaurantOrderSection = ({
         <TouchableOpacity
           style={{ 
             ...styles.orderButton,
-            ...total <= 0 ? styles.disabledOrderButton : { }
+            ...total !== 0 ? styles.disabledOrderButton : { }
           }}
-          disabled={total <= 0}
+          disabled={total !== 0}
           onPress={() => placeOrder()}>
-          <Text style={styles.orderButtonText}>Order</Text>
+          <Text style={styles.orderButtonText}>Google Map</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -89,7 +94,7 @@ const styles = StyleSheet.create({
     width: SIZES.width * 0.85,
     height: 60,
     padding: SIZES.padding,
-    backgroundColor: COLORS.primary,
+    backgroundColor: COLORS.foodpanda,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: SIZES.radius / 1.5,

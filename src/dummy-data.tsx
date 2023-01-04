@@ -103,7 +103,7 @@ export const restaurantData: Restaurant[] = [
     categories: [5, 7],
     priceRating: affordable,
     photo: images.burger_restaurant_1,
-    duration: '30 - 45 min',
+    duration: '11/12/2022',
     location: {
       latitude: 22.3069785, //22.3069785,114.1621922 
       longitude: 114.1621922,
@@ -146,7 +146,7 @@ export const restaurantData: Restaurant[] = [
     categories: [2, 4, 6],
     priceRating: expensive,
     photo: images.pizza_restaurant,
-    duration: '15 - 20 min',
+    duration: '11/12/2022',
     location: {
       latitude: 1.556306570595712,
       longitude: 110.35504616746915,
@@ -198,7 +198,7 @@ export const restaurantData: Restaurant[] = [
     categories: [3],
     priceRating: expensive,
     photo: images.hot_dog_restaurant,
-    duration: '20 - 25 min',
+    duration: '11/12/2022',
     location: {
       latitude: 1.5238753474714375,
       longitude: 110.34261833833622,
@@ -225,7 +225,7 @@ export const restaurantData: Restaurant[] = [
     categories: [8],
     priceRating: expensive,
     photo: images.japanese_restaurant,
-    duration: '10 - 15 min',
+    duration: '11/12/2022',
     location: {
       latitude: 1.5578068150528928,
       longitude: 110.35482523764315,
@@ -252,7 +252,7 @@ export const restaurantData: Restaurant[] = [
     categories: [1, 2],
     priceRating: affordable,
     photo: images.noodle_shop,
-    duration: '15 - 20 min',
+    duration: '11/12/2022',
     location: {
       latitude: 1.558050496260768,
       longitude: 110.34743759630511,
@@ -303,7 +303,7 @@ export const restaurantData: Restaurant[] = [
     categories: [9, 10],
     priceRating: affordable,
     photo: images.kek_lapis_shop,
-    duration: '35 - 40 min',
+    duration: '11/12/2022',
     location: {
       latitude: 1.5573478487252896,
       longitude: 110.35568783282145,

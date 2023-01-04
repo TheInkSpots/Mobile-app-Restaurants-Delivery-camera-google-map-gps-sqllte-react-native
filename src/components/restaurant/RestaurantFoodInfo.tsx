@@ -146,6 +146,7 @@ export const RestaurantFoodInfo = ({
           basketCount={getBasketItemCount()}
           total={getTotal()}
           placeOrder={() => placeOrder()}
+          restaurant={restaurant}
         />
         {isIphoneX() && <View style={styles.fillEmptySpace}></View>}
       </View>
