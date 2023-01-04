@@ -35,58 +35,33 @@ export const initialCurrentLocation: CurrentLocation = {
 export const categoryData: CategoryData[] = [
   {
     id: 1,
-    name: 'Rice',
+    name: 'Chinese',
     icon: icons.rice_bowl,
   },
   {
     id: 2,
-    name: 'Noodles',
+    name: 'Raman',
     icon: icons.noodle,
   },
   {
     id: 3,
-    name: 'Hot Dogs',
-    icon: icons.hotdog,
-  },
-  {
-    id: 4,
-    name: 'Salads',
-    icon: icons.salad,
-  },
-  {
-    id: 5,
-    name: 'Burgers',
+    name: 'America',
     icon: icons.hamburger,
   },
   {
-    id: 6,
-    name: 'Pizza',
+    id: 4,
+    name: 'Italy',
     icon: icons.pizza,
   },
   {
-    id: 7,
-    name: 'Snacks',
-    icon: icons.fries,
-  },
-  {
-    id: 8,
-    name: 'Sushi',
+    id: 5,
+    name: 'Japan',
     icon: icons.sushi,
   },
   {
-    id: 9,
+    id: 6,
     name: 'Desserts',
     icon: icons.donut,
-  },
-  {
-    id: 10,
-    name: 'Drinks',
-    icon: icons.drink,
-  },
-  {
-    id: 11,
-    name: 'test',
-    icon: icons.drink,
   },
 ];
 

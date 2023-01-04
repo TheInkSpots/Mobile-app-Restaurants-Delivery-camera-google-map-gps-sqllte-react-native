@@ -57,13 +57,13 @@ export const RestaurantFoodInfo = ({
   const getTotal = () => orderItems.reduce((a, b) => a + (b.total || 0), 0);
   let sumAmount = 0;
 
-  // const sum = () => {restaurant.menu.forEach((item) =>{
-  //   sumAmount += Number(item.price);
-  //   });
-  // console.log('sum is: ',sumAmount);
-  // }
-  // sum();
-
+  const sum = () => {restaurant['menu'].forEach((item) =>{
+    sumAmount += Number(item.price);
+    });
+  console.log('sum is: ',sumAmount);
+  }
+  sum();
+  console.log('123123123 test is: ',restaurant['test']);
   return (
     <>
       <Animated.ScrollView

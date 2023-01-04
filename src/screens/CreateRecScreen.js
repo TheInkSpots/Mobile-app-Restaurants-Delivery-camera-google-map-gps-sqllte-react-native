@@ -7,7 +7,7 @@ import { globalStyles } from "../../styles/globalStyles";
 import { styles } from "./createRecScreen/styles";
 import ImagePickerComp from "../core/utilities/ImagePicker";
 import { useForm } from "../core/utilities/customHooks/useForm";
-//import DropDownPicker from 'react-native-dropdown-picker';
+import DropDownPicker from 'react-native-dropdown-picker';
 import * as ImagePicker from 'react-native-image-picker';
 import { TopBar } from '../components/TopBar';
 
@@ -42,7 +42,7 @@ import {
   KeyboardAvoidingView
 } from "react-native";
 
-
+import {categoryData} from "../dummy-data"
 import { Camera, CameraType } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import{COLORS, FONTS, SIZES, icons, images} from '../constants';
@@ -73,10 +73,31 @@ export default function CreateRecScreen({ navigation , route}) {
 
     name: "",
   });
+  let newArrayOfObj = [];
+  const getCates = () => {
+  
+    console.log('changing label: ');
+    newArrayOfObj = categoryData.map(({id: value,name: label}) => ({value, label}));
+     newArrayOfObj.forEach(v => v.value += '');
+  };
 
+  useEffect(()=>{
+    setDishcnt(dishcnt+1);
+    
+   
+	}, [])
+  getCates();
+  console.log('new label: ', newArrayOfObj);
+  // newArrayOfObj = newArrayOfObj.map(({name: label,...rest}) => ({label,...rest}));
+  
+  
+  const [catesopen, setcatesOpen] = useState(false);
+  const [catesvalue, setcatesValue] = useState(null);
 
+  const [catesopen2, setcatesOpen2] = useState(false);
+  const [catesvalue2, setcatesValue2] = useState(null);
+  const [items, setItems] = useState(newArrayOfObj);
 
-  const [goods, setGoods] = useForm({});
   const [image, setImageOut] = useState({'restImage':null}); //{key: "", url:""}
   const [trigger, setTrigger] = useState(false);
   const [fackcat, setfackcat] = useState('');
@@ -90,10 +111,10 @@ export default function CreateRecScreen({ navigation , route}) {
   const [dishprice, setdishprice] = useState({});
 
   const [rate, setRate] = useState(5);
-  useEffect(()=>{
-    setDishcnt(dishcnt+1);
-	}, [])
+
+
   
+
   const appendDishes = () => {
     setDishcnt(dishcnt+1);
     const newDishesList = [...dishesList];
@@ -156,7 +177,7 @@ export default function CreateRecScreen({ navigation , route}) {
   }, []);
 
 
-  const categories = useRef([5,7]).current;
+  //const categories = useRef([5,7]).current;
   const courier = useRef({avatar: images.avatar_1, name: 'courier'}).current;
   const location = useRef(currentLocation).current.gps;
 
@@ -166,6 +187,11 @@ export default function CreateRecScreen({ navigation , route}) {
     //  courier= values.courier;
     // location = values.location;
     let newDishesList2 = [];
+    const categories = [];
+
+    if(catesvalue !== null) categories.push(Number(catesvalue));
+    if(catesvalue2 !== null) categories.push(Number(catesvalue2));
+   
 
     for (const [key, value] of Object.entries(dishName)) {
       newDishesList2.push({
@@ -213,8 +239,9 @@ export default function CreateRecScreen({ navigation , route}) {
   const insertRecord = (row) => {
     db.transaction(tx => {
             tx.executeSql(
-        'INSERT INTO visit_record (id, userID, cat, visitdate, visitStarttime, visitEndtime, restName, dishJSON, RestPhoto,longitude, latitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+        'INSERT INTO visit_record (id, rating, userID, cat, visitdate, visitStarttime, visitEndtime, restName, dishJSON, RestPhoto,longitude, latitude) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
         [null, 
+          rate,
         uuid, 
         JSON.stringify(row.categories),
         values.duration, 
@@ -245,7 +272,9 @@ export default function CreateRecScreen({ navigation , route}) {
    <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={keyboardVerticalOffset} sytle={{flex: 1,padding: 20,backgroundColor: "#fff"}} >
     {/* //<View style={globalStyles.container}> */}
       
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} scrollViewProps={{
+  decelerationRate: "fast"
+}}>
       <TopBar
         leftIcon={icons.back}
         rightIcon={icons.list}
@@ -300,6 +329,22 @@ export default function CreateRecScreen({ navigation , route}) {
               // pickImage={pickImages}
               setImage={setDish2imageList}
             />  
+             <DropDownPicker
+                open={catesopen}
+                value={catesvalue}
+                items={items}
+                setOpen={setcatesOpen}
+                setValue={setcatesValue}
+                setItems={setItems}
+              /> 
+              <DropDownPicker
+                open={catesopen2}
+                value={catesvalue2}
+                items={items}
+                setOpen={setcatesOpen2}
+                setValue={setcatesValue2}
+                setItems={setItems}
+              />   
            
             
 
@@ -328,16 +373,16 @@ export default function CreateRecScreen({ navigation , route}) {
                             onChangeText={txt => setGoodsList(dishprice, dish.menuId ,txt)}
                             value={getGoodsList(dishprice,dish.menuId )}
                           />
-                          <Text>{'Calories: ' +getGoodsList(dishcalories,dish.menuId)}</Text>
+                          <Text>{'Calories: ' +(getGoodsList(dishcalories,dish.menuId)*10)}</Text>
                           <Slider
                               style={{ width: 200, height: 40 }}
                               minimumValue={0}
-                              maximumValue={500}
+                              maximumValue={30}
                               maximumTrackTintColor='#fff'
                               minimumTrackTintColor='#000'
                               step={1}
                               value={3}
-                              onValueChange={(value) => { setGoodsList(dishcalories,dish.menuId, value) }}
+                              onValueChange={(value) => { setGoodsList(dishcalories,dish.menuId, value * 10) }}
                             />
                             <Text style={FONTS.h3}>Dish photo</Text>
                             <ImagePickerComp
@@ -347,7 +392,8 @@ export default function CreateRecScreen({ navigation , route}) {
                             trigger={trigger}
                             // pickImage={pickImages}
                             setImage={setDish2imageList}
-                          />  
+                          />
+                          
                     </View>
                </View>
                

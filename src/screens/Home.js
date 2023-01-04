@@ -60,14 +60,16 @@ export default function Home({ navigation , route}) {
                     let arr = JSON.parse(row.dishJSON)
                     data.push({id: row.id,
                          name: row.restName, 
-                         rating:4.8,
+                         rating:row.rating,
                           categories: JSON.parse(row.cat),
                           priceRating:1, 
                           photo:row.RestPhoto,
                            location:{latitude:lat,longitude:lon } , 
                            courier:{avatar: 12, name: 'Amy'},
                            menu:arr,
-                           duration: row.visitdate
+                           duration: row.visitdate,
+                           test: 123
+                           
                     });
                   }
                   setData(data)

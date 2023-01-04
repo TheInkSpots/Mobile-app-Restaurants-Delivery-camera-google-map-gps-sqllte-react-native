@@ -35,7 +35,7 @@ export default function App() {
   const createTable = () => {
     db.transaction(tx => {
       tx.executeSql(
-        'CREATE TABLE IF NOT EXISTS visit_record (id INTEGER PRIMARY KEY AUTOINCREMENT, userID TEXT ,cat TEXT, visitdate TEXT, visitStarttime TEXT, visitEndtime TEXT, title TEXT, restName TEXT, remark TEXT, dishJSON TEXT, RestPhoto TEXT, longitude NUMERIC, latitude NUMERIC, amount NUMERIC)',
+        'CREATE TABLE IF NOT EXISTS visit_record (id INTEGER PRIMARY KEY AUTOINCREMENT, userID TEXT ,cat TEXT, visitdate TEXT, visitStarttime TEXT, visitEndtime TEXT, title TEXT, restName TEXT, remark TEXT, dishJSON TEXT, RestPhoto TEXT, longitude NUMERIC, latitude NUMERIC, rating NUMERIC, amount NUMERIC)',
         [],
         (txObj, resultSet) => {
           console.log('record table created successfully')
