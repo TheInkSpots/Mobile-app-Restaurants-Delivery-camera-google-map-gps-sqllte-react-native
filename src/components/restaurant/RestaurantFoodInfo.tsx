@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Image, StyleSheet, View, Text, Animated,Button } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { isIphoneX } from 'react-native-iphone-x-helper';
@@ -56,14 +56,19 @@ export const RestaurantFoodInfo = ({
 
   const getTotal = () => orderItems.reduce((a, b) => a + (b.total || 0), 0);
   let sumAmount = 0;
+  console.log('total 1231 is: ',restaurant);
+  // const sum = () => {restaurant['menu'].forEach((item) =>{
+  //     sumAmount += Number(item.price);
+  //   });
+  //   console.log('sum is: ',sumAmount);
+  // }
 
-  const sum = () => {restaurant['menu'].forEach((item) =>{
-    sumAmount += Number(item.price);
-    });
-  console.log('sum is: ',sumAmount);
-  }
-  sum();
-  console.log('123123123 test is: ',restaurant['test']);
+  useEffect(() => {
+    console.log('total is: ',restaurant);
+    //sum();
+  },[]);
+ // sum();
+  //console.log('123123123 test is: ',restaurant['test']);
   return (
     <>
       <Animated.ScrollView
@@ -143,7 +148,7 @@ export const RestaurantFoodInfo = ({
                   ...styles.dot,
                   width: dotSize,
                   height: dotSize,
-                  backgroundColor: dotColor,
+                  backgroundColor: COLORS.foodpanda,
                   opacity: opacity,
                 }}
               />
@@ -179,8 +184,8 @@ const styles = StyleSheet.create({
   },
   descriptionContainer: {
     width: SIZES.width,
-    alignItems: 'center',
-    marginTop: 20,
+    alignItems: 'left',
+    marginTop: 10,
     paddingHorizontal: SIZES.padding * 2,
   },
   descriptionText: {
@@ -191,8 +196,9 @@ const styles = StyleSheet.create({
   caloriesContainer: {
     flexDirection: 'row',
     marginTop: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
+    marginLeft: 20,
+    alignItems: 'left',
+    justifyContent: 'left',
     paddingBottom: 15,
   },
   caloriesImage: {

@@ -36,13 +36,13 @@ export const RestaurantScreen = ({ route, navigation }) => {
 }
 
   useEffect(() => {
-    
+    console.log(route.params);
     const { item, currentLocation } = route.params;
     setRestaurant(item);
     setCurrentLocation(currentLocation);
     console.log('12312313 setRestaurant items: ', item);
     console.log('123123123 currentLocation: ', currentLocation);
-  });
+  },[]);
 
   return (
     <Wall style={styles.container}>
