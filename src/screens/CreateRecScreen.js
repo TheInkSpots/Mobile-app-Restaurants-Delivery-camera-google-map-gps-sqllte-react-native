@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 //import { Dropdown } from "react-native-material-dropdown";
  //import { SliderPicker } from "react-native-slider-picker";
  //import Slider from '@react-native-community/slider';
@@ -45,32 +45,39 @@ import {
 
 import { Camera, CameraType } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
-import{COLORS, FONTS, SIZES, icons} from '../constants';
+import{COLORS, FONTS, SIZES, icons, images} from '../constants';
 
 const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0
 export default function CreateRecScreen({ navigation , route}) {
   const {currentLocation, uuid} = route.params;
   console.log('create rec data : ', currentLocation.gps, uuid);
+  const date = new Date();
+
+  let day = date.getDate();
+  let month = date.getMonth()+1 ;
+  let year = date.getFullYear();
+  
+  // This arrangement can be altered based on how we want the date's format to appear.
+  let currentDate = `${day}/${month}/${year}`;
+  var time = date.getHours() + ":" + date.getMinutes();
+
   const [values, handleChange] = useForm({
+    
     duration: "",
-    location:{},
-    courier:{},
-    menu:[],
+  //  location:'',
+  //   courier:'',
 
-    categories: [],
 
-    photo:'',
+  //   categories: '',
+
     name: "",
-    rate: 0.0,
   });
 
+
+
   const [goods, setGoods] = useForm({});
-
   const [image, setImageOut] = useState({'restImage':null}); //{key: "", url:""}
-  const [rate, setRate] = useState(25);
-
   const [trigger, setTrigger] = useState(false);
-
 
   const [dishcnt, setDishcnt] = useState(1);
   const [dishesList, setDishesList] = useState([{key: dishcnt, menuId: dishcnt, name:'', description:'',calories:0, price:0}]);
@@ -80,7 +87,7 @@ export default function CreateRecScreen({ navigation , route}) {
   const [dishcalories, setdishcalories] = useState({});
   const [dishprice, setdishprice] = useState({});
 
-  
+  const [rate, setRate] = useState(5);
   useEffect(()=>{
     setDishcnt(dishcnt+1);
 	}, [])
@@ -109,7 +116,7 @@ export default function CreateRecScreen({ navigation , route}) {
   const setGoodsList = (list ,key, value) => {
     list[key+""] = value;
     setTrigger(!trigger);
-  }
+  };
 
   const getGoodsList = (list, key) => {
      if (list[key+""] !== undefined) {
@@ -132,20 +139,51 @@ export default function CreateRecScreen({ navigation , route}) {
   useEffect(() => {
     getCameraPermission();
     //checkImageStatus();
+    const initializer = async () => {
+     // handleChange('categories',[5,7]);
+     // handleChange('courier',images.avatar_1);
+  
+     // handleChange('location',currentLocation);
+      handleChange('duration',currentDate);
+      console.log('courier  is : ',images.avatar_1);
+    }
+    initializer().finally(async () => {
+      //await RNBootSplash.hide({ fade: true })
+    })
+   
   }, []);
 
+
+  const categories = useRef([5,7]).current;
+  const courier = useRef({avatar: images.avatar_1, name: 'courier'}).current;
+  const location = useRef(currentLocation).current.gps;
+
   const handleSubmit = e => {
+    let photo = image['restImage'];
+    // categories= values.categories;
+    //  courier= values.courier;
+    // location = values.location;
+
+     console.log('saving :' , JSON.stringify(values));
     const object = {
       ...values,
       rate,
-      image
+      photo,
+
+      categories,
+      courier,
+      location,
+      menu
+
     };
-    if (isEmpty(object)) {
-      showAlert("Kindly fill all the fields");
-    } else {
-      isLoading(true);
-      props.createCarList(object, props);
-    }
+    //if (isEmpty(object)) {
+      //showAlert("Kindly fill all the fields");
+      //} else {
+     // isLoading(true);
+      //props.createCarList(object, props);
+      //console.log(object);
+    //}
+    console.log(object);
   };
 
   const [toggleCheckBox, setToggleCheckBox] = useState(false)
@@ -166,7 +204,9 @@ export default function CreateRecScreen({ navigation , route}) {
       />
         <View style={styles.container}>
 
-           <Text style={globalStyles.heading}>Restaurant Visitation</Text>
+           <Text style={globalStyles.heading}>Create Visitation</Text>
+           <Text style={FONTS.h2}>{"Current Date: "+ currentDate}</Text>
+           <Text style={FONTS.h2}>{"Current Time: "+ time}</Text>
             <TextInput
               label="Restaurant name"
               //style={globalStyles.input}
@@ -174,7 +214,7 @@ export default function CreateRecScreen({ navigation , route}) {
               value={values.name}
             />
             
-            <Text>{'Rate: ' +values.rate}</Text>
+            <Text>{'Rate: ' +rate}</Text>
             <Slider
                 style={{ width: 200, height: 40 }}
                 minimumValue={0}
@@ -183,7 +223,7 @@ export default function CreateRecScreen({ navigation , route}) {
                 minimumTrackTintColor='#000'
                 step={1}
                 value={3}
-                onValueChange={(value) => { handleChange("rate", value) }}
+                onValueChange={(value) => {  setRate(value) }}
               />
             
              <View style={styles.checkboxContainer}>
@@ -263,7 +303,7 @@ export default function CreateRecScreen({ navigation , route}) {
             <Button mode="outlined" onPress={appendDishes}>
               Add Button
             </Button>
-            <Button mode="outlined" onPress={()=>{}}>
+            <Button mode="outlined" onPress={handleSubmit}>
               Save
             </Button>
           </View>
