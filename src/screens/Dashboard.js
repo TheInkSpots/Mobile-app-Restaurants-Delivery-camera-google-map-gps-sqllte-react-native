@@ -6,14 +6,14 @@ import Paragraph from '../components/Paragraph'
 import Button from '../components/Button'
 
 export default function Dashboard({ navigation,route }) {
-  console.log('dashbord is good)');
+  //console.log('dashbord is good)');
   const {name, uuid, email} = route.params;
 
   const name1= route.params.name; 
   const uuid1 = route.params.uuid;
   const email1 = route.params.email;
 
-  console.log('dashbord data  is good --> ', name, uuid, email);
+  //console.log('dashbord data  is good --> ', name, uuid, email);
   return (
     <Background>
       <Logo />

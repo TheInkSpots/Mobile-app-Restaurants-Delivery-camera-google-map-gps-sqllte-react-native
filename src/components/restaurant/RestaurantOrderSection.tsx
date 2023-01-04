@@ -3,13 +3,22 @@ import { StyleSheet, View, Text, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { COLORS, FONTS, icons, SIZES } from '../../constants';
 import { Item } from 'react-native-paper/lib/typescript/components/Drawer/Drawer';
+import Button from '../Button'
+import TextInputThin from '../TextInputThin'
+import BackButton from '../BackButton'
+import { useEffect, useState } from 'react';
+import * as SQLite from 'expo-sqlite';
 
 type RestaurantOrderSectionProps = {
   basketCount: number;
   total: number;
   placeOrder: () => void;
-  restaurant:{};
+  restaurant:[];
   sum:number
+  menu: any;
+  start: any;
+  end: any;
+  remark: any;
 };
 
 export const RestaurantOrderSection = ({
@@ -17,42 +26,112 @@ export const RestaurantOrderSection = ({
   total,
   placeOrder,
   restaurant,
-  sum
+  sum,
+  menu,
+  start,
+  end,
+  remark,
 }: RestaurantOrderSectionProps) => {
+  console.log('really 2 array: ',JSON.stringify(menu));
+  console.log('really  2time: ',JSON.stringify(start));
+  console.log('really  2 obj: ',JSON.stringify(restaurant));
+  console.log('really 2 remark: ',JSON.stringify(remark));
   // let totalAmount = 0;
 
   // restaurant.menu.forEach(element => totalAmount += element.price);
+  const [item, setItem] = useState(restaurant);
+  const [remark2, setRemark2] = useState('');
+  const [end2, setEnd2] = useState(end);
+  const db = SQLite.openDatabase('db.visitRecord');
+
+  useEffect(() => {
+    setItem(restaurant);
+    setRemark2(remark);
+    setEnd2(end);
+  });
 
 
+  const updateRec = (col, val) => {
+    val = val.replace("'","\'");
+    db.transaction(tx => {
+            tx.executeSql(
+        `UPDATE visit_record SET ${col} = '${val}', visitEndtime = '${end2}' WHERE id = ${item.id}`, 
+        [], 
+        (txObj, resultSet) => {
+          console.log('update record is good: dddss');
+             //console.log('local visit_record record inserted:', resultSet.insertId);
+        },
+        (txObj, error) => {
+             console.log('Error:', error)
+        }
+      ); 
+    })
+  }
+
+
+  const setEndTimeBtn =()=>{
+    console.log('end time called: ', end2)
+    let endTime = new Date;
+    let time = endTime.toLocaleString('en-US', {
+      dateStyle: 'medium',
+      timeStyle: 'short',
+      hour12: true,
+    })
+    setEnd2(time);
+    console.log('end time done: ', end2)
+  };
+  console.log('sectionq2: ',item);
+
+  useEffect(() => {
+    setItem(restaurant);
+  },[]);
 
   return total == 0 ? (
     <View style={styles.container}>
       <View style={styles.amountDetailsContainer}>
+        <Text style={{...FONTS.h3}}> Remark</Text>
+        <TextInputThin
+                            
+                            onChangeText={txt => {setRemark2(txt)}}
+                            value={remark2} 
+                          />
+      </View>
+      
+      <View style={styles.amountDetailsContainer}>
+        <Text style={{...FONTS.h3}}> Start Time</Text>
+         <Text style={{...FONTS.h3}}>{start}</Text> 
+      </View>
+      <View style={styles.amountDetailsContainer}>
+        <Text style={{...FONTS.h3}}> End Time</Text>
+         <Text style={{...FONTS.h3}}>{end2}</Text> 
+      </View>
+      <View style={styles.amountDetailsContainer}>
         <Text style={{...FONTS.h3}}> Total Price</Text>
         <Text style={{...FONTS.h3}}>${sum.toFixed(2)}</Text>
       </View>
-      <View style={styles.cardDetailsContainer}>
+      {/* <View style={styles.cardDetailsContainer}>
         <View style={{flexDirection: 'row'}}>
           <Image source={icons.pin} resizeMode="contain" style={styles.image} />
           <Text style={styles.text}>Location</Text>
         </View>
         <View style={{flexDirection: 'row'}}>
          
-          {/* <Text style={styles.text}>{restaurant.location.latitude}, {restaurant.location.longitude}</Text> */}
+           <Text style={styles.text}>{restaurant.location.latitude}, {restaurant.location.longitude}</Text> 
         </View>
-      </View>
+      </View> */}
 
       {/* Order Button */}
       <View style={styles.orderButtonContainer}>
-        <TouchableOpacity
-          style={{ 
-            ...styles.orderButton,
-            ...total !== 0 ? styles.disabledOrderButton : { }
-          }}
-          disabled={total !== 0}
-          onPress={() => placeOrder()}>
-          <Text style={styles.orderButtonText}>Google Map</Text>
-        </TouchableOpacity>
+        
+        <Button mode="outlined" onPress={() => placeOrder()} style={styles.orderButton}>
+        Map
+            </Button>
+        <Button mode="outlined" onPress={() => updateRec('remark', remark2)} style={styles.orderButton}>
+        Update
+            </Button>
+        <Button disabled={end2==null} mode="outlined" onPress={setEndTimeBtn} style={styles.orderButton}>
+        End
+            </Button>
       </View>
     </View>
   ) : null;
@@ -67,7 +146,7 @@ const styles = StyleSheet.create({
   amountDetailsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: SIZES.padding * 2,
+    paddingVertical: SIZES.padding ,
     paddingHorizontal: SIZES.padding * 3,
     borderBottomColor: COLORS.lightGray2,
     borderBottomWidth: 1,
@@ -91,12 +170,13 @@ const styles = StyleSheet.create({
     padding: SIZES.padding * 2,
     alignItems: 'center',
     justifyContent: 'center',
+    flexDirection: 'row',
   },
   orderButton: {
-    width: SIZES.width * 0.85,
+    width: SIZES.width * 0.35,
     height: 60,
     padding: SIZES.padding,
-    backgroundColor: COLORS.foodpanda,
+    //backgroundColor: COLORS.foodpanda,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: SIZES.radius / 1.5,

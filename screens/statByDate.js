@@ -88,7 +88,7 @@ export default function StatByDate() {
 
     // assuming at most five job types
     const retrieveJobTypes = () => {
-        console.log('retrieveJobTypes() called');
+        //console.log('retrieveJobTypes() called');
         setJobTypes([]);
         db.transaction(tx => {
             tx.executeSql('SELECT * FROM jobtypes',
@@ -96,7 +96,7 @@ export default function StatByDate() {
                 (txObj, resultSet) => {
                     for (let i = resultSet.rows.length - 1; i >= 0; i--) {
                         let row = resultSet.rows.item(i);
-                        console.log(row.typeid, row.jobtype, row.description);
+                        //console.log(row.typeid, row.jobtype, row.description);
                         const jobType = {
                             label: row.jobtype,
                             value: row.jobtype
@@ -106,20 +106,20 @@ export default function StatByDate() {
                         })
                         chartData[resultSet.rows.length - i - 1].name = row.jobtype;
                     }
-                    console.log('number of job types: ', resultSet.rows.length)
-                    console.log(chartData)
+                    //console.log('number of job types: ', resultSet.rows.length)
+                    //console.log(chartData)
                     numJobTypes = resultSet.rows.length;
                 },
                 (txObj, error) => {
-                    console.log('Error:', error);
+                    //console.log('Error:', error);
                 }
             )
         });
     }
 
     const retrieveJobs = () => {
-        console.log('retrieveJobs() called');
-        console.log(chartData)
+        //console.log('retrieveJobs() called');
+        //console.log(chartData)
 
         for (let j = 0; j < chartData.length; j++) {
             chartData[j].amount = 0;
@@ -132,26 +132,26 @@ export default function StatByDate() {
                 (txObj, resultSet) => {
                     for (let i = resultSet.rows.length - 1; i >= 0; i--) {
                         let row = resultSet.rows.item(i);
-                        console.log(row.jobid, row.jobtype, row.jobdate, row.jobstarttime, row.jobendtime, row.imageuri, row.longitude, row.latitude, row.amount);
+                        //console.log(row.jobid, row.jobtype, row.jobdate, row.jobstarttime, row.jobendtime, row.imageuri, row.longitude, row.latitude, row.amount);
                         setJobs((currentJobs) => {
                             return [row, ...currentJobs]
                         })
                     }
-                    console.log('chart data: ')
-                    console.log(chartData);
+                    //console.log('chart data: ')
+                    //console.log(chartData);
                 },
                 (txObj, error) => {
-                    console.log('Error:', error);
+                    //console.log('Error:', error);
                 }
             )
         });
 
         for (let i=0; i<jobs.length; i++) {
             for (let j=0; j<numJobTypes; j++) {
-                // console.log('row.jobtype:', row.jobtype);
-                // console.log('chartData: ', chartData[j].name)
+                // //console.log('row.jobtype:', row.jobtype);
+                // //console.log('chartData: ', chartData[j].name)
                 if (chartData[j].name === jobs[i].jobtype) {
-                    console.log('matched')
+                    //console.log('matched')
                     chartData[j].amount += jobs[i].amount;
                 }
             }
@@ -159,8 +159,8 @@ export default function StatByDate() {
     }
 
     // const retrieveJobs = () => {
-    //     console.log('retrieveJobs() called');
-    //     console.log(chartData)
+    //     //console.log('retrieveJobs() called');
+    //     //console.log(chartData)
 
     //     for (let j=0; j<chartData.length; j++) {
     //         chartData[j].amount=0;
@@ -173,25 +173,25 @@ export default function StatByDate() {
     //             (txObj, resultSet) => {
     //                 for (let i = resultSet.rows.length - 1; i >= 0; i--) {
     //                     let row = resultSet.rows.item(i);
-    //                     console.log(row.jobid, row.jobtype, row.jobdate, row.jobstarttime, row.jobendtime, row.imageuri, row.longitude, row.latitude, row.amount);
+    //                     //console.log(row.jobid, row.jobtype, row.jobdate, row.jobstarttime, row.jobendtime, row.imageuri, row.longitude, row.latitude, row.amount);
     //                     setJobs((currentJobs) => {
     //                         return [row, ...currentJobs]
     //                     })
     //                     for (let j=0; j<numJobTypes; j++) {
-    //                         console.log('row.jobtype:', row.jobtype);
-    //                         console.log('chartData: ', chartData[j].name)
+    //                         //console.log('row.jobtype:', row.jobtype);
+    //                         //console.log('chartData: ', chartData[j].name)
     //                         if (chartData[j].name===resultSet.rows.item(i).jobtype) {
-    //                             console.log('matched')
+    //                             //console.log('matched')
     //                             chartData[j].amount += resultSet.rows.item(i).amount;
     //                             break;
     //                         }
     //                     }
     //                 }
-    //                 console.log('chart data: ')
-    //                 console.log(chartData);
+    //                 //console.log('chart data: ')
+    //                 //console.log(chartData);
     //             },
     //             (txObj, error) => {
-    //                 console.log('Error:', error);
+    //                 //console.log('Error:', error);
     //             }
     //         )
     //     });

@@ -20,7 +20,7 @@ export default function JobType() {
     }, [])
 
     const retrieveJobTypes = () => {
-        console.log('retrieveJobTypes() called');
+        //console.log('retrieveJobTypes() called');
         setJobTypes([]);
         db.transaction(tx => {
             tx.executeSql('SELECT * FROM jobtypes',
@@ -28,14 +28,14 @@ export default function JobType() {
                 (txObj, resultSet) => {
                     for (let i = resultSet.rows.length - 1; i >= 0; i--) {
                         let row = resultSet.rows.item(i);
-                        console.log(row.typeid, row.jobtype, row.description);
+                        //console.log(row.typeid, row.jobtype, row.description);
                         setJobTypes((currentJobTypes) => {
                             return [row, ...currentJobTypes]
                         })
                     }
                 },
                 (txObj, error) => {
-                    console.log('Error:', error);
+                    //console.log('Error:', error);
                 }
             )
         });
@@ -43,14 +43,14 @@ export default function JobType() {
     }
 
     const deleteJobType = (typeid) => {
-        console.log('deleteJobType() called');
-        console.log(typeid);
+        //console.log('deleteJobType() called');
+        //console.log(typeid);
         db.transaction(tx => {
             tx.executeSql(
                 'DELETE FROM jobtypes WHERE typeid=?',
                 [typeid],
                 (txObj, resultSet) => {
-                    console.log("deleted");
+                    //console.log("deleted");
                     setJobTypes((currentJobTypes) => {
                         return currentJobTypes.filter(
                             jobtype => jobtype.typeid != typeid
@@ -58,7 +58,7 @@ export default function JobType() {
                     })
                 },
                 (TxObj, error) => {
-                    console.log('Error:', error);
+                    //console.log('Error:', error);
                 }
             )
         });

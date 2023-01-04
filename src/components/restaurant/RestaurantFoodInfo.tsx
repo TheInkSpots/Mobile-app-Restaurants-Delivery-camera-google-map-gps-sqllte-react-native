@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, View, Text, Animated,Button } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { isIphoneX } from 'react-native-iphone-x-helper';
@@ -10,17 +10,40 @@ import { RestaurantOrderSection } from './RestaurantOrderSection';
 
 type RestaurantFoodInfoProps = {
   restaurant: Restaurant | null;
+  obj: any;
+  menu: any;
+  start: any;
+  end: any;
+  remark: any;
   orderItems: OrderItem[];
   setOrderItems: (orderItems: OrderItem[]) => void;
   placeOrder: () => void;
 };
 
 export const RestaurantFoodInfo = ({
+  obj,
+  menu,
+  start,
+  end,
+  remark,
   restaurant,
   orderItems,
   setOrderItems,
   placeOrder,
 }: RestaurantFoodInfoProps) => {
+  console.log('really array: ',JSON.stringify(menu));
+  console.log('really time: ',JSON.stringify(start));
+  console.log('really obj: ',JSON.stringify(restaurant));
+  console.log('really remark: ',JSON.stringify(remark));
+
+
+  const [menu2, setmenu] = useState([]);
+  const [remark2, setremark] = useState('');
+  const [start2, setstart] = useState('');
+  const [end2, setend] = useState('');
+
+  const [obj2, setobj] = useState({});
+
   const scrollX = new Animated.Value(0);
   const dotPosition = Animated.divide(scrollX, SIZES.width);
 
@@ -56,19 +79,30 @@ export const RestaurantFoodInfo = ({
 
   const getTotal = () => orderItems.reduce((a, b) => a + (b.total || 0), 0);
   let sumAmount = 0;
-  console.log('total 1231 is: ',restaurant);
-  // const sum = () => {restaurant['menu'].forEach((item) =>{
-  //     sumAmount += Number(item.price);
-  //   });
-  //   console.log('sum is: ',sumAmount);
-  // }
+  //console.log('total 1231 is: ',restaurant);
+  const sum = (arr) => {arr.forEach((item) =>{
+      sumAmount += Number(item.price);
+    });
+    return sumAmount;
+    //console.log('sum is: ',sumAmount);
+  }
 
   useEffect(() => {
-    console.log('total is: ',restaurant);
-    //sum();
-  },[]);
- // sum();
-  //console.log('123123123 test is: ',restaurant['test']);
+    //console.log('total is: ',restaurant);
+    //sum(menu);
+    console.log('test')
+    setmenu(menu);
+    setremark(remark);
+    setstart(start);
+    setend(end);
+ setobj(restaurant);
+
+    //console.log('restaurant test is: ',restaurant);
+   // console.log('123123123 test is: ',restaurant.test);
+  });
+ sum(menu);
+
+  //
   return (
     <>
       <Animated.ScrollView
@@ -159,10 +193,14 @@ export const RestaurantFoodInfo = ({
           basketCount={getBasketItemCount()}
           total={getTotal()}
           sum={sumAmount}
+          menu={menu2}
+        start={start2}
+        end={end2}
+        remark={remark2}
           placeOrder={() => placeOrder()}
-          restaurant={restaurant}
+          restaurant={obj2}
         />
-        {/* <Button onPress={sum} title='sdf'></Button> */}
+         {/* <Button onPress={()=>sum(restaurant?.menu)} title='sdf'></Button>  */}
         {isIphoneX() && <View style={styles.fillEmptySpace}></View>}
       </View>
     </>
@@ -171,7 +209,7 @@ export const RestaurantFoodInfo = ({
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 15,
+    paddingTop: 7,
     alignItems: 'center',
   },
   menuContainer: {
@@ -185,17 +223,17 @@ const styles = StyleSheet.create({
   descriptionContainer: {
     width: SIZES.width,
     alignItems: 'left',
-    marginTop: 10,
+    marginTop: 3,
     paddingHorizontal: SIZES.padding * 2,
   },
   descriptionText: {
-    marginVertical: 10,
+    marginVertical: 5,
     textAlign: 'center',
     ...FONTS.h2,
   },
   caloriesContainer: {
     flexDirection: 'row',
-    marginTop: 20,
+    marginTop: 10,
     marginLeft: 20,
     alignItems: 'left',
     justifyContent: 'left',

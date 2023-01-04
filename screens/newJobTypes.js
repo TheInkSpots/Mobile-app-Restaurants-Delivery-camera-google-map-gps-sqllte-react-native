@@ -9,13 +9,13 @@ export default function NewJobTypes( {setModalOpen, retrieveJobTypes}) {
     const db = SQLite.openDatabase('db.visitRecond');
 
     const createJobType = (values) => {
-        console.log('create job type');
+        //console.log('create job type');
         db.transaction(tx => {
             tx.executeSql(
                 'INSERT INTO jobtypes (jobtype, description) VALUES (?, ?)',
                 [values.jobtype, values.description], 
                 (txObj, resultSet) => {
-                    console.log('new job type created', resultSet.insertId);
+                    //console.log('new job type created', resultSet.insertId);
                     retrieveJobTypes();
                     ToastAndroid.showWithGravity(
                         'New job type created', 
@@ -24,7 +24,7 @@ export default function NewJobTypes( {setModalOpen, retrieveJobTypes}) {
                     )
                 }, 
                 (txObj, error) => {
-                    console.log('Error:', error);
+                    //console.log('Error:', error);
                     ToastAndroid.showWithGravity(
                         'Failed to create new job type', 
                         ToastAndroid.LONG,
@@ -41,7 +41,7 @@ export default function NewJobTypes( {setModalOpen, retrieveJobTypes}) {
             <Formik
                 initialValues={{ jobtype: '', description: '' }}
                 onSubmit={(values) => {
-                    console.log(values);
+                    //console.log(values);
                 }}
             >
                 {(props) => (

@@ -7,7 +7,7 @@
 
 // const retrieveData = () => {
 //     const db = SQLite.openDatabase('db.visitRecord');
-//     console.log('retrieveData() called');
+//     //console.log('retrieveData() called');
 //     const all = [];
 //     db.transaction(tx => {
 //         tx.executeSql('SELECT * FROM visit_record ',
@@ -15,7 +15,7 @@
 //             (txObj, resultSet) => {
 //                 for (let i = resultSet.rows.length - 1; i >= 0; i--) {
 //                     let row = resultSet.rows.item(i);
-//                     //console.log('data got: ', row.userID, row.cat, row.visitdate, row.visitStarttime, row.visitEndtime, row.restName, row.dishJSON, row.RestPhoto, row.longitude, row.latitude);
+//                     ////console.log('data got: ', row.userID, row.cat, row.visitdate, row.visitStarttime, row.visitEndtime, row.restName, row.dishJSON, row.RestPhoto, row.longitude, row.latitude);
 //                     let lon = row.longitude;
 //                     let lat = row.latitude
 //                     let arr = JSON.parse(row.dishJSON)
@@ -30,10 +30,10 @@
 //                            menu:arr
 //                     });
 //                 }
-//                 // console.log(totalAmount)
+//                 // //console.log(totalAmount)
 //             },
 //             (txObj, error) => {
-//                 console.log('Error:', error);
+//                 //console.log('Error:', error);
 //             }
 //         )
 //     });

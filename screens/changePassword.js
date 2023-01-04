@@ -9,19 +9,19 @@ export default function ChangePassword({route, navigation}) {
     const [newPassword2, setNewPassword2] = useState('');
     const db = SQLite.openDatabase('db.accountDb');
     var username = route.params.username;
-    console.log('test333:' +username);
+    //console.log('test333:' +username);
     const change = () => {
         if (newPassword1 != newPassword2) {
-            console.log('not equal');
+            //console.log('not equal');
             Alert.alert('Ooops', 'Passwords do not match');
         } else {
-            console.log('equal')
+            //console.log('equal')
             db.transaction(tx => {
                 tx.executeSql(
                     'UPDATE account SET password=? WHERE username=?',
                     [newPassword1, username], 
-                    (txObj, resultSet) => {console.log('record updated:')},
-                    (txObj, error) => {console.log('Error:', error)}
+                    (txObj, resultSet) => {//console.log('record updated:')},
+                    (txObj, error) => {//console.log('Error:', error)}
                 )
             });
         }

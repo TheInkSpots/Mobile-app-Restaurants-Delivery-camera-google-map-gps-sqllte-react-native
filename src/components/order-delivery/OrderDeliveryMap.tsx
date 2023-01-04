@@ -23,7 +23,7 @@ export const OrderDeliveryMap = ({
   updateDuration,
 }: OrderDeliveryMapProps) => {
 
-console.log(`OrderDeliveryMapapi key is :`, GOOGLE_API_KEY);
+//console.log(`OrderDeliveryMapapi key is :`, GOOGLE_API_KEY);
 
   const mapView = useRef<MapView>(null);
 

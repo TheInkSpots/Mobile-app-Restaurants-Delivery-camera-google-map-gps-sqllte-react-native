@@ -30,19 +30,19 @@ const ImagePickerComp = ({id, image, setImage,setTrigger,trigger}) => {
   const [cameraModalOpen, setCameraModalOpen] = useState(false);
 
   const takePicture = async () => {
-    console.log('take picture');
+    //console.log('take picture');
     if (cameraRef) {
         try {
             const data = await cameraRef.current.takePictureAsync();
-            console.log(data);
-            console.log('test : ',id);
+            //console.log(data);
+            //console.log('test : ',id);
             setImage(id, data.uri);
             setTrigger(!trigger);
             setCameraModalOpen(false);
 
         }
         catch (e) {
-            console.log(e);
+            //console.log(e);
         }
     }
 
@@ -56,7 +56,7 @@ const saveImage = async () => {
             setCameraModalOpen(false);
         }
         catch (e) {
-            console.log(e);
+            //console.log(e);
         }
     }
 }
@@ -64,7 +64,7 @@ const saveImage = async () => {
 const moveTo = async (newPosition) => {
   const camera = await positionMapRef.current.getCamera()
   if (camera) {
-      console.log('new position', newPosition)
+      //console.log('new position', newPosition)
       camera.center = newPosition;
       positionMapRef.current.animateCamera(camera, { duration: 1000 })
       setPosition({

@@ -120,7 +120,7 @@ export const showAlert = name =>
 
 
 export const pickImages = async () => {
-  console.log("Picking images...");
+  //console.log("Picking images...");
   const [response, setresponse] = useState(null);
 
   let result = await  ImagePicker.launchCamera({
@@ -129,7 +129,7 @@ export const pickImages = async () => {
     includeBase64: false,
     includeExtra,
   },setresponse);
-  console.log("Picked images...  ", response);
+  //console.log("Picked images...  ", response);
   return response;
   // let result = await ImagePicker.launchImageLibraryAsync({
   //   mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -153,15 +153,15 @@ export const pickImages = async () => {
 // //   const [cameraModalOpen, setCameraModalOpen] = useState(false);
 
 // //   const takePicture = async () => {
-// //     console.log('take picture');
+// //     //console.log('take picture');
 // //     if (cameraRef) {
 // //         try {
 // //             const data = await cameraRef.current.takePictureAsync();
-// //             console.log(data);
+// //             //console.log(data);
 // //             setImage(data.uri);
 // //         }
 // //         catch (e) {
-// //             console.log(e);
+// //             //console.log(e);
 // //         }
 // //     }
 
@@ -175,7 +175,7 @@ export const pickImages = async () => {
 // //             setCameraModalOpen(false);
 // //         }
 // //         catch (e) {
-// //             console.log(e);
+// //             //console.log(e);
 // //         }
 // //     }
 // // }
@@ -183,7 +183,7 @@ export const pickImages = async () => {
 // // const moveTo = async (newPosition) => {
 // //   const camera = await positionMapRef.current.getCamera()
 // //   if (camera) {
-// //       console.log('new position', newPosition)
+// //       //console.log('new position', newPosition)
 // //       camera.center = newPosition;
 // //       positionMapRef.current.animateCamera(camera, { duration: 1000 })
 // //       setPosition({
@@ -234,7 +234,7 @@ export const pickImages = async () => {
 export const checkImageStatus = async () => {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   //const camera = useRef(null)
-  console.log('getCameraPermission');
+  //console.log('getCameraPermission');
     MediaLibrary.requestPermissionsAsync();
     const cameraStatus = await Camera.requestCameraPermissionsAsync();
     setHasCameraPermission(cameraStatus.status === 'granted')

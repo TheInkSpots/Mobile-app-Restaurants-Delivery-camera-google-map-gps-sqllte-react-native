@@ -97,15 +97,15 @@ export default function TodaysJobs() {
     })
 
     const getLocationPermission = async () => {
-        console.log('getLocationPermission');
+        //console.log('getLocationPermission');
         let { status } = await Location.requestForegroundPermissionsAsync();
         if (status === 'granted') {
-            console.log('Location permissions granted');
+            //console.log('Location permissions granted');
             setHasLocationPermission(true);
             // getLocation();
-            console.log('attempt to get location')
+            //console.log('attempt to get location')
             const location = await Location.getCurrentPositionAsync({});
-            console.log(location);
+            //console.log(location);
             setPosition({
                 latitude: location.coords.latitude,
                 longitude: location.coords.longitude,
@@ -114,14 +114,14 @@ export default function TodaysJobs() {
             })
 
         } else {
-            console.log('location permissions not granted');
+            //console.log('location permissions not granted');
             setHasLocationPermission(false);
         }
     }
 
     const getLocation = async () => {
         const location = await Location.getCurrentPositionAsync({});
-        console.log(location);
+        //console.log(location);
         setPosition({
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
@@ -131,14 +131,14 @@ export default function TodaysJobs() {
     }
 
     const getCameraPermission = async () => {
-        console.log('getCameraPermission');
+        //console.log('getCameraPermission');
         MediaLibrary.requestPermissionsAsync();
         const cameraStatus = await Camera.requestCameraPermissionsAsync();
         setHasCameraPermission(cameraStatus.status === 'granted')
     }
 
     const retrieveJobTypes = () => {
-        console.log('retrieveJobTypes() called');
+        //console.log('retrieveJobTypes() called');
         setJobTypes([]);
         db.transaction(tx => {
             tx.executeSql('SELECT * FROM jobtypes',
@@ -146,7 +146,7 @@ export default function TodaysJobs() {
                 (txObj, resultSet) => {
                     for (let i = resultSet.rows.length - 1; i >= 0; i--) {
                         let row = resultSet.rows.item(i);
-                        console.log(row.typeid, row.jobtype, row.description);
+                        //console.log(row.typeid, row.jobtype, row.description);
                         const jobType = {
                             label: row.jobtype,
                             value: row.jobtype
@@ -157,14 +157,14 @@ export default function TodaysJobs() {
                     }
                 },
                 (txObj, error) => {
-                    console.log('Error:', error);
+                    //console.log('Error:', error);
                 }
             )
         });
     }
 
     const retrieveJobs = () => {
-        console.log('retrieveJobs() called');
+        //console.log('retrieveJobs() called');
         setJobs([]);
         db.transaction(tx => {
             tx.executeSql('SELECT * FROM jobs',
@@ -172,7 +172,7 @@ export default function TodaysJobs() {
                 (txObj, resultSet) => {
                     for (let i = resultSet.rows.length - 1; i >= 0; i--) {
                         let row = resultSet.rows.item(i);
-                        console.log(row.jobid, row.jobtype, row.jobdate, row.jobstarttime, row.jobendtime, row.imageuri, row.longitude, row.latitude, row.amount);
+                        //console.log(row.jobid, row.jobtype, row.jobdate, row.jobstarttime, row.jobendtime, row.imageuri, row.longitude, row.latitude, row.amount);
                         setJobs((currentJobs) => {
                             return [row, ...currentJobs]
                         })
@@ -180,10 +180,10 @@ export default function TodaysJobs() {
                             return amount+row.amount;
                         })
                     }
-                    console.log(totalAmount)
+                    //console.log(totalAmount)
                 },
                 (txObj, error) => {
-                    console.log('Error:', error);
+                    //console.log('Error:', error);
                 }
             )
         });
@@ -194,13 +194,13 @@ export default function TodaysJobs() {
         const jStartTime = jobStartTime.getHours() + ':' + jobStartTime.getMinutes();
         const jEndTime = jobEndTime.getHours() + ':' + jobEndTime.getMinutes();
 
-        console.log('createJob:', jobType, jDate, jStartTime, jEndTime, amount);
+        //console.log('createJob:', jobType, jDate, jStartTime, jEndTime, amount);
         db.transaction(tx => {
             tx.executeSql(
                 'INSERT INTO jobs (jobtype, jobdate, jobstarttime, jobendtime, imageuri, longitude, latitude, amount) VALUES (?,?, ?, ?, ?, ?, ?, ?)',
                 [jobType, jDate, jStartTime, jEndTime, image, position.longitude, position.latitude, parseFloat(amount)],
                 (txObj, resultSet) => {
-                    console.log('new job created', resultSet.insertId);
+                    //console.log('new job created', resultSet.insertId);
                     setImage(null);
                     retrieveJobs();
                     ToastAndroid.showWithGravity(
@@ -210,7 +210,7 @@ export default function TodaysJobs() {
                     )
                 },
                 (txObj, error) => {
-                    console.log('Error:', error);
+                    //console.log('Error:', error);
                     ToastAndroid.showWithGravity(
                         'Failed to create new job',
                         ToastAndroid.LONG,
@@ -222,7 +222,7 @@ export default function TodaysJobs() {
     }
 
     const deleteJob = (jobid) => {
-        console.log('deleteJob:', jobid);
+        //console.log('deleteJob:', jobid);
         db.transaction(tx => {
             tx.executeSql(
                 'DELETE FROM jobs WHERE jobid=?',
@@ -236,22 +236,22 @@ export default function TodaysJobs() {
                     )
                 },
                 (txObj, error) => {
-                    console.log('Error:', error);
+                    //console.log('Error:', error);
                 }
             )
         })
     }
 
     const takePicture = async () => {
-        console.log('take picture');
+        //console.log('take picture');
         if (cameraRef) {
             try {
                 const data = await cameraRef.current.takePictureAsync();
-                console.log(data);
+                //console.log(data);
                 setImage(data.uri);
             }
             catch (e) {
-                console.log(e);
+                //console.log(e);
             }
         }
 
@@ -265,7 +265,7 @@ export default function TodaysJobs() {
                 setCameraModalOpen(false);
             }
             catch (e) {
-                console.log(e);
+                //console.log(e);
             }
         }
     }
@@ -273,7 +273,7 @@ export default function TodaysJobs() {
     const moveTo = async (newPosition) => {
         const camera = await positionMapRef.current.getCamera()
         if (camera) {
-            console.log('new position', newPosition)
+            //console.log('new position', newPosition)
             camera.center = newPosition;
             positionMapRef.current.animateCamera(camera, { duration: 1000 })
             setPosition({
@@ -335,8 +335,8 @@ export default function TodaysJobs() {
                                 onChange={(event, date) => {
                                     setShowStartTimePicker(false);
                                     setJobStartTime(date);
-                                    console.log(jobStartTime.getHours());
-                                    console.log(jobStartTime.getMinutes());
+                                    //console.log(jobStartTime.getHours());
+                                    //console.log(jobStartTime.getMinutes());
                                 }}
                             />
                         )
@@ -353,8 +353,8 @@ export default function TodaysJobs() {
                                 onChange={(event, date) => {
                                     setShowEndTimePicker(false);
                                     setJobEndTime(date);
-                                    console.log(jobEndTime.getHours());
-                                    console.log(jobEndTime.getMinutes());
+                                    //console.log(jobEndTime.getHours());
+                                    //console.log(jobEndTime.getMinutes());
                                 }}
                             />
                         )
@@ -503,7 +503,7 @@ export default function TodaysJobs() {
                                 }
                             }}
                             onPress={(data, details = null) => {
-                                console.log(data, details);
+                                //console.log(data, details);
                                 moveTo({
                                     latitude: details.geometry.location.lat,
                                     longitude: details.geometry.location.lng

@@ -31,7 +31,7 @@ import { getGPSPermission } from '../helpers/grantGPSPermission'
 import * as Location from 'expo-location';
 import * as SQLite from 'expo-sqlite';
 export default function Home({ navigation , route}) {
-    console.log('Home record is good');
+    //console.log('Home record is good');
     const {name, uuid, email} = route.params;
     console.log('Home data : ', name, email, uuid);
 
@@ -39,7 +39,7 @@ export default function Home({ navigation , route}) {
     //const [data, setData] = useState([]);
     const [restaurantData, setData] = useState([]);
     const retrieveData = () => {
-      console.log('retrieveData() called');
+      //console.log('retrieveData() called');
       let data = [];
       setData([]);
       db.transaction(tx => {
@@ -48,7 +48,7 @@ export default function Home({ navigation , route}) {
               (txObj, resultSet) => {
                   for (let i = resultSet.rows.length - 1; i >= 0; i--) {
                       let row = resultSet.rows.item(i);
-                      //console.log('data got: ', row.userID, row.cat, row.visitdate, row.visitStarttime, row.visitEndtime, row.restName, row.dishJSON, row.RestPhoto, row.longitude, row.latitude);
+                      ////console.log('data got: ', row.userID, row.cat, row.visitdate, row.visitStarttime, row.visitEndtime, row.restName, row.dishJSON, row.RestPhoto, row.longitude, row.latitude);
                       // setJobs((currentJobs) => {
                       //     return [row, ...currentJobs]
                       // })
@@ -68,12 +68,17 @@ export default function Home({ navigation , route}) {
                            courier:{avatar: 12, name: 'Amy'},
                            menu:arr,
                            duration: row.visitdate,
-                           test: 123
+                           test: 123,
+                           startTime:row.visitStarttime,
+                           endTime:row.visitEndtime,
+                           remark: row.remark
+                           
+
                            
                     });
                   }
                   setData(data)
-                //  console.log('\nall real data ----> ',data);
+                 console.log('\nall real data ----> ');
                   //setTrigger(!trigger);
               },
               (txObj, error) => {
@@ -115,17 +120,17 @@ export default function Home({ navigation , route}) {
         setSelectedCategory(category);
     }
     function testBtn (){
-      console.log('test');
+      //console.log('test');
     }
     async function getGPSPermission () {
-      console.log('getLocationPermission');
+      //console.log('getLocationPermission');
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status === 'granted') {
-          console.log('Location permissions granted');
+          //console.log('Location permissions granted');
           //setHasLocationPermission(true);
-          console.log('attempt to get location')
+          //console.log('attempt to get location')
           const location = await Location.getCurrentPositionAsync({});
-          //console.log(location);
+          ////console.log(location);
           setCurrentLocation({
               streetName: 'Your Locatoin',
                gps: {
@@ -135,7 +140,7 @@ export default function Home({ navigation , route}) {
           })
   
       } else {
-          console.log('location permissions not granted');
+          //console.log('location permissions not granted');
           //setHasLocationPermission(false);
       }
   }
@@ -155,7 +160,7 @@ export default function Home({ navigation , route}) {
           setTrigger(!trigger);
         }, [])
     )
-  console.log('gps is : ', currentLocation);
+  //console.log('gps is : ', currentLocation);
   return (
     <Wall>
       {/*<BackButton goBack={navigation.goBack} />*/}

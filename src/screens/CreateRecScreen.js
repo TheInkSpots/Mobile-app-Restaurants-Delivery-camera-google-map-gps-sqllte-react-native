@@ -51,7 +51,7 @@ const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0
 export default function CreateRecScreen({ navigation , route}) {
   const db = SQLite.openDatabase('db.visitRecord');
   const {currentLocation, uuid} = route.params;
-  console.log('create rec data : ', currentLocation.gps, uuid);
+  //console.log('create rec data : ', currentLocation.gps, uuid);
   const date = new Date();
 
   let day = date.getDate();
@@ -60,8 +60,12 @@ export default function CreateRecScreen({ navigation , route}) {
   
   // This arrangement can be altered based on how we want the date's format to appear.
   let currentDate = `${day}/${month}/${year}`;
-  let time = date.getHours() + ":" + date.getMinutes();
-
+  //let time = date.getHours() + ":" + date.getMinutes();
+  let time = date.toLocaleString('en-US', {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+    hour12: true,
+  });
   const [values, handleChange] = useForm({
     
     duration: "",
@@ -70,13 +74,13 @@ export default function CreateRecScreen({ navigation , route}) {
 
 
   //   categories: '',
-
+    remark:"",
     name: "",
   });
   let newArrayOfObj = [];
   const getCates = () => {
   
-    console.log('changing label: ');
+    //console.log('changing label: ');
     newArrayOfObj = categoryData.map(({id: value,name: label}) => ({value, label}));
      newArrayOfObj.forEach(v => v.value += '');
   };
@@ -87,7 +91,7 @@ export default function CreateRecScreen({ navigation , route}) {
    
 	}, [])
   getCates();
-  console.log('new label: ', newArrayOfObj);
+  //console.log('new label: ', newArrayOfObj);
   // newArrayOfObj = newArrayOfObj.map(({name: label,...rest}) => ({label,...rest}));
   
   
@@ -151,11 +155,11 @@ export default function CreateRecScreen({ navigation , route}) {
   const [cameraPermission, setHasCameraPermission] = useState(false);
 
   const getCameraPermission = async () => {
-      console.log('getCameraPermission');
+      //console.log('getCameraPermission');
       MediaLibrary.requestPermissionsAsync();
       const cameraStatus = await Camera.requestCameraPermissionsAsync();
       setHasCameraPermission(cameraStatus.status === 'granted')
-      console.log('camera permission is : ',cameraStatus.status);
+      //console.log('camera permission is : ',cameraStatus.status);
   }
  
 
@@ -168,7 +172,7 @@ export default function CreateRecScreen({ navigation , route}) {
   
      // handleChange('location',currentLocation);
       handleChange('duration',currentDate);
-      console.log('courier  is : ',images.avatar_1);
+      //console.log('courier  is : ',images.avatar_1);
     }
     initializer().finally(async () => {
       //await RNBootSplash.hide({ fade: true })
@@ -204,12 +208,12 @@ export default function CreateRecScreen({ navigation , route}) {
     }
     
 
-    //  console.log('saving 111111 :' , JSON.stringify((newDishesList2)));
-    //  console.log('saving :' , JSON.stringify((dishName)));
-    //  console.log('saving :' , JSON.stringify((dishdescription)));
-    //  console.log('saving :' , JSON.stringify((image)));
-    //  console.log('saving :' , JSON.stringify((dishprice)));
-    //  console.log('saving :' , JSON.stringify((dishcalories)));
+    //  //console.log('saving 111111 :' , JSON.stringify((newDishesList2)));
+    //  //console.log('saving :' , JSON.stringify((dishName)));
+    //  //console.log('saving :' , JSON.stringify((dishdescription)));
+    //  //console.log('saving :' , JSON.stringify((image)));
+    //  //console.log('saving :' , JSON.stringify((dishprice)));
+    //  //console.log('saving :' , JSON.stringify((dishcalories)));
 
 
      let menu =newDishesList2;
@@ -230,7 +234,7 @@ export default function CreateRecScreen({ navigation , route}) {
       //} else {
      // isLoading(true);
       //props.createCarList(object, props);
-      //console.log(object);
+      ////console.log(object);
     //}
     insertRecord(row);
     navigation.goBack();
@@ -239,8 +243,9 @@ export default function CreateRecScreen({ navigation , route}) {
   const insertRecord = (row) => {
     db.transaction(tx => {
             tx.executeSql(
-        'INSERT INTO visit_record (id, rating, userID, cat, visitdate, visitStarttime, visitEndtime, restName, dishJSON, RestPhoto,longitude, latitude) VALUES (?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
+        'INSERT INTO visit_record (id, remark, rating, userID, cat, visitdate, visitStarttime, visitEndtime, restName, dishJSON, RestPhoto,longitude, latitude) VALUES (?,?,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', 
         [null, 
+          row.remark,
           rate,
         uuid, 
         JSON.stringify(row.categories),
@@ -295,10 +300,10 @@ export default function CreateRecScreen({ navigation , route}) {
               value={values.name}
             />
             <TextInput
-              label="Categeries"
+              label="Remark"
               //style={globalStyles.input}
-              onChangeText={e => {setfackcat(e)}}
-              value={fackcat}
+              onChangeText={txt => handleChange("remark", txt)}
+              value={values.remark}
             />
             <Text>{'Rate: ' +rate}</Text>
             <Slider

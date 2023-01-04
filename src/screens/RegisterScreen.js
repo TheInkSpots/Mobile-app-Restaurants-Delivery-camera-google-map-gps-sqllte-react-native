@@ -38,8 +38,8 @@ export default function RegisterScreen({ navigation }) {
         'INSERT INTO user (userUUID, username, email, password) VALUES (?, ?, ?, ?)', 
         [uuid, name.value, email.value, password.value], 
         (txObj, resultSet) => {
-             console.log('record inserted:', resultSet.insertId);
-              console.log('record data is : ', uuid, ' ', email.value, ' ', password.value, ' ', name.value);
+             //console.log('record inserted:', resultSet.insertId);
+              //console.log('record data is : ', uuid, ' ', email.value, ' ', password.value, ' ', name.value);
               navigation.navigate('Dashboard',{email: email.value, name : name.value, uuid : uuid});
               // navigation.reset({
               //   index: 0,
@@ -48,7 +48,7 @@ export default function RegisterScreen({ navigation }) {
               // })
         },
         (txObj, error) => {
-             console.log('Error:', error)
+             //console.log('Error:', error)
         }
       )
     });

@@ -31,21 +31,21 @@ export default function LoginScreen({ navigation }) {
       tx.executeSql('SELECT * FROM user WHERE email=? and password=?',
           [email.value, password.value],
           (txObj, resultSet) => { 
-              console.log(' resultSet.rows.length number:' + resultSet.rows.length);
+              //console.log(' resultSet.rows.length number:' + resultSet.rows.length);
               if (resultSet.rows.length>=1) {
-                  console.log('login ok');
+                  //console.log('login ok');
                   let row = resultSet.rows.item(0);
                   let name = row.username;
                   let uuid = row.userUUID;
-                  console.log('name:' + name, ' email: ' + email.value, ' uid: ' + uuid);
-                  console.log('go Home from here - LoginScreen.');
+                  //console.log('name:' + name, ' email: ' + email.value, ' uid: ' + uuid);
+                  //console.log('go Home from here - LoginScreen.');
                   navigation.navigate('Home', {email: email.value ,name : name, uuid : uuid})
                   // navigation.reset({
                   //   index: 0,
                   //   routes: [{ name: 'Dashboard', params: {email,name,uuid} }],
                   // })
               } else {
-                  console.log('login failed');
+                  //console.log('login failed');
                   //Alert.alert('Ooops', 'Invalid username or password');
                   Toast.show('Invalid username or password.', {
                     duration: Toast.durations.LONG,
@@ -54,7 +54,7 @@ export default function LoginScreen({ navigation }) {
               }                
             },
           (txObj, error) => { 
-              console.log('Error:', error);
+              //console.log('Error:', error);
               setLoginOk(false);
           }
       )
@@ -62,7 +62,7 @@ export default function LoginScreen({ navigation }) {
     
   }
   const login = () => {
-    console.log('login() called')
+    //console.log('login() called')
     
   }
 

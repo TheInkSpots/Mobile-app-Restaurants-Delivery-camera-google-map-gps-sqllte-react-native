@@ -37,7 +37,7 @@ export default function CreateRecModal({ setEditModalOpen, retrieveJobs }) {
     // )
 
     // const retrieveJobTypes = () => {
-    //     console.log('retrieveJobTypes() called');
+    //     //console.log('retrieveJobTypes() called');
     //     setJobTypes([]);
     //     db.transaction(tx => {
     //         tx.executeSql('SELECT * FROM jobtypes',
@@ -45,7 +45,7 @@ export default function CreateRecModal({ setEditModalOpen, retrieveJobs }) {
     //             (txObj, resultSet) => {
     //                 for (let i = resultSet.rows.length - 1; i >= 0; i--) {
     //                     let row = resultSet.rows.item(i);
-    //                     console.log(row.typeid, row.jobtype, row.description);
+    //                     //console.log(row.typeid, row.jobtype, row.description);
     //                     const jobType = {
     //                         label: row.jobtype,
     //                         value: row.jobtype
@@ -56,20 +56,20 @@ export default function CreateRecModal({ setEditModalOpen, retrieveJobs }) {
     //                 }
     //             },
     //             (txObj, error) => {
-    //                 console.log('Error:', error);
+    //                 //console.log('Error:', error);
     //             }
     //         )
     //     });
     // }
 
     const saveJob = (values) => {
-        console.log('Save editted job');
+        //console.log('Save editted job');
         db.transaction(tx => {
             tx.executeSql(
                 'UPDATE jobs SET jobtype=?, jobdate=?, jobstarttime=?, jobendtime=?, amount=? WHERE jobid=?',
                 [jobType, jobDate, jobStartTime, jobEndTime, amount, targetJob.jobid],
                 (txObj, resultSet) => {
-                    console.log('job modified');
+                    //console.log('job modified');
                    // retrieveJobs();
                     Toast.show(
                         'Record Create',
@@ -78,7 +78,7 @@ export default function CreateRecModal({ setEditModalOpen, retrieveJobs }) {
                     
                 },
                 (txObj, error) => {
-                    console.log('Error:', error);
+                    //console.log('Error:', error);
                     Toast.show(
                         'Failed to create Record',
                         {
@@ -126,7 +126,7 @@ export default function CreateRecModal({ setEditModalOpen, retrieveJobs }) {
                                 mode='date'
                                 onChange={(event, date) => {
                                     if (event.type != 'dismissed') {
-                                        console.log(event.type)
+                                        //console.log(event.type)
                                         setShowDatePicker(false);
                                         const formattedDate = date.getFullYear() + '-' +
                                             (date.getMonth() + 1) + '-' + date.getDate();
@@ -155,7 +155,7 @@ export default function CreateRecModal({ setEditModalOpen, retrieveJobs }) {
                                 mode='time'
                                 onChange={(event, date) => {
                                     if (event.type != 'dismissed') {
-                                        console.log(event.type)
+                                        //console.log(event.type)
                                         setShowStartTimePicker(false);
                                         const formattedTime = date.getHours() + ':' + date.getMinutes();
                                         setJobStartTime(formattedTime);
@@ -184,7 +184,7 @@ export default function CreateRecModal({ setEditModalOpen, retrieveJobs }) {
                                 onChange={(event, date) => {
 
                                     if (event.type != 'dismissed') {
-                                        console.log(event.type)
+                                        //console.log(event.type)
                                         setShowEndTimePicker(false);
                                         const formattedTime = date.getHours() + ':' + date.getMinutes();
                                         setJobEndTime(formattedTime);

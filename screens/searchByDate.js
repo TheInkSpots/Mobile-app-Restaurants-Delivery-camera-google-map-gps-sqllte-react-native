@@ -29,7 +29,7 @@ export default function SearchByDate() {
     }, [jobDate]);
 
     const retrieveJobs = () => {
-        console.log('retrieveJobs() called');
+        //console.log('retrieveJobs() called');
         setJobs([]);
         db.transaction(tx => {
             tx.executeSql('SELECT * FROM jobs WHERE jobdate=?',
@@ -37,14 +37,14 @@ export default function SearchByDate() {
                 (txObj, resultSet) => {
                     for (let i = resultSet.rows.length - 1; i >= 0; i--) {
                         let row = resultSet.rows.item(i);
-                        console.log(row.jobid, row.jobtype, row.jobdate, row.jobstarttime, row.jobendtime, row.imageuri, row.longitude, row.latitude, row.amount);
+                        //console.log(row.jobid, row.jobtype, row.jobdate, row.jobstarttime, row.jobendtime, row.imageuri, row.longitude, row.latitude, row.amount);
                         setJobs((currentJobs) => {
                             return [row, ...currentJobs]
                         })
                     }
                 },
                 (txObj, error) => {
-                    console.log('Error:', error);
+                    //console.log('Error:', error);
                 }
             )
         });
