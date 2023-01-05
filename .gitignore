@@ -11,8 +11,7 @@ npm-debug.*
 web-build/
 
 .env
-.env.development
-.env.product
+
 
 bin
 screenshots
