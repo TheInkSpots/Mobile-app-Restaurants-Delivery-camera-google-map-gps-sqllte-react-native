@@ -3,11 +3,9 @@ import { Provider } from 'react-native-paper'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { theme } from '../src/core/theme'
-import HomeStack from '../routes/homeStack';
-import About from '../screens/about';
-import JobType from '../screens/jobType';
-import TodaysJobs from '../screens/todaysJobs';
-import SearchStat from '../screens/searchStat';
+
+
+
 import {
     StartScreen,
     LoginScreen,
@@ -37,13 +35,13 @@ const screenOptions = {
       title: 'About',
   },
   jobTypeOptions: {
-      title: 'Manage Job Types',
+      title: 'Manage  Types',
   },
   todaysJobsOptions: {
-      title: 'Today\'s Jobs',
+      title: 'Today\'s',
   },
   searchStatOptions: {
-      title: 'Search and Statistics',
+      title: ' Statistics',
   },
 }
 
@@ -73,31 +71,6 @@ export default function App() {
           />
 
 
-            <Stack.Screen
-                name="Home Screen"
-                component={HomeStack}
-                options={screenOptions.homeOptions}
-            />
-            <Stack.Screen
-                name="About"
-                component={About}
-                options={screenOptions.aboutOptions}
-            />
-            <Stack.Screen
-                name="JobType"
-                component={JobType}
-                options={screenOptions.jobTypeOptions}
-            />
-            <Stack.Screen
-                name="TodaysJobs"
-                component={TodaysJobs}
-                options={screenOptions.todaysJobsOptions}
-            />
-            <Stack.Screen
-                name="SearchStat"
-                component={SearchStat}
-                options={screenOptions.searchStatOptions}
-            />
 
 
         </Stack.Navigator>
