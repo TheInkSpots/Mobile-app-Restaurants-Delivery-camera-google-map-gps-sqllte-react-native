@@ -4,7 +4,7 @@ import { globalStyles } from '../styles/globalStyles';
 import { useState, useEffect } from 'react';
 import * as SQLite from 'expo-sqlite';
 
-export default function ChangePassword({route, navigation}) {
+export default function ChangePassword({route, navigation}) { // unsed page 
     const [newPassword1, setNewPassword1] = useState('');
     const [newPassword2, setNewPassword2] = useState('');
     const db = SQLite.openDatabase('db.accountDb');

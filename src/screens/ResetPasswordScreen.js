@@ -5,7 +5,7 @@ import Logo from '../components/Logo'
 import Header from '../components/Header'
 import TextInput from '../components/TextInput'
 import Button from '../components/Button'
-import { View, TextInput, Button, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
+import {  Alert } from 'react-native';
 import { emailValidator } from '../helpers/emailValidator'
 import { CommonActions } from '@react-navigation/native';
 import * as SQLite from 'expo-sqlite';
@@ -26,7 +26,7 @@ export default function ResetPasswordScreen({ navigation }) {
   const [newPassword1, setNewPassword1] = useState('');
   const [newPassword2, setNewPassword2] = useState('');
   const db = SQLite.openDatabase('db.accountDb');
-  var username = route.params.username;
+  var username = ''; // from 
   //console.log('test333:' +username);
   const change = () => {
       if (newPassword1 != newPassword2) {
@@ -36,7 +36,7 @@ export default function ResetPasswordScreen({ navigation }) {
           //console.log('equal')
           db.transaction(tx => {
               tx.executeSql(
-                  'UPDATE account SET password=? WHERE username=?',
+                  'UPDATE user SET password=? WHERE username=?',
                   [newPassword1, username], 
                   (txObj, resultSet) => {console.log('record updated:')},
                   (txObj, error) => {console.log('Error:', error)}
