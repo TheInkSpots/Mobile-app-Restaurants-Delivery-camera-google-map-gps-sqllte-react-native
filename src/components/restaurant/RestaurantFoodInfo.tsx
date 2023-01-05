@@ -51,21 +51,7 @@ export const RestaurantFoodInfo = ({
     const itemIndex = orderItems.findIndex(
       (item: OrderItem) => item.menuId === menuId,
     );
-    if (itemIndex > -1) {
-      const item = orderItems[itemIndex];
-      item.qty =
-        action === '+' ? item.qty + 1 : item.qty > 0 ? item.qty - 1 : item.qty;
-      item.total = item.qty * price;
-      if (item.qty === 0) {
-        orderItems.splice(itemIndex, 1);
-      }
-    } else {
-      if (action === '+') {
-        const newItem = {menuId, qty: 1, price, total: price};
-        orderItems.push(newItem);
-      }
-    }
-    setOrderItems([...orderItems]);
+   
   };
 
   const getOrderQty = (menuId: number): number => {
