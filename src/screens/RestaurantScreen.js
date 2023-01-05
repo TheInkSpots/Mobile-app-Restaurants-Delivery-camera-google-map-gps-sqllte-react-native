@@ -10,6 +10,11 @@ import { CurrentLocation, OrderItem, Restaurant, RootTabParamList } from '../typ
 import Wall from '../components/Wall';
 import * as SQLite from 'expo-sqlite';
 import { useFocusEffect } from '@react-navigation/native';
+import {
+  showAlertToast,
+} from "../core/utilities/AppUtils";
+
+
 //console.log('testse mo 123.');
 export const RestaurantScreen = ({ route, navigation }) => {
   const { item, currentLocation } = route.params;
@@ -34,12 +39,14 @@ export const RestaurantScreen = ({ route, navigation }) => {
         tx.executeSql('DELETE FROM visit_record where id = ?',
             [id],
             (txObj, resultSet) => {
-              //console.log('DELETE is good: ', id, 'is done');
+              console.log('DELETE is good: '+ id);
                 //setTrigger(!trigger);
                 navigation.goBack();
+                showAlertToast('DELETE is good: '+ id)
             },
             (txObj, error) => {
-                //console.log('Error:', error);
+                console.log('Error:', error);
+                showAlertToast('DELETE Error : '+ id)
             }
         )
     });
