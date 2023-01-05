@@ -38,20 +38,20 @@ export default function App() {
         'CREATE TABLE IF NOT EXISTS visit_record (id INTEGER PRIMARY KEY AUTOINCREMENT, userID TEXT ,cat TEXT, visitdate TEXT, visitStarttime TEXT, visitEndtime TEXT, title TEXT, restName TEXT, remark TEXT, dishJSON TEXT, RestPhoto TEXT, longitude NUMERIC, latitude NUMERIC, rating NUMERIC, amount NUMERIC)',
         [],
         (txObj, resultSet) => {
-          //console.log('record table created successfully')
+          console.log('record table created successfully')
         },
         (txObj, error) => {
-          //console.log('Error:', error)
+          console.log('Error:', error)
         }
       );
       tx.executeSql(
         'CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY AUTOINCREMENT, userUUID TEXT,  email TEXT,  username TEXT, password TEXT)',
         [],
         (txObj, resultSet) => {
-          //console.log('table usr created successfully');
+          console.log('table usr created successfully');
         },
         (txObj, error) => {
-          //console.log('Error:', error)
+          console.log('Error:', error)
         }
       );
       tx.executeSql(
@@ -63,16 +63,16 @@ export default function App() {
         'INSERT INTO user (userUUID, username, email, password) VALUES (?, ?, ?, ?)', 
         ['LocalUserUUID', 'LocalUserName', 'LocalUser@local.com', 'LocalUserPw'], 
         (txObj, resultSet) => {
-             //console.log('local user record inserted:', resultSet.insertId);
+             console.log('local user record inserted:', resultSet.insertId);
         },
         (txObj, error) => {
-             //console.log('Error:', error)
+             console.log('Error:', error)
         }
       );
          }
         },
         (txObj, error) => {
-          //console.log('Error:', error)
+          console.log('Error:', error)
         }
       );   
 
