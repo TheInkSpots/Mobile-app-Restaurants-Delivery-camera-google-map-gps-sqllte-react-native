@@ -53,34 +53,24 @@ export default function Home({ navigation , route}) {
               [uuid],
               (txObj, resultSet) => {
                   for (let i = resultSet.rows.length - 1; i >= 0; i--) {
-                      let row = resultSet.rows.item(i);
-                      ////console.log('data got: ', row.userID, row.cat, row.visitdate, row.visitStarttime, row.visitEndtime, row.restName, row.dishJSON, row.RestPhoto, row.longitude, row.latitude);
-                      // setJobs((currentJobs) => {
-                      //     return [row, ...currentJobs]
-                      // })
-                      // setTotalAmount((amount) => {
-                      //     return amount+row.amount;
-                      // })
-                      let lon = row.latitude;// mean to do
-                    let lat = row.longitude
-                    let arr = JSON.parse(row.dishJSON)
-                    data.push({id: row.id,
-                         name: row.restName, 
-                         rating:row.rating,
+                        let row = resultSet.rows.item(i);
+                        let lon = row.latitude;// mean to do
+                        let lat = row.longitude
+                        let arr = JSON.parse(row.dishJSON)
+                        data.push({id: row.id,
+                        name: row.restName, 
+                        rating:row.rating,
                           categories: JSON.parse(row.cat),
                           priceRating:1, 
                           photo:row.RestPhoto,
-                           location:{latitude:lat,longitude:lon } , 
-                           courier:{avatar: 12, name: 'Amy'},
-                           menu:arr,
-                           duration: row.visitdate,
-                           test: 123,
-                           startTime:row.visitStarttime,
-                           endTime:row.visitEndtime,
-                           remark: row.remark
-                           
-
-                           
+                          location:{latitude:lat,longitude:lon } , 
+                          courier:{avatar: 12, name: 'Amy'},
+                          menu:arr,
+                          duration: row.visitdate,
+                          test: 123,
+                          startTime:row.visitStarttime,
+                          endTime:row.visitEndtime,
+                          remark: row.remark     
                     });
                   }
                   setData(data)

@@ -5,9 +5,10 @@ import Logo from '../components/Logo'
 import Header from '../components/Header'
 import TextInput from '../components/TextInput'
 import Button from '../components/Button'
+import { View, TextInput, Button, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import { emailValidator } from '../helpers/emailValidator'
 import { CommonActions } from '@react-navigation/native';
-
+import * as SQLite from 'expo-sqlite';
 export default function ResetPasswordScreen({ navigation }) {
   const [email, setEmail] = useState({ value: '', error: '' })
 
@@ -22,7 +23,27 @@ export default function ResetPasswordScreen({ navigation }) {
   //     index: routes.length - 1,
   //   });
   // });
-
+  const [newPassword1, setNewPassword1] = useState('');
+  const [newPassword2, setNewPassword2] = useState('');
+  const db = SQLite.openDatabase('db.accountDb');
+  var username = route.params.username;
+  //console.log('test333:' +username);
+  const change = () => {
+      if (newPassword1 != newPassword2) {
+          //console.log('not equal');
+          Alert.alert('Ooops', 'Passwords do not match');
+      } else {
+          //console.log('equal')
+          db.transaction(tx => {
+              tx.executeSql(
+                  'UPDATE account SET password=? WHERE username=?',
+                  [newPassword1, username], 
+                  (txObj, resultSet) => {console.log('record updated:')},
+                  (txObj, error) => {console.log('Error:', error)}
+              )
+          });
+      }
+  }
   const sendResetPasswordEmail = () => {
     const emailError = emailValidator(email.value)
     if (emailError) {

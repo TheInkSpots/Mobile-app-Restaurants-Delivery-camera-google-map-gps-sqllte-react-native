@@ -74,22 +74,23 @@ export const RestaurantOrderSection = ({
   }
 
 
-  const setEndTimeBtn =()=>{
-    console.log('end time called: ', end2)
-    let endTime = new Date;
-    let time = endTime.toLocaleString('en-US', {
-      dateStyle: 'medium',
-      timeStyle: 'short',
-      hour12: true,
-    })
-    setEnd2(time);
-    console.log('end time done: ', end2)
-  };
-  console.log('sectionq2: ',item);
+    const setEndTimeBtn =()=>{
+        console.log('end time called: ', end2)
+        let endTime = new Date;
+        let time = endTime.toLocaleString('en-US', {
+            dateStyle: 'medium',
+            timeStyle: 'short',
+            hour12: true,
+        })
+      setEnd2(time);
+      console.log('end time done: ', end2)
+    };
+    
+    console.log('sectionq2: ',item);
 
-  useEffect(() => {
-    setItem(restaurant);
-  },[]);
+    useEffect(() => {
+      setItem(restaurant);
+    },[]);
 
   return total == 0 ? (
     <View style={styles.container}>
