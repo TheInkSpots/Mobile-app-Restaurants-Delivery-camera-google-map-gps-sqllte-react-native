@@ -1,6 +1,6 @@
 import { Alert } from "react-native";
 import React, { useState, useEffect , useRef} from "react";
-
+import Toast from 'react-native-root-toast';
 
 //import * as ImagePicker from "expo-image-picker";
 import { Camera, CameraType } from 'expo-camera';
@@ -107,8 +107,11 @@ export const showAlert = name =>
     [{ text: "OK", onPress: () => console.log("OK Pressed") }],
     { cancelable: false }
   );
-
-
+  
+  export const showAlertToast = string =>
+  Toast.show(string, {
+    duration: Toast.durations.LONG,
+  });
 
 
 

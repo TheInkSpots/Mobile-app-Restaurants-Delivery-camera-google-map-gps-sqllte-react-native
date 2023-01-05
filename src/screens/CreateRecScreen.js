@@ -27,7 +27,7 @@ import {
   typeData,
   seatingData,
   transmissionData,
-  showAlert,
+  showAlertToast,
   isEmpty,
   pickImages,
   checkImageStatus
@@ -51,7 +51,7 @@ const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0
 export default function CreateRecScreen({ navigation , route}) {
   const db = SQLite.openDatabase('db.visitRecord');
   const {currentLocation, uuid} = route.params;
-  //console.log('create rec data : ', currentLocation.gps, uuid);
+  console.log('create rec data : ', currentLocation.gps, uuid);
   const date = new Date();
 
   let day = date.getDate();
@@ -261,9 +261,11 @@ export default function CreateRecScreen({ navigation , route}) {
           ], 
         (txObj, resultSet) => {
              console.log('local visit_record record inserted:', resultSet.insertId);
+             showAlertToast('visit_record record inserted:'+ resultSet.insertId);
         },
         (txObj, error) => {
              console.log('Error:', error)
+             showAlertToast('Error:'+ error)
         }
       ); 
     })

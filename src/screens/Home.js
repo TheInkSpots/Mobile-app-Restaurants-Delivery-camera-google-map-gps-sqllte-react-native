@@ -30,6 +30,12 @@ import CreateRecModal from '../components/CreateRecModal';
 import { getGPSPermission } from '../helpers/grantGPSPermission'
 import * as Location from 'expo-location';
 import * as SQLite from 'expo-sqlite';
+
+import {
+  showAlertToast,
+} from "../core/utilities/AppUtils";
+
+
 export default function Home({ navigation , route}) {
     //console.log('Home record is good');
     const {name, uuid, email} = route.params;
@@ -79,6 +85,7 @@ export default function Home({ navigation , route}) {
                   }
                   setData(data)
                  console.log('\nall real data ----> ');
+                 //showAlertToast('real data got.');
                   //setTrigger(!trigger);
               },
               (txObj, error) => {

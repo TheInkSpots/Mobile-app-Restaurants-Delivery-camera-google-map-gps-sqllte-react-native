@@ -8,6 +8,9 @@ import TextInputThin from '../TextInputThin'
 import BackButton from '../BackButton'
 import { useEffect, useState } from 'react';
 import * as SQLite from 'expo-sqlite';
+import {
+  showAlertToast,
+} from "../../core/utilities/AppUtils";
 
 type RestaurantOrderSectionProps = {
   basketCount: number;
@@ -48,7 +51,7 @@ export const RestaurantOrderSection = ({
     setItem(restaurant);
     setRemark2(remark);
     setEnd2(end);
-  });
+  },[restaurant]);
 
 
   const updateRec = (col, val) => {
@@ -59,10 +62,12 @@ export const RestaurantOrderSection = ({
         [], 
         (txObj, resultSet) => {
           console.log('update record is good: dddss');
+          showAlertToast('update record is good:')
              //console.log('local visit_record record inserted:', resultSet.insertId);
         },
         (txObj, error) => {
              console.log('Error:', error)
+             showAlertToast('Error:'+ error)
         }
       ); 
     })
@@ -129,7 +134,7 @@ export const RestaurantOrderSection = ({
         <Button mode="outlined" onPress={() => updateRec('remark', remark2)} style={styles.orderButton}>
         Update
             </Button>
-        <Button disabled={end2==null} mode="outlined" onPress={setEndTimeBtn} style={styles.orderButton}>
+        <Button disabled={false} mode="outlined" onPress={setEndTimeBtn} style={styles.orderButton}>
         End
             </Button>
       </View>
