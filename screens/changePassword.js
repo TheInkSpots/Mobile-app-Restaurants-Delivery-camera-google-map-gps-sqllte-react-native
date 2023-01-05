@@ -20,8 +20,8 @@ export default function ChangePassword({route, navigation}) { // unsed page
                 tx.executeSql(
                     'UPDATE account SET password=? WHERE username=?',
                     [newPassword1, username], 
-                    (txObj, resultSet) => {//console.log('record updated:')},
-                    (txObj, error) => {//console.log('Error:', error)}
+                    (txObj, resultSet) => {console.log('record updated:')},
+                    (txObj, error) => {console.log('Error:', error)}
                 )
             });
         }
