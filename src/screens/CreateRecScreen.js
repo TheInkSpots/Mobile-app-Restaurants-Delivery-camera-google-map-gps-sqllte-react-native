@@ -21,7 +21,7 @@ import { theme } from '../core/theme'
 import { emailValidator } from '../helpers/emailValidator'
 import { passwordValidator } from '../helpers/passwordValidator'
 import * as SQLite from 'expo-sqlite';
-import CheckBox from '@react-native-community/checkbox';
+//import CheckBox from '@react-native-community/checkbox';
 import {
   fuelData,
   typeData,
@@ -272,7 +272,7 @@ export default function CreateRecScreen({ navigation , route}) {
   }
 
 
-  const [toggleCheckBox, setToggleCheckBox] = useState(false)
+  //const [toggleCheckBox, setToggleCheckBox] = useState(false)
   
 
   return (
