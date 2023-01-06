@@ -15,7 +15,7 @@ import {
     Home,
     StateScreen,
     RestaurantScreen,
-    OrderDeliveryScreen,
+    GoogleScreen,
     // CreateRecScreen,
 
   } from '../src/screens'
@@ -59,7 +59,7 @@ export default function App() {
           <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="StateScreen" component={StateScreen} />
-          <Stack.Screen name="OrderDeliveryScreen" component={OrderDeliveryScreen} />
+          <Stack.Screen name="GoogleScreen" component={GoogleScreen} />
 
           <Stack.Screen name="StartScreen" component={StartScreen} />
           <Stack.Screen name="LoginScreen" component={LoginScreen} />

@@ -5,10 +5,10 @@ export { default as ResetPasswordScreen } from './ResetPasswordScreen'
 export { default as Dashboard } from './Dashboard'
 
 import { RestaurantScreen } from './RestaurantScreen';
-import { OrderDeliveryScreen } from './OrderDelivery';
+import { GoogleScreen } from './Google';
 import { CreateRecScreen } from './CreateRecScreen';
 
 
 export { default as Home } from './Home'
 export { default as StateScreen } from './StateScreen'
-export { RestaurantScreen, OrderDeliveryScreen , CreateRecScreen};
+export { RestaurantScreen, GoogleScreen , CreateRecScreen};

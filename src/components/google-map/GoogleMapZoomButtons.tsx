@@ -3,12 +3,12 @@ import { StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { COLORS, FONTS, SIZES } from '../../constants';
 
-type OrderDeliveryMapZoomButtonsProp = {
+type GoogleMapZoomButtonsProp = {
   zoomIn: () => void;
   zoomOut: () => void;
 };
 
-export const OrderDeliveryMapZoomButtons = ({ zoomIn, zoomOut }: OrderDeliveryMapZoomButtonsProp) => (
+export const GoogleMapZoomButtons = ({ zoomIn, zoomOut }: GoogleMapZoomButtonsProp) => (
   <View style={styles.container}>
     <TouchableOpacity 
       style={styles.button}

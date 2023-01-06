@@ -3,16 +3,16 @@ import { RouteProp } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, SafeAreaView } from 'react-native';
 import { LatLng, Region } from 'react-native-maps';
-import { OrderDeliveryMap } from '../components/order-delivery/OrderDeliveryMap';
-import { OrderDestinationHeader } from '../components/order-delivery/OrderDestinationHeader';
-import { OrderDeliveryInfo } from '../components/order-delivery/OrderDeliveryInfo';
+import { GoogleMap } from '../components/google-map/GoogleMap';
+import { OrderDestinationHeader } from '../components/google-map/OrderDestinationHeader';
+import { GoogleInfo } from '../components/google-map/GoogleInfo';
 import { CurrentLocation, Restaurant, RootTabParamList } from '../types';
-import { OrderDeliveryMapZoomButtons } from '../components/order-delivery/OrderDeliveryMapZoomButtons';
+import { GoogleMapZoomButtons } from '../components/google-map/GoogleMapZoomButtons';
 
 
 
 
-export const OrderDeliveryScreen = ({route, navigation}) => {
+export const GoogleScreen = ({route, navigation}) => {
   const [restaurant, setRestaurant] = useState(null);
   const [streetName, setStreetName] = useState('');
   const [fromLocation, setFromLocation] = useState(null);
@@ -66,7 +66,7 @@ export const OrderDeliveryScreen = ({route, navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <OrderDeliveryMap
+      <GoogleMap
         mapRegion={region}
         destination={toLocation }
         origin={fromLocation }
@@ -79,13 +79,13 @@ export const OrderDeliveryScreen = ({route, navigation}) => {
         duration={duration}
       />
 
-      <OrderDeliveryInfo
+      <GoogleInfo
         restaurant={restaurant}
         onCall={() => navigation.goBack()}
         onMessage={() => navigation.navigate('Home')}
       />
 
-      <OrderDeliveryMapZoomButtons
+      <GoogleMapZoomButtons
         zoomIn={() => zoomIn()}
         zoomOut={() => zoomOut()}
       />

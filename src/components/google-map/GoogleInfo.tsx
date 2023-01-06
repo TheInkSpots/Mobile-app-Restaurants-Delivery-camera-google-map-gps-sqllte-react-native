@@ -5,7 +5,7 @@ import { COLORS, FONTS, icons, SIZES } from '../../constants';
 import { Restaurant } from '../../types';
 import { CommonActions } from '@react-navigation/native';
 
-type OrderDeliveryInfoProps = {
+type GoogleInfoProps = {
   restaurant: Restaurant | null;
   onCall: () => void;
   onMessage: () => void;
@@ -15,7 +15,7 @@ const goBack =  () => {
   CommonActions.goBack();
 };
 
-export const OrderDeliveryInfo = ({ restaurant, onCall, onMessage }: OrderDeliveryInfoProps) => (
+export const GoogleInfo = ({ restaurant, onCall, onMessage }: GoogleInfoProps) => (
   <View style={styles.container}>
     <View style={styles.infoContainer}>
       <View style={styles.topInfoWrapper}>

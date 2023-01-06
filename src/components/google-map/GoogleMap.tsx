@@ -7,7 +7,7 @@ import { DestinationMarker } from './DestinationMarker';
 import { OriginMarker } from './OriginMarker';
 import {GOOGLE_API_KEY} from '@env';
 
-type OrderDeliveryMapProps = {
+type GoogleMapProps = {
   mapRegion: Region | undefined;
   destination: LatLng;
   origin: LatLng;
@@ -15,15 +15,15 @@ type OrderDeliveryMapProps = {
   updateDuration: (duration: number) => void;
 };
 
-export const OrderDeliveryMap = ({
+export const GoogleMap = ({
   mapRegion,
   destination,
   origin,
   updateOrigin,
   updateDuration,
-}: OrderDeliveryMapProps) => {
+}: GoogleMapProps) => {
 
-//console.log(`OrderDeliveryMapapi key is :`, GOOGLE_API_KEY);
+//console.log(`GoogleMapapi key is :`, GOOGLE_API_KEY);
 
   const mapView = useRef<MapView>(null);
 
