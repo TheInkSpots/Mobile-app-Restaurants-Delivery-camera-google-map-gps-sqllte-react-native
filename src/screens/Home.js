@@ -26,7 +26,7 @@ import {
 } from '../dummy-data';
 import { TopBar } from '../components/TopBar';
 import { AddButton } from '../components/AddButton';
-import CreateRecModal from '../components/CreateRecModal';
+
 import { getGPSPermission } from '../helpers/grantGPSPermission'
 import * as Location from 'expo-location';
 import * as SQLite from 'expo-sqlite';
@@ -203,11 +203,7 @@ export default function Home({ navigation , route}) {
                         style={styles.modalToggle}
                         onPress={() => setEditModalOpen(false)}
                     />
-                    <CreateRecModal
-                        setEditModalOpen={setEditModalOpen}
-                        //targetJob={targetJob}
-                        //retrieveJobs={retrieveJobs}
-                    />
+          
                 </View>
             </Modal>
       
