@@ -293,7 +293,7 @@ export default function CreateRecScreen({ navigation , route}) {
         <View style={styles.container}>
 
            <Text style={globalStyles.heading}>Create Visitation</Text>
-           <Text style={FONTS.h2}>{"Current Date: "+ currentDate}</Text>
+           {/* <Text style={FONTS.h2}>{"Current Date: "+ currentDate}</Text> */}
            <Text style={FONTS.h2}>{"Current Time: "+ time}</Text>
             <TextInput
               label="Restaurant name"
@@ -375,6 +375,7 @@ export default function CreateRecScreen({ navigation , route}) {
                             value={getGoodsList(dishdescription,dish.menuId )}
                           />
                           <TextInput
+                            keyboardType="number-pad"
                             label="Price"
                            // style={globalStyles.input}
                             onChangeText={txt => setGoodsList(dishprice, dish.menuId ,txt)}
