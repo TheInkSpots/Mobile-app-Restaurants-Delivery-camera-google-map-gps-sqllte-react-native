@@ -2,15 +2,15 @@ import React from 'react';
 import { StyleSheet, View, Image, Text } from 'react-native';
 import { COLORS, FONTS, icons, SIZES } from '../../constants';
 
-type OrderDestinationHeaderProps = {
+type GoogleDestinationHeaderProps = {
   streetName: string;
   duration: number;
 };
 
-export const OrderDestinationHeader = ({
+export const GoogleDestinationHeader = ({
   streetName,
   duration,
-}: OrderDestinationHeaderProps) => (
+}: GoogleDestinationHeaderProps) => (
   <View style={styles.container}>
     <View style={styles.contentWrapper}>
       <Image source={icons.red_pin} style={styles.headerImage} />

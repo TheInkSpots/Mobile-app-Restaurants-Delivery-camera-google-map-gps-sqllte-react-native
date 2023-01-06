@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, SafeAreaView } from 'react-native';
 import { LatLng, Region } from 'react-native-maps';
 import { GoogleMap } from '../components/google-map/GoogleMap';
-import { OrderDestinationHeader } from '../components/google-map/OrderDestinationHeader';
+import { GoogleDestinationHeader } from '../components/google-map/GoogleDestinationHeader';
 import { GoogleInfo } from '../components/google-map/GoogleInfo';
 import { CurrentLocation, Restaurant, RootTabParamList } from '../types';
 import { GoogleMapZoomButtons } from '../components/google-map/GoogleMapZoomButtons';
@@ -74,7 +74,7 @@ export const GoogleScreen = ({route, navigation}) => {
         updateDuration={(duration) => setDuration(duration)}
       />
 
-      <OrderDestinationHeader 
+      <GoogleDestinationHeader 
         streetName={streetName}
         duration={duration}
       />
