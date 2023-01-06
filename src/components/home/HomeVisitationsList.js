@@ -3,17 +3,17 @@ import {
   FlatList, StyleSheet, View, TouchableOpacity
 } from 'react-native';
 import { SIZES } from '../../constants';
-import { Restaurant } from '../../types';
-import { HomeRestaurantItem } from './HomeRestaurantItem';
+import { Visitation } from '../../types';
+import { HomeVisitationItem } from './HomeVisitationItem';
 import Icon from 'react-native-vector-icons/AntDesign'
 
-export const HomeRestaurantsList = ({
+export const HomeVisitationsList = ({
   restaurants,
   onPress,
 }) => {
   function renderItem({item}) {
     return (
-      <HomeRestaurantItem 
+      <HomeVisitationItem 
         item={item} 
         onPress={(item) => onPress(item)} 
       />

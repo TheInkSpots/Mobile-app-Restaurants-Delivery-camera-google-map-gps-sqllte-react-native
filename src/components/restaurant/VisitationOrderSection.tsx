@@ -12,7 +12,7 @@ import {
   showAlertToast,
 } from "../../core/utilities/AppUtils";
 
-type RestaurantOrderSectionProps = {
+type VisitationOrderSectionProps = {
   basketCount: number;
   total: number;
   placeOrder: () => void;
@@ -24,7 +24,7 @@ type RestaurantOrderSectionProps = {
   remark: any;
 };
 
-export const RestaurantOrderSection = ({
+export const VisitationOrderSection = ({
   basketCount,
   total,
   placeOrder,
@@ -34,7 +34,7 @@ export const RestaurantOrderSection = ({
   start,
   end,
   remark,
-}: RestaurantOrderSectionProps) => {
+}: VisitationOrderSectionProps) => {
   console.log('really 2 array: ',JSON.stringify(menu));
   console.log('really  2time: ',JSON.stringify(start));
   console.log('really  2 obj: ',JSON.stringify(restaurant));

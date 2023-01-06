@@ -9,10 +9,10 @@ import {
 import { AppStyles } from '../../AppStyles';
 import { COLORS, FONTS, icons, SIZES } from '../../constants';
 import { affordable, expensive, fairPrice } from '../../dummy-data';
-import { CurrentLocation, Restaurant } from '../../types';
+import { CurrentLocation, Visitation } from '../../types';
 
 
-export const HomeRestaurantItem = ({ item, onPress }) => {
+export const HomeVisitationItem = ({ item, onPress }) => {
   return (
     <TouchableOpacity style={styles.container} onPress={() => onPress(item)}>
       <View style={styles.itemWrapper}>
@@ -21,20 +21,20 @@ export const HomeRestaurantItem = ({ item, onPress }) => {
           resizeMode="cover"
           style={styles.itemImage}
         />
-        {/* Restaurant average delivery duration */}
+        {/* Visitation average delivery duration */}
         <View style={styles.itemLabel}>
           <Text style={{...FONTS.h4}}>{item.duration}</Text>
         </View>
       </View>
-      {/* Restaurant name */}
+      {/* Visitation name */}
       <Text style={{...FONTS.body2, fontWeight: '700'}}>{item.name}</Text>
-      {/* Restaurant rating */}
+      {/* Visitation rating */}
       <View style={styles.itemRatingContainer}>
         {/* Rating */}
         {/* <Image source={icons.star} style={styles.itemRatingImage} /> */}
         <Image source={icons.star} style={styles.itemRatingImage} /> 
         <Text style={styles.itemRatingText}>{item.rating}</Text>
-        {/* Restaurant categories */}
+        {/* Visitation categories */}
         <View style={styles.itemCategoriesContainer}>
           {/* Categories */}
           {item.categoryNames?.map((category, index) => (

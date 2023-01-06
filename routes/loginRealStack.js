@@ -14,7 +14,7 @@ import {
     Dashboard,
     Home,
     StateScreen,
-    RestaurantScreen,
+    VisitationScreen,
     GoogleScreen,
     // CreateRecScreen,
 
@@ -56,7 +56,7 @@ export default function App() {
         >
 
         <Stack.Screen name="CreateRecScreen" component={CreateRecScreen} />
-          <Stack.Screen name="RestaurantScreen" component={RestaurantScreen} />
+          <Stack.Screen name="VisitationScreen" component={VisitationScreen} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="StateScreen" component={StateScreen} />
           <Stack.Screen name="GoogleScreen" component={GoogleScreen} />

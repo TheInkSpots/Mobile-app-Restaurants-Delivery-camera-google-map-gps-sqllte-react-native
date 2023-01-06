@@ -4,12 +4,12 @@ import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { isIphoneX } from 'react-native-iphone-x-helper';
 import { AppStyles } from '../../AppStyles';
 import { COLORS, FONTS, icons, SIZES, } from '../../constants';
-import { Menu, OrderItem, Restaurant } from '../../types';
-import { RestaurantFoodQuantity } from './RestaurantFoodQuantity';
-import { RestaurantOrderSection } from './RestaurantOrderSection';
+import { Menu, OrderItem, Visitation } from '../../types';
+import { VisitationFoodQuantity } from './VisitationFoodQuantity';
+import { VisitationOrderSection } from './VisitationOrderSection';
 
-type RestaurantFoodInfoProps = {
-  restaurant: Restaurant | null;
+type VisitationFoodInfoProps = {
+  restaurant: Visitation | null;
   obj: any;
   menu: any;
   start: any;
@@ -20,7 +20,7 @@ type RestaurantFoodInfoProps = {
   placeOrder: () => void;
 };
 
-export const RestaurantFoodInfo = ({
+export const VisitationFoodInfo = ({
   obj,
   menu,
   start,
@@ -30,7 +30,7 @@ export const RestaurantFoodInfo = ({
   orderItems,
   setOrderItems,
   placeOrder,
-}: RestaurantFoodInfoProps) => {
+}: VisitationFoodInfoProps) => {
   console.log('really array: ',JSON.stringify(menu));
   console.log('really time: ',JSON.stringify(start));
   console.log('really obj: ',JSON.stringify(restaurant));
@@ -112,7 +112,7 @@ export const RestaurantFoodInfo = ({
               />
 
               {/* Quantity */}
-              <RestaurantFoodQuantity
+              <VisitationFoodQuantity
                 onEdit={(e) => setOrder(e, item)}
                 quantity={getOrderQty(item.menuId)}
               />
@@ -175,7 +175,7 @@ export const RestaurantFoodInfo = ({
             );
           })}
         </View>
-        <RestaurantOrderSection
+        <VisitationOrderSection
           basketCount={getBasketItemCount()}
           total={getTotal()}
           sum={sumAmount}

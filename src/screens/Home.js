@@ -15,7 +15,7 @@ import { CommonActions,useFocusEffect } from '@react-navigation/native';
 
 import { COLORS, SIZES, icons } from '../constants';
 import { HomeMainCategories } from '../components/home/HomeMainCategories';
-import { HomeRestaurantsList } from '../components/home/HomeRestaurantsList';
+import { HomeVisitationsList } from '../components/home/HomeVisitationsList';
 import { CategoryData, RootTabParamList } from '../types';
 //import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 import {
@@ -103,7 +103,7 @@ export default function Home({ navigation , route}) {
   const [trigger, setTrigger] = useState(false);
     const [categories, setCategories] = useState(categoryData);
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const [restaurants, setRestaurants] = useState(restaurantsWithCategories);
+    const [restaurants, setVisitations] = useState(restaurantsWithCategories);
     const [currentLocation, setCurrentLocation] = useState(testCurrentLocation);
     const [realCurrentLocation, setRealCurrentLocation] = useState(testCurrentLocation);
 
@@ -113,7 +113,7 @@ export default function Home({ navigation , route}) {
         const restaurantList = restaurantsWithCategories.filter((restaurant) =>
             restaurant.categories.includes(category.id),
         );
-        setRestaurants(restaurantList);
+        setVisitations(restaurantList);
         setSelectedCategory(category);
     }
     function testBtn (){
@@ -175,10 +175,10 @@ export default function Home({ navigation , route}) {
           onSelectCategory(category)
         }
       />
-      <HomeRestaurantsList
+      <HomeVisitationsList
         restaurants={restaurants}
         onPress={(item) =>
-          navigation.navigate('RestaurantScreen', {
+          navigation.navigate('VisitationScreen', {
             item,
             currentLocation,
           })

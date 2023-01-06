@@ -6,14 +6,14 @@ import { LatLng, Region } from 'react-native-maps';
 import { GoogleMap } from '../components/google-map/GoogleMap';
 import { GoogleDestinationHeader } from '../components/google-map/GoogleDestinationHeader';
 import { GoogleInfo } from '../components/google-map/GoogleInfo';
-import { CurrentLocation, Restaurant, RootTabParamList } from '../types';
+import { CurrentLocation, Visitation, RootTabParamList } from '../types';
 import { GoogleMapZoomButtons } from '../components/google-map/GoogleMapZoomButtons';
 
 
 
 
 export const GoogleScreen = ({route, navigation}) => {
-  const [restaurant, setRestaurant] = useState(null);
+  const [restaurant, setVisitation] = useState(null);
   const [streetName, setStreetName] = useState('');
   const [fromLocation, setFromLocation] = useState(null);
   const [toLocation, setToLocation] = useState(null);
@@ -36,7 +36,7 @@ export const GoogleScreen = ({route, navigation}) => {
       longitudeDelta: Math.abs(fromLoc.longitude - toLoc.longitude) * 2,
     }
 
-    setRestaurant(restaurant);
+    setVisitation(restaurant);
     setStreetName(street);
     setFromLocation(fromLoc);
     setToLocation(toLoc);

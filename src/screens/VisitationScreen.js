@@ -4,9 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TopBar } from '../components/TopBar';
-import { RestaurantFoodInfo } from '../components/restaurant/RestaurantFoodInfo';
+import { VisitationFoodInfo } from '../components/restaurant/VisitationFoodInfo';
 import { COLORS, icons } from '../constants';
-import { CurrentLocation, OrderItem, Restaurant, RootTabParamList } from '../types';
+import { CurrentLocation, OrderItem, Visitation, RootTabParamList } from '../types';
 import Wall from '../components/Wall';
 import * as SQLite from 'expo-sqlite';
 import { useFocusEffect } from '@react-navigation/native';
@@ -16,10 +16,10 @@ import {
 
 
 //console.log('testse mo 123.');
-export const RestaurantScreen = ({ route, navigation }) => {
+export const VisitationScreen = ({ route, navigation }) => {
   const { item, currentLocation } = route.params;
   console.log('fisrt time get the data ', item.test);
-  const [restaurant, setRestaurant] = useState(null);
+  const [restaurant, setVisitation] = useState(null);
   //const [currentLocation, setCurrentLocation] = useState(null);
   const [orderItems, setOrderItems] = useState([]);
   const db = SQLite.openDatabase('db.visitRecord');
@@ -56,15 +56,15 @@ export const RestaurantScreen = ({ route, navigation }) => {
     //console.log('mo: ', route.params);
      //const { item, currentLocation } = route.params;
 
-    // setRestaurant(item);
+    // setVisitation(item);
     // setCurrentLocation(currentLocation);
-    // console.log('12312313 setRestaurant items: ', item);
+    // console.log('12312313 setVisitation items: ', item);
     //console.log('123123123 currentLocation: ', currentLocation);
     
 
-      setRestaurant(item);
+      setVisitation(item);
       //setCurrentLocation(currentLocation);
-     // console.log('focus setRestaurant items: ', item);
+     // console.log('focus setVisitation items: ', item);
 
 
       setmenu(item.menu);
@@ -76,14 +76,14 @@ export const RestaurantScreen = ({ route, navigation }) => {
       console.log('focus 2222 items: ', obj);
   },[]);
   useFocusEffect(() => {
-    //console.log('focus 2 setRestaurant items: ', item);
+    //console.log('focus 2 setVisitation items: ', item);
     //   const {setobj({menu: menu, remark:remark, start:start, end:end}); item, currentLocation } = route.params;
    
     //   const { item, currentLocation } = route.params;
 
-    //   setRestaurant(item);
+    //   setVisitation(item);
     //   setCurrentLocation(currentLocation);
-    //   console.log('focus setRestaurant items: ', item);
+    //   console.log('focus setVisitation items: ', item);
    }
   )
   
@@ -96,7 +96,7 @@ export const RestaurantScreen = ({ route, navigation }) => {
         leftPress={() => navigation.goBack()}
         rightPress={() => deleteData(restaurant.id)}
       />
-      <RestaurantFoodInfo
+      <VisitationFoodInfo
         menu={menu}
         start={start}
         end={end}

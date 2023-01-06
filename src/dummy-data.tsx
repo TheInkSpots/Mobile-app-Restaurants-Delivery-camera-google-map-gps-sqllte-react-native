@@ -1,7 +1,7 @@
 // Dummy Datas
 
 import { icons, images } from "./constants";
-import { CategoryData, CurrentLocation, Restaurant } from "./types";
+import { CategoryData, CurrentLocation, Visitation } from "./types";
 import { useState, useEffect, useRef } from 'react';
 import * as Location from 'expo-location';
 
@@ -70,7 +70,7 @@ export const affordable = 1;
 export const fairPrice = 2;
 export const expensive = 3;
 
-export const restaurantData: Restaurant[] = [
+export const restaurantData: Visitation[] = [
   {
     id: 1,
     name: 'Hongkong Jorden Burger',
@@ -325,7 +325,7 @@ export const categoriesMap: {[key: number]: string} = categoryData.reduce(
   {},
 );
 
-export const restaurantsWithCategories: Restaurant[] = restaurantData.map((restaurant) => ({
+export const restaurantsWithCategories: Visitation[] = restaurantData.map((restaurant) => ({
   ...restaurant,
   categoryNames: restaurant.categories.map(
     (category: number) => categoriesMap[category],

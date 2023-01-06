@@ -2,11 +2,11 @@ import React from 'react';
 import { Image, StyleSheet, View, Text } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { COLORS, FONTS, icons, SIZES } from '../../constants';
-import { Restaurant } from '../../types';
+import { Visitation } from '../../types';
 import { CommonActions } from '@react-navigation/native';
 
 type GoogleInfoProps = {
-  restaurant: Restaurant | null;
+  restaurant: Visitation | null;
   onCall: () => void;
   onMessage: () => void;
 };

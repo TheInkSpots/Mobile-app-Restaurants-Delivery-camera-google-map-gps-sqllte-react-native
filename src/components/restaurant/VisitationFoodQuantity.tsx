@@ -4,13 +4,13 @@ import { AppStyles } from '../../AppStyles';
 import { COLORS, FONTS, SIZES } from '../../constants';
 import { OrderItem } from '../../types';
 
-type RestaurantOrderProps = {
+type VisitationOrderProps = {
   onEdit: (e: '+' | '-') => void;
   quantity: number;
 };
 
 
-export const RestaurantFoodQuantity = ({ onEdit, quantity }: RestaurantOrderProps) => {
+export const VisitationFoodQuantity = ({ onEdit, quantity }: VisitationOrderProps) => {
   return (
     <View style={styles.quantityContainer}>
     

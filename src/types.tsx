@@ -3,8 +3,8 @@ import { icons } from './constants';
 
 export type RootTabParamList = {
   Home: undefined;
-  Restaurant: { item: Restaurant, currentLocation: CurrentLocation };
-  Google: { restaurant: Restaurant | null, currentLocation: CurrentLocation | null };
+  Visitation: { item: Visitation, currentLocation: CurrentLocation };
+  Google: { restaurant: Visitation | null, currentLocation: CurrentLocation | null };
 };
 
 export interface ScreenTab {
@@ -28,7 +28,7 @@ export type Menu = {
   price: number;
 };
 
-export type Restaurant = {
+export type Visitation = {
   id: number;
   name: string;
   rating: number;

@@ -4,11 +4,11 @@ export { default as RegisterScreen } from './RegisterScreen'
 export { default as ResetPasswordScreen } from './ResetPasswordScreen'
 export { default as Dashboard } from './Dashboard'
 
-import { RestaurantScreen } from './RestaurantScreen';
+import { VisitationScreen } from './VisitationScreen';
 import { GoogleScreen } from './Google';
 import { CreateRecScreen } from './CreateRecScreen';
 
 
 export { default as Home } from './Home'
 export { default as StateScreen } from './StateScreen'
-export { RestaurantScreen, GoogleScreen , CreateRecScreen};
+export { VisitationScreen, GoogleScreen , CreateRecScreen};

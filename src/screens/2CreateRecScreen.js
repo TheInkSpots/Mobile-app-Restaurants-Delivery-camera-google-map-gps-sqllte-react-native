@@ -69,7 +69,7 @@ export default function CreateRecScreen({ navigation , route}) {
           <View style={styles.container}>
             <Text style={globalStyles.heading}>Car Information</Text>
             <TextInput
-              placeholder="Restaurant name"
+              placeholder="Visitation name"
               style={globalStyles.input}
               onChangeText={txt => handleChange("name", txt)}
               value={values.name}
