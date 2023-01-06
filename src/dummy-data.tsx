@@ -70,14 +70,14 @@ export const affordable = 1;
 export const fairPrice = 2;
 export const expensive = 3;
 
-export const restaurantData: Visitation[] = [
+export const visitationData: Visitation[] = [
   {
     id: 1,
     name: 'Hongkong Jorden Burger',
     rating: 4.8,
     categories: [5, 7],
     priceRating: affordable,
-    photo: images.burger_restaurant_1,
+    photo: images.burger_visitation_1,
     duration: '11/12/2022',
     location: {
       latitude: 22.3069785, //22.3069785,114.1621922 
@@ -120,7 +120,7 @@ export const restaurantData: Visitation[] = [
     rating: 4.8,
     categories: [2, 4, 6],
     priceRating: expensive,
-    photo: images.pizza_restaurant,
+    photo: images.pizza_visitation,
     duration: '11/12/2022',
     location: {
       latitude: 1.556306570595712,
@@ -172,7 +172,7 @@ export const restaurantData: Visitation[] = [
     rating: 4.8,
     categories: [3],
     priceRating: expensive,
-    photo: images.hot_dog_restaurant,
+    photo: images.hot_dog_visitation,
     duration: '11/12/2022',
     location: {
       latitude: 1.5238753474714375,
@@ -199,7 +199,7 @@ export const restaurantData: Visitation[] = [
     rating: 4.8,
     categories: [8],
     priceRating: expensive,
-    photo: images.japanese_restaurant,
+    photo: images.japanese_visitation,
     duration: '11/12/2022',
     location: {
       latitude: 1.5578068150528928,
@@ -325,9 +325,9 @@ export const categoriesMap: {[key: number]: string} = categoryData.reduce(
   {},
 );
 
-export const restaurantsWithCategories: Visitation[] = restaurantData.map((restaurant) => ({
-  ...restaurant,
-  categoryNames: restaurant.categories.map(
+export const visitationsWithCategories: Visitation[] = visitationData.map((visitation) => ({
+  ...visitation,
+  categoryNames: visitation.categories.map(
     (category: number) => categoriesMap[category],
   ),
 }));

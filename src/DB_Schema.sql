@@ -31,7 +31,7 @@ CREATE TABLE  user (
     rating: 4.8,
     categories: [5, 7],
     priceRating: affordable,
-    photo: images.burger_restaurant_1,
+    photo: images.burger_visitation_1,
     duration: '11/12/2022',
     start:'',
     end:'',
@@ -73,7 +73,7 @@ CREATE TABLE  user (
     rating: 4.8,
     categories: [2, 4, 6],
     priceRating: expensive,
-    photo: images.pizza_restaurant,
+    photo: images.pizza_visitation,
     duration: '11/12/2022',
     location: {
       latitude: 22.3069785, 

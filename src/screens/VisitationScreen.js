@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { TopBar } from '../components/TopBar';
-import { VisitationFoodInfo } from '../components/restaurant/VisitationFoodInfo';
+import { VisitationFoodInfo } from '../components/visitation/VisitationFoodInfo';
 import { COLORS, icons } from '../constants';
 import { CurrentLocation, OrderItem, Visitation, RootTabParamList } from '../types';
 import Wall from '../components/Wall';
@@ -19,7 +19,7 @@ import {
 export const VisitationScreen = ({ route, navigation }) => {
   const { item, currentLocation } = route.params;
   console.log('fisrt time get the data ', item.test);
-  const [restaurant, setVisitation] = useState(null);
+  const [visitation, setVisitation] = useState(null);
   //const [currentLocation, setCurrentLocation] = useState(null);
   const [orderItems, setOrderItems] = useState([]);
   const db = SQLite.openDatabase('db.visitRecord');
@@ -92,9 +92,9 @@ export const VisitationScreen = ({ route, navigation }) => {
       <TopBar
         leftIcon={icons.back}
         rightIcon={icons.basket}
-        headerText={restaurant?.name}
+        headerText={visitation?.name}
         leftPress={() => navigation.goBack()}
-        rightPress={() => deleteData(restaurant.id)}
+        rightPress={() => deleteData(visitation.id)}
       />
       <VisitationFoodInfo
         menu={menu}
@@ -102,10 +102,10 @@ export const VisitationScreen = ({ route, navigation }) => {
         end={end}
         remark={remark}
          obj={obj}
-        restaurant={restaurant}
+        visitation={visitation}
         orderItems={orderItems}
         setOrderItems={(items) => setOrderItems(items)}
-        placeOrder={() => navigation.navigate('GoogleScreen', { restaurant, currentLocation })}
+        placeOrder={() => navigation.navigate('GoogleScreen', { visitation, currentLocation })}
       />
     </Wall>
   );

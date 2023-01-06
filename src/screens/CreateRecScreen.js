@@ -285,7 +285,7 @@ export default function CreateRecScreen({ navigation , route}) {
       <TopBar
         leftIcon={icons.back}
         rightIcon={icons.list}
-        //headerText={restaurant?.name}
+        //headerText={visitation?.name}
         leftPress={() => navigation.goBack()}
         rightPress={() => {}}
         style={styles.bar}
@@ -296,7 +296,7 @@ export default function CreateRecScreen({ navigation , route}) {
            {/* <Text style={FONTS.h2}>{"Current Date: "+ currentDate}</Text> */}
            <Text style={FONTS.h2}>{"Current Time: "+ time}</Text>
             <TextInput
-              label="Visitation name"
+              label="Restaurant name"
               //style={globalStyles.input}
               onChangeText={txt => handleChange("name", txt)}
               value={values.name}
@@ -327,7 +327,7 @@ export default function CreateRecScreen({ navigation , route}) {
               /> */}
                   {/* <Text style={styles.label}>Do you like React Native?</Text> */}
             </View> 
-            <Text style={FONTS.h2}>Visitation photo</Text>
+            <Text style={FONTS.h2}>Restaurant photo</Text>
               <ImagePickerComp
               id={'restImage'}
               image={getDishImageList('restImage')}

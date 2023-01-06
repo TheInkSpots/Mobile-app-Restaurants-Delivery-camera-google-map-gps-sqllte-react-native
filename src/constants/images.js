@@ -4,23 +4,23 @@ const avatar_3 = null ;
 const avatar_4 = null ;
 const avatar_5 = null ;
 const baked_fries = null ;
-const burger_restaurant_1 = null ;
-const burger_restaurant_2 = null ;
+const burger_visitation_1 = null ;
+const burger_visitation_2 = null ;
 const chicago_hot_dog = null ;
 const crispy_chicken_burger = null ;
-const fries_restaurant = null ;
+const fries_visitation = null ;
 const hawaiian_pizza = null ;
 const honey_mustard_chicken_burger = null ;
-const hot_dog_restaurant = null ;
+const hot_dog_visitation = null ;
 const ice_kacang = null ;
-const japanese_restaurant = null ;
+const japanese_visitation = null ;
 const kek_lapis_shop = null ;
 const kek_lapis = null ;
 const kolo_mee = null ;
 const nasi_briyani_mutton = null ;
 const nasi_lemak = null ;
 const noodle_shop = null ;
-const pizza_restaurant = null ;
+const pizza_visitation = null ;
 const pizza = null ;
 const salad = null ;
 const sarawak_laksa = null ;
@@ -35,25 +35,25 @@ export default {
   avatar_4,
   avatar_5,
   baked_fries,
-  burger_restaurant_1,
-  burger_restaurant_2,
+  burger_visitation_1,
+  burger_visitation_2,
   chicago_hot_dog,
   crispy_chicken_burger,
 
-  fries_restaurant,
+  fries_visitation,
   hawaiian_pizza,
   honey_mustard_chicken_burger,
-  hot_dog_restaurant,
+  hot_dog_visitation,
   ice_kacang,
 
-  japanese_restaurant,
+  japanese_visitation,
   kek_lapis_shop,
   kek_lapis,
   kolo_mee,
   nasi_briyani_mutton,
   nasi_lemak,
   noodle_shop,
-  pizza_restaurant,
+  pizza_visitation,
   pizza,
   salad,
   sarawak_laksa,

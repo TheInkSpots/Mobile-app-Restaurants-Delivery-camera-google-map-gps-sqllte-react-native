@@ -6,7 +6,7 @@ import { Visitation } from '../../types';
 import { CommonActions } from '@react-navigation/native';
 
 type GoogleInfoProps = {
-  restaurant: Visitation | null;
+  visitation: Visitation | null;
   onCall: () => void;
   onMessage: () => void;
 };
@@ -15,7 +15,7 @@ const goBack =  () => {
   CommonActions.goBack();
 };
 
-export const GoogleInfo = ({ restaurant, onCall, onMessage }: GoogleInfoProps) => (
+export const GoogleInfo = ({ visitation, onCall, onMessage }: GoogleInfoProps) => (
   <View style={styles.container}>
     <View style={styles.infoContainer}>
       <View style={styles.topInfoWrapper}>
@@ -23,12 +23,12 @@ export const GoogleInfo = ({ restaurant, onCall, onMessage }: GoogleInfoProps) =
         </View>
         <View style={styles.textContainer}>
           <View style={styles.nameContainer}>
-            <Text style={{...FONTS.h4}}>{restaurant?.name}</Text>
+            <Text style={{...FONTS.h4}}>{visitation?.name}</Text>
  
           </View>
           <View style={styles.courierRatingContainer}>
             <Image source={icons.star} style={styles.ratingImage} />
-            <Text style={{...FONTS.body3}}>{restaurant?.rating}</Text>
+            <Text style={{...FONTS.body3}}>{visitation?.rating}</Text>
           </View>
         </View>
       </View>
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     tintColor: COLORS.primary,
     marginRight: SIZES.padding,
   },
-  restaurantName: {
+  visitationName: {
     color: COLORS.darkgray,
     ...FONTS.body4,
   },

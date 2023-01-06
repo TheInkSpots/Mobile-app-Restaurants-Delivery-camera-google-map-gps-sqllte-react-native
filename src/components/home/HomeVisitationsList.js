@@ -8,7 +8,7 @@ import { HomeVisitationItem } from './HomeVisitationItem';
 import Icon from 'react-native-vector-icons/AntDesign'
 
 export const HomeVisitationsList = ({
-  restaurants,
+  visitations,
   onPress,
 }) => {
   function renderItem({item}) {
@@ -23,7 +23,7 @@ export const HomeVisitationsList = ({
   return (
 
     <FlatList
-      data={restaurants}
+      data={visitations}
       keyExtractor={(item) => `${item.id}`}
       renderItem={renderItem}
       contentContainerStyle={styles.container}

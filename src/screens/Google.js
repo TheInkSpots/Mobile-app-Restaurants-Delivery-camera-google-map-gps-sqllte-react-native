@@ -13,7 +13,7 @@ import { GoogleMapZoomButtons } from '../components/google-map/GoogleMapZoomButt
 
 
 export const GoogleScreen = ({route, navigation}) => {
-  const [restaurant, setVisitation] = useState(null);
+  const [visitation, setVisitation] = useState(null);
   const [streetName, setStreetName] = useState('');
   const [fromLocation, setFromLocation] = useState(null);
   const [toLocation, setToLocation] = useState(null);
@@ -21,13 +21,13 @@ export const GoogleScreen = ({route, navigation}) => {
   const [duration, setDuration] = useState(0);
 
   useEffect(() => {
-    const { restaurant, currentLocation } = route.params;
+    const { visitation, currentLocation } = route.params;
 
     const {
       gps: fromLoc,
       streetName: street
     } = currentLocation ;
-    const toLoc = restaurant?.location ;
+    const toLoc = visitation?.location ;
 
     const mapRegion = {
       latitude: (fromLoc.latitude + toLoc.latitude) / 2,
@@ -36,7 +36,7 @@ export const GoogleScreen = ({route, navigation}) => {
       longitudeDelta: Math.abs(fromLoc.longitude - toLoc.longitude) * 2,
     }
 
-    setVisitation(restaurant);
+    setVisitation(visitation);
     setStreetName(street);
     setFromLocation(fromLoc);
     setToLocation(toLoc);
@@ -80,7 +80,7 @@ export const GoogleScreen = ({route, navigation}) => {
       />
 
       <GoogleInfo
-        restaurant={restaurant}
+        visitation={visitation}
         onCall={() => navigation.goBack()}
         onMessage={() => navigation.navigate('Home')}
       />

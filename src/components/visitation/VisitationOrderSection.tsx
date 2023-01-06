@@ -16,7 +16,7 @@ type VisitationOrderSectionProps = {
   basketCount: number;
   total: number;
   placeOrder: () => void;
-  restaurant:[];
+  visitation:[];
   sum:number
   menu: any;
   start: any;
@@ -28,7 +28,7 @@ export const VisitationOrderSection = ({
   basketCount,
   total,
   placeOrder,
-  restaurant,
+  visitation,
   sum,
   menu,
   start,
@@ -37,21 +37,21 @@ export const VisitationOrderSection = ({
 }: VisitationOrderSectionProps) => {
   console.log('really 2 array: ',JSON.stringify(menu));
   console.log('really  2time: ',JSON.stringify(start));
-  console.log('really  2 obj: ',JSON.stringify(restaurant));
+  console.log('really  2 obj: ',JSON.stringify(visitation));
   console.log('really 2 remark: ',JSON.stringify(remark));
   // let totalAmount = 0;
 
-  // restaurant.menu.forEach(element => totalAmount += element.price);
-  const [item, setItem] = useState(restaurant);
+  // visitation.menu.forEach(element => totalAmount += element.price);
+  const [item, setItem] = useState(visitation);
   const [remark2, setRemark2] = useState('');
   const [end2, setEnd2] = useState(end);
   const db = SQLite.openDatabase('db.visitRecord');
 
   useEffect(() => {
-    setItem(restaurant);
+    setItem(visitation);
     setRemark2(remark);
     setEnd2(end);
-  },[restaurant]);
+  },[visitation]);
 
 
   const updateRec = (col, val) => {
@@ -89,7 +89,7 @@ export const VisitationOrderSection = ({
     console.log('sectionq2: ',item);
 
     useEffect(() => {
-      setItem(restaurant);
+      setItem(visitation);
     },[]);
 
   return total == 0 ? (
@@ -122,7 +122,7 @@ export const VisitationOrderSection = ({
         </View>
         <View style={{flexDirection: 'row'}}>
          
-           <Text style={styles.text}>{restaurant.location.latitude}, {restaurant.location.longitude}</Text> 
+           <Text style={styles.text}>{visitation.location.latitude}, {visitation.location.longitude}</Text> 
         </View>
       </View> */}
 

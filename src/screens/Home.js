@@ -21,7 +21,7 @@ import { CategoryData, RootTabParamList } from '../types';
 import {
   categoryData,
   initialCurrentLocation,
-  //restaurantsWithCategories,
+  //visitationsWithCategories,
   testCurrentLocation
 } from '../dummy-data';
 import { TopBar } from '../components/TopBar';
@@ -43,7 +43,7 @@ export default function Home({ navigation , route}) {
 
     const db = SQLite.openDatabase('db.visitRecord');
     //const [data, setData] = useState([]);
-    const [restaurantData, setData] = useState([]);
+    const [visitationData, setData] = useState([]);
     const retrieveData = () => {
       //console.log('retrieveData() called');
       let data = [];
@@ -94,26 +94,26 @@ export default function Home({ navigation , route}) {
     {},
   );
   
-   const restaurantsWithCategories = restaurantData.map((restaurant) => ({
-    ...restaurant,
-    categoryNames: restaurant.categories.map(
+   const visitationsWithCategories = visitationData.map((visitation) => ({
+    ...visitation,
+    categoryNames: visitation.categories.map(
       (category) => categoriesMap[category],
     ),
   }));
   const [trigger, setTrigger] = useState(false);
     const [categories, setCategories] = useState(categoryData);
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const [restaurants, setVisitations] = useState(restaurantsWithCategories);
+    const [visitations, setVisitations] = useState(visitationsWithCategories);
     const [currentLocation, setCurrentLocation] = useState(testCurrentLocation);
     const [realCurrentLocation, setRealCurrentLocation] = useState(testCurrentLocation);
 
     const [editModalOpen, setEditModalOpen] = useState(false);
 
     function onSelectCategory(category) {
-        const restaurantList = restaurantsWithCategories.filter((restaurant) =>
-            restaurant.categories.includes(category.id),
+        const visitationList = visitationsWithCategories.filter((visitation) =>
+            visitation.categories.includes(category.id),
         );
-        setVisitations(restaurantList);
+        setVisitations(visitationList);
         setSelectedCategory(category);
     }
     function testBtn (){
@@ -176,7 +176,7 @@ export default function Home({ navigation , route}) {
         }
       />
       <HomeVisitationsList
-        restaurants={restaurants}
+        visitations={visitations}
         onPress={(item) =>
           navigation.navigate('VisitationScreen', {
             item,

@@ -9,7 +9,7 @@ import { VisitationFoodQuantity } from './VisitationFoodQuantity';
 import { VisitationOrderSection } from './VisitationOrderSection';
 
 type VisitationFoodInfoProps = {
-  restaurant: Visitation | null;
+  visitation: Visitation | null;
   obj: any;
   menu: any;
   start: any;
@@ -26,14 +26,14 @@ export const VisitationFoodInfo = ({
   start,
   end,
   remark,
-  restaurant,
+  visitation,
   orderItems,
   setOrderItems,
   placeOrder,
 }: VisitationFoodInfoProps) => {
   console.log('really array: ',JSON.stringify(menu));
   console.log('really time: ',JSON.stringify(start));
-  console.log('really obj: ',JSON.stringify(restaurant));
+  console.log('really obj: ',JSON.stringify(visitation));
   console.log('really remark: ',JSON.stringify(remark));
 
 
@@ -65,7 +65,7 @@ export const VisitationFoodInfo = ({
 
   const getTotal = () => orderItems.reduce((a, b) => a + (b.total || 0), 0);
   let sumAmount = 0;
-  //console.log('total 1231 is: ',restaurant);
+  //console.log('total 1231 is: ',visitation);
   const sum = (arr) => {arr.forEach((item) =>{
       sumAmount += Number(item.price);
     });
@@ -74,17 +74,17 @@ export const VisitationFoodInfo = ({
   }
 
   useEffect(() => {
-    //console.log('total is: ',restaurant);
+    //console.log('total is: ',visitation);
     //sum(menu);
     console.log('test')
     setmenu(menu);
     setremark(remark);
     setstart(start);
     setend(end);
- setobj(restaurant);
+ setobj(visitation);
 
-    //console.log('restaurant test is: ',restaurant);
-   // console.log('123123123 test is: ',restaurant.test);
+    //console.log('visitation test is: ',visitation);
+   // console.log('123123123 test is: ',visitation.test);
   });
  sum(menu);
 
@@ -101,7 +101,7 @@ export const VisitationFoodInfo = ({
           [{nativeEvent: {contentOffset: {x: scrollX}}}],
           {useNativeDriver: false},
         )}>
-        {restaurant?.menu.map((item: Menu, index: number) => (
+        {visitation?.menu.map((item: Menu, index: number) => (
           <View key={`menu-${index}`} style={styles.container}>
             <View style={styles.menuContainer}>
               {/* Food image */}
@@ -142,7 +142,7 @@ export const VisitationFoodInfo = ({
       </Animated.ScrollView>
       <View>
         <View style={styles.dotContainer}>
-          {restaurant?.menu.map((item: Menu, index: number) => {
+          {visitation?.menu.map((item: Menu, index: number) => {
             const opacity = dotPosition.interpolate({
               inputRange: [index - 1, index, index + 1],
               outputRange: [0.3, 1, 0.3],
@@ -184,9 +184,9 @@ export const VisitationFoodInfo = ({
         end={end2}
         remark={remark2}
           placeOrder={() => placeOrder()}
-          restaurant={obj2}
+          visitation={obj2}
         />
-         {/* <Button onPress={()=>sum(restaurant?.menu)} title='sdf'></Button>  */}
+         {/* <Button onPress={()=>sum(visitation?.menu)} title='sdf'></Button>  */}
         {isIphoneX() && <View style={styles.fillEmptySpace}></View>}
       </View>
     </>

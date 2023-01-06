@@ -4,7 +4,7 @@ import { icons } from './constants';
 export type RootTabParamList = {
   Home: undefined;
   Visitation: { item: Visitation, currentLocation: CurrentLocation };
-  Google: { restaurant: Visitation | null, currentLocation: CurrentLocation | null };
+  Google: { visitation: Visitation | null, currentLocation: CurrentLocation | null };
 };
 
 export interface ScreenTab {
