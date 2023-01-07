@@ -15,7 +15,7 @@ import { CurrentLocation, Visitation } from '../../types';
 export const HomeVisitationItem = ({ item, onPress }) => {
   let sum = 0;
   item.menu.forEach(item => sum += Number(item.price));
-  console.log('test sum: ',sum);
+  //console.log('test sum: ',sum);
   return (
     <TouchableOpacity style={styles.container} onPress={() => onPress(item)}>
       <View style={styles.itemWrapper}>

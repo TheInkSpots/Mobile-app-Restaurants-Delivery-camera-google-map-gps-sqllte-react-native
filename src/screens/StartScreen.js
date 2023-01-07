@@ -37,6 +37,21 @@ export default function StartScreen({ navigation }) {
     })
   }
 
+  const dummyData = () => {
+    db.transaction(tx => {
+      tx.executeSql('insert INTO visit_record (id,  userID, visitdate, dishJSON) VALUES (?, ?,?,?)',
+          [998,`LocalUserUUID','31/12/2022','[{price:'30'},{price:'30'},{price:30}]`],
+          (txObj, resultSet) => { 
+              console.log('insert dummry data good ' );
+         },
+          (txObj, error) => { 
+              console.log('Error:', error);
+          
+          }
+      )
+  })
+  }
+
   return (
     <Background>
       <Logo />
@@ -61,6 +76,12 @@ export default function StartScreen({ navigation }) {
         onPress={() => navigation.navigate('Home',{ uuid : 'LocalUserUUID'})}
       >
         Local Use
+      </Button>
+      <Button
+        mode="outlined"
+        onPress={dummyData}
+      >
+        Dev: INSERT hardcode Data
       </Button>
       <Button
         mode="outlined"

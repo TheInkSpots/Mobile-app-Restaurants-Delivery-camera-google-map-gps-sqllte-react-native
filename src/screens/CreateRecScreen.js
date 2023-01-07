@@ -48,6 +48,10 @@ import * as MediaLibrary from 'expo-media-library';
 import{COLORS, FONTS, SIZES, icons, images} from '../constants';
 
 const keyboardVerticalOffset = Platform.OS === 'ios' ? 40 : 0
+
+
+
+
 export default function CreateRecScreen({ navigation , route}) {
   const db = SQLite.openDatabase('db.visitRecord');
   const {currentLocation, uuid} = route.params;
