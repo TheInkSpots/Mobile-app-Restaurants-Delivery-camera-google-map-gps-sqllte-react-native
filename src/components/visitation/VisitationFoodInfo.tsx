@@ -18,6 +18,7 @@ type VisitationFoodInfoProps = {
   orderItems: OrderItem[];
   setOrderItems: (orderItems: OrderItem[]) => void;
   placeOrder: () => void;
+  rating: number;
 };
 
 export const VisitationFoodInfo = ({
@@ -28,6 +29,7 @@ export const VisitationFoodInfo = ({
   remark,
   visitation,
   orderItems,
+  rating,
   setOrderItems,
   placeOrder,
 }: VisitationFoodInfoProps) => {
@@ -41,7 +43,7 @@ export const VisitationFoodInfo = ({
   const [remark2, setremark] = useState('');
   const [start2, setstart] = useState('');
   const [end2, setend] = useState('');
-
+  const [rate, setRate] = useState(0);
   const [obj2, setobj] = useState({});
 
   const scrollX = new Animated.Value(0);
@@ -81,7 +83,9 @@ export const VisitationFoodInfo = ({
     setremark(remark);
     setstart(start);
     setend(end);
- setobj(visitation);
+                  setobj(visitation);
+                  setRate(rating);
+                  
 
     //console.log('visitation test is: ',visitation);
    // console.log('123123123 test is: ',visitation.test);
@@ -185,6 +189,7 @@ export const VisitationFoodInfo = ({
         remark={remark2}
           placeOrder={() => placeOrder()}
           visitation={obj2}
+          rating={rate}
         />
          {/* <Button onPress={()=>sum(visitation?.menu)} title='sdf'></Button>  */}
         {isIphoneX() && <View style={styles.fillEmptySpace}></View>}

@@ -28,7 +28,7 @@ export const VisitationScreen = ({ route, navigation }) => {
   const [remark, setremark] = useState('');
   const [start, setstart] = useState('');
   const [end, setend] = useState('');
-
+  const [rate, setRate] = useState('');
   const [obj, setobj] = useState({});
 
   const deleteData = (id) => {
@@ -71,6 +71,7 @@ export const VisitationScreen = ({ route, navigation }) => {
       setremark(item.remark);
       setstart(item.startTime);
       setend(item.endTime);
+      setRate(item.rating);
       console.log('focus 222 start: ', start);
       
       console.log('focus 2222 items: ', obj);
@@ -102,6 +103,7 @@ export const VisitationScreen = ({ route, navigation }) => {
         end={end}
         remark={remark}
          obj={obj}
+         rating={rate}
         visitation={visitation}
         orderItems={orderItems}
         setOrderItems={(items) => setOrderItems(items)}

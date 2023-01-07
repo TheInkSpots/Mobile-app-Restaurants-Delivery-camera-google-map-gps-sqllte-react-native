@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image } from 'react-native';
+import { StyleSheet, View, Text, Image,ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { COLORS, FONTS, icons, SIZES } from '../../constants';
 import { Item } from 'react-native-paper/lib/typescript/components/Drawer/Drawer';
@@ -11,7 +11,9 @@ import * as SQLite from 'expo-sqlite';
 import {
   showAlertToast,
 } from "../../core/utilities/AppUtils";
-
+import { Camera, CameraType } from 'expo-camera';
+import * as MediaLibrary from 'expo-media-library';
+import Slider from '@react-native-community/slider';
 type VisitationOrderSectionProps = {
   basketCount: number;
   total: number;
@@ -22,6 +24,7 @@ type VisitationOrderSectionProps = {
   start: any;
   end: any;
   remark: any;
+  rating: number;
 };
 
 export const VisitationOrderSection = ({
@@ -34,6 +37,7 @@ export const VisitationOrderSection = ({
   start,
   end,
   remark,
+  rating,
 }: VisitationOrderSectionProps) => {
   console.log('really 2 array: ',JSON.stringify(menu));
   console.log('really  2time: ',JSON.stringify(start));
@@ -46,11 +50,26 @@ export const VisitationOrderSection = ({
   const [remark2, setRemark2] = useState('');
   const [end2, setEnd2] = useState(end);
   const db = SQLite.openDatabase('db.visitRecord');
+  const [rate, setRate] = useState(5);
+  const [image, setImageOut] = useState(null); 
+  const [cameraPermission, setHasCameraPermission] = useState(false);
+
+  const getCameraPermission = async () => {
+      //console.log('getCameraPermission');
+      MediaLibrary.requestPermissionsAsync();
+      const cameraStatus = await Camera.requestCameraPermissionsAsync();
+      setHasCameraPermission(cameraStatus.status === 'granted')
+      //console.log('camera permission is : ',cameraStatus.status);
+  }
+
+
 
   useEffect(() => {
     setItem(visitation);
     setRemark2(remark);
     setEnd2(end);
+    setRate(rating);
+    
   },[visitation]);
 
 
@@ -58,7 +77,7 @@ export const VisitationOrderSection = ({
     val = val.replace("'","\'");
     db.transaction(tx => {
             tx.executeSql(
-        `UPDATE visit_record SET ${col} = '${val}', visitEndtime = '${end2}' WHERE id = ${item.id}`, 
+        `UPDATE visit_record SET ${col} = '${val}', visitEndtime = '${end2}', rating = '${rate}' WHERE id = ${item.id}`, 
         [], 
         (txObj, resultSet) => {
           console.log('update record is good: dddss');
@@ -94,6 +113,7 @@ export const VisitationOrderSection = ({
 
   return total == 0 ? (
     <View style={styles.container}>
+    
       <View style={styles.amountDetailsContainer}>
         <Text style={{...FONTS.h3}}> Remark</Text>
         <TextInputThin
@@ -102,7 +122,21 @@ export const VisitationOrderSection = ({
                             value={remark2} 
                           />
       </View>
-      
+      <View style={styles.amountDetailsContainer}>
+      <Text style={{...FONTS.h3}}> Rate: {rate}</Text>
+      <Slider
+                style={{ width: 200, height: 20}}
+                minimumValue={0}
+                maximumValue={10}
+                maximumTrackTintColor='#fff'
+                minimumTrackTintColor='#000'
+                step={1}
+                value={3}
+                onValueChange={(value) => {  setRate(value) }}
+              />
+              
+        
+      </View>
       <View style={styles.amountDetailsContainer}>
         <Text style={{...FONTS.h3}}> Start Time</Text>
          <Text style={{...FONTS.h3}}>{start}</Text> 
@@ -115,18 +149,8 @@ export const VisitationOrderSection = ({
         <Text style={{...FONTS.h3}}> Total Price</Text>
         <Text style={{...FONTS.h3}}>${sum.toFixed(2)}</Text>
       </View>
-      {/* <View style={styles.cardDetailsContainer}>
-        <View style={{flexDirection: 'row'}}>
-          <Image source={icons.pin} resizeMode="contain" style={styles.image} />
-          <Text style={styles.text}>Location</Text>
-        </View>
-        <View style={{flexDirection: 'row'}}>
-         
-           <Text style={styles.text}>{visitation.location.latitude}, {visitation.location.longitude}</Text> 
-        </View>
-      </View> */}
+  
 
-      {/* Order Button */}
       <View style={styles.orderButtonContainer}>
         
         <Button mode="outlined" onPress={() => placeOrder()} style={styles.orderButton}>
@@ -160,7 +184,7 @@ const styles = StyleSheet.create({
   cardDetailsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: SIZES.padding * 2,
+    
     paddingHorizontal: SIZES.padding * 3,
   },
   image: {
@@ -173,7 +197,8 @@ const styles = StyleSheet.create({
     ...FONTS.h4,
   },
   orderButtonContainer: {
-    padding: SIZES.padding * 2,
+    paddingTop:0,
+    marginTop:0,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
@@ -182,6 +207,8 @@ const styles = StyleSheet.create({
     width: SIZES.width * 0.35,
     height: 60,
     padding: SIZES.padding,
+    paddingTop:0,
+    marginTop:0,
     //backgroundColor: COLORS.foodpanda,
     alignItems: 'center',
     justifyContent: 'center',
