@@ -13,6 +13,9 @@ import { CurrentLocation, Visitation } from '../../types';
 
 
 export const HomeVisitationItem = ({ item, onPress }) => {
+  let sum = 0;
+  item.menu.forEach(item => sum += Number(item.price));
+  console.log('test sum: ',sum);
   return (
     <TouchableOpacity style={styles.container} onPress={() => onPress(item)}>
       <View style={styles.itemWrapper}>
@@ -44,21 +47,21 @@ export const HomeVisitationItem = ({ item, onPress }) => {
             </View>
           ))}
           {/* Price */}
-          {[affordable, fairPrice, expensive].map(
-            (priceRating, index) => (
+      
+       
               <Text
-                key={`${index}-${priceRating}`}
+            
                 style={{
                   ...FONTS.body3,
                   color:
-                    priceRating <= item.priceRating
-                      ? COLORS.black
-                      : COLORS.darkgray,
+                   
+                       COLORS.black
+                   
                 }}>
-                $
+                ${sum}
               </Text>
-            ),
-          )}
+       
+       
         </View>
       </View>
     </TouchableOpacity>
