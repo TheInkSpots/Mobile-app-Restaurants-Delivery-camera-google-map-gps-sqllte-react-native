@@ -385,7 +385,7 @@ export default function CreateRecScreen({ navigation , route}) {
                             onChangeText={txt => setGoodsList(dishprice, dish.menuId ,txt)}
                             value={getGoodsList(dishprice,dish.menuId )}
                           />
-                          <Text>{'Calories: ' +(getGoodsList(dishcalories,dish.menuId)*10)}</Text>
+                          <Text>{'Calories ≈' +(getGoodsList(dishcalories,dish.menuId)*10)}</Text>
                           <Slider
                               style={{ width: 200, height: 40 }}
                               minimumValue={0}

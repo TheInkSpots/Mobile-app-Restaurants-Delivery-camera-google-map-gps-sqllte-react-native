@@ -46,11 +46,53 @@ export default function StateScreen({navigation, route}) {
         return res;
       }, {});
 
-      console.log('result: ',result);
+//................................................................................................
 
+visitationData.forEach( row =>{
+    row.duration;
+    let sum = 0
+    row.menu.forEach( rowmenu => {
+        let vlaue = rowmenu.calories;
+        if( isNaN(vlaue)) {vlaue = 0;}
+        //console.log('!!!!!!!!', vlaue, " -- ", isNaN(vlaue))
+        sum += Number(vlaue);
+        
+    });
+    data2.push({'time': row.duration, 'calories': sum});
+
+})
+//console.log('data sum: ',data);
+
+let result2 = [];
+data2.reduce(function(res, value) {
+    let onlyDate = value.time;
+    
+    
+    if (!res[onlyDate]) {
+      res[onlyDate] = { date: onlyDate, calories: 0 };
+      result2.push(res[onlyDate])
+    }
+    res[onlyDate].calories += value.calories;
+    return res;
+  }, {});
+
+
+
+
+
+
+
+
+
+
+      console.log('cost: ',result);
+      console.log('calories: ',result2);
 
       const valueSumByDates = result.map(item => item.datsum);
         const uniqueDates = result.map(item => item.date);
+
+        const valueSumByDates2 = result2.map(item => item.calories);
+        const uniqueDates2 = result2.map(item => item.date);
 
     const dummydata = {
         labels: uniqueDates.reverse(),
@@ -63,6 +105,20 @@ export default function StateScreen({navigation, route}) {
         ],
         legend: ["Cost By Date"] // optional
       };
+
+
+      const dummydata2 = {
+        labels: uniqueDates2.reverse(),
+        datasets: [
+          {
+            data: valueSumByDates2.reverse(),
+            color: (opacity = 1) => `rgba(234, 90, 144, ${opacity})`, // optional
+            strokeWidth: 2 // optional
+          }
+        ],
+        legend: ["Calory Intake By Date"] // optional
+      };
+
 
 
     return (
@@ -82,7 +138,7 @@ export default function StateScreen({navigation, route}) {
             chartConfig={chartConfig}
             />
             <LineChart
-            data={dummydata}
+            data={dummydata2}
             width={screenWidth}
             height={220}
             chartConfig={chartConfig}

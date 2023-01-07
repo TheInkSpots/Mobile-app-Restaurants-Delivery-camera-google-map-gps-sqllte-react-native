@@ -3,6 +3,7 @@ import Background from '../components/Background'
 import Logo from '../components/Logo'
 import Header from '../components/Header'
 import Button from '../components/Button'
+import {Button as Button1 }from 'react-native'
 import Paragraph from '../components/Paragraph'
 import * as SQLite from 'expo-sqlite';
 export default function StartScreen({ navigation }) {
@@ -77,18 +78,18 @@ export default function StartScreen({ navigation }) {
       >
         Local Use
       </Button>
-      <Button
-        mode="outlined"
+      <Button1
+         title={'Dev: INSERT dummy Data'}
         onPress={dummyData}
       >
         Dev: INSERT hardcode Data
-      </Button>
-      <Button
-        mode="outlined"
+      </Button1>
+      <Button1
+        title={'Dev: DropTable'}
         onPress={dropTable}
       >
         Dev: DropTable
-      </Button>
+      </Button1>
     </Background>
   )
 }

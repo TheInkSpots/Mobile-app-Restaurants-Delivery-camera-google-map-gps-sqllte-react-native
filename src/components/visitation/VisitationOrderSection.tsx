@@ -131,7 +131,7 @@ export const VisitationOrderSection = ({
                 maximumTrackTintColor='#fff'
                 minimumTrackTintColor='#000'
                 step={1}
-                value={3}
+                value={rate}
                 onValueChange={(value) => {  setRate(value) }}
               />
               
