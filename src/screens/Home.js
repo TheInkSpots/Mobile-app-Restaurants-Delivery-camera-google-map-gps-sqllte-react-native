@@ -166,7 +166,7 @@ export default function Home({ navigation , route}) {
         rightIcon={icons.search}
         headerText={currentLocation.streetName}
         leftPress={testBtn}
-        rightPress={testBtn}
+        rightPress={()=>{navigation.navigate('StateScreen',{visitationData,uuid})}}
       />
       <HomeMainCategories
         categories={categories}
@@ -185,7 +185,7 @@ export default function Home({ navigation , route}) {
         }
       />
       <TouchableOpacity onPress={()=>{
-                                    // setEditModalOpen(true);
+                                    // setEditModalOpen(true); StateScreen
                                     navigation.navigate('CreateRecScreen',{currentLocation,uuid});
             }} 
             activeOpacity={0.6} 
