@@ -8,4 +8,4 @@ Using Expo (React-native) to open app on Android/ ios phones.
 <img width="216" alt="33333" src="https://github.com/TheInkSpots/Mobile-app-Restaurants-Delivery-camera-google-map-gps-sqllte-react-native/assets/68689162/a4328f9f-4306-4480-ad62-60486175a307">
 <img width="173" alt="555555" src="https://github.com/TheInkSpots/Mobile-app-Restaurants-Delivery-camera-google-map-gps-sqllte-react-native/assets/68689162/f84a392d-cfde-4f8c-9aff-d6380324f9dc">
 <img width="233" alt="666666" src="https://github.com/TheInkSpots/Mobile-app-Restaurants-Delivery-camera-google-map-gps-sqllte-react-native/assets/68689162/e0e35f7b-a791-4bdd-9327-808fec704366">
-![777777](https://github.com/TheInkSpots/Mobile-app-Restaurants-Delivery-camera-google-map-gps-sqllte-react-native/assets/68689162/e2bcc9b8-e7e7-4c32-9c55-170e932e9875)
+<img width="233" alt="777777" src="https://github.com/TheInkSpots/Mobile-app-Restaurants-Delivery-camera-google-map-gps-sqllte-react-native/assets/68689162/e2bcc9b8-e7e7-4c32-9c55-170e932e9875">
